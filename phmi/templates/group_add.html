@@ -9,12 +9,7 @@
     <div class="row">
       <div class="col-md-12">
 
-        <form method="POST">
-          {% csrf_token %}
-          {{ form.as_p }}
-
-          <button type="submit">Save</button>
-        </form>
+        {% include "group_form.html" %}
 
       </div>
     </div>

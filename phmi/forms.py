@@ -15,3 +15,6 @@ class CareSystemForm(forms.ModelForm):
         self.fields["organisations"] = forms.ModelMultipleChoiceField(
             queryset=organisations
         )
+
+        for field in self.fields:
+            self.fields[field].widget.attrs["class"] = "form-control"
