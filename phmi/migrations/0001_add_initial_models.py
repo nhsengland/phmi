@@ -32,11 +32,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.TextField()),
                 ('ods_code', models.TextField(unique=True)),
-                ('care_system', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orgs', to='phmi.CareSystem')),
+                ('care_system', models.ManyToManyField(related_name='orgs', to='phmi.CareSystem')),
             ],
-            options={
-                'ordering': ['name'],
-            },
+            options={'ordering': ['name']},
         ),
         migrations.CreateModel(
             name='OrgType',

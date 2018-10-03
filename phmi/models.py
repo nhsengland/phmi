@@ -42,13 +42,14 @@ class OrgType(models.Model):
 
 
 class Organisation(models.Model):
-    care_system = models.ForeignKey(
-        "CareSystem", on_delete=models.CASCADE, related_name="orgs"
-    )
+    care_system = models.ManyToManyField("CareSystem", related_name="orgs")
     type = models.ForeignKey("OrgType", on_delete=models.CASCADE, related_name="orgs")
 
     name = models.TextField()
     ods_code = models.TextField(unique=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
