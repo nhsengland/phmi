@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from support_tool import views
+
+from .views import GroupAdd, GroupDetail, Home
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", views.IndexView.as_view()),
-    path("group/", views.GroupListView.as_view()),
+    path("admin/", admin.site.urls),
+    path("", Home.as_view(), name="home"),
+    path("groups/add", GroupAdd.as_view(), name="group-add"),
+    path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
 ]
 
 
