@@ -17,7 +17,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import GroupAdd, GroupDetail, Home
+from .views import GroupAdd, GroupDetail, GroupEdit, Home
 
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     path("", Home.as_view(), name="home"),
     path("groups/add", GroupAdd.as_view(), name="group-add"),
     path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
+    path("groups/<int:pk>/edit", GroupEdit.as_view(), name="group-edit"),
 ]
 
 
