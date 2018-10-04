@@ -1,0 +1,10 @@
+Hi,
+
+You requested to log into the PHMI tool, click the link below to be logged in now:
+
+{{ login_url }}
+
+If you think you have received this email in error, please ignore it.
+
+Thanks
+The PHMI Team
