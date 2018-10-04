@@ -41,8 +41,23 @@
       </div>
     </header>
     {% endblock header %}
-    {% block contents %}
-    {% endblock contents %}
+
+    {% if messages %}
+    <div class="container" style="margin-top:10px">
+      <div class="row">
+        <div class="col-sm-12">
+          <ul class="list-unstyled">
+            {% for message in messages %}
+            <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% block contents %} {% endblock contents %}
+
     {% block footer %}
     <div class="row footer-cover">
       <footer class="site-footer">
