@@ -24,7 +24,7 @@ class CareSystemForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     email = forms.EmailField(
-        label="Email Address",
+        label="NHSmail address *",
         widget=forms.EmailInput(
             attrs={"autofocus": True, "class": "form-control", "size": 50}
         ),

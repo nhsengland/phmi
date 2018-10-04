@@ -2,7 +2,7 @@ body {
   background: #fff;
   margin-top: 0;
   box-sizing: border-box;
-  color: #202a30;
+  color: #212b32;
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 18px;
@@ -205,7 +205,7 @@ h1 {
   margin-bottom: 20px;
   font-size: 32px;
   line-height: 36px;
-  color: #202a30;
+  color: #212b32;
   font-weight: 600;
 }
 .card-list article {
@@ -257,7 +257,7 @@ hr {
 .table-detail .title {
   font-size: 32px;
   line-height: 36px;
-  color: #202a30;
+  color: #212b32;
 }
 .table-detail .column-title {
   color: #005eb8;
@@ -340,13 +340,13 @@ hr {
 }
 .letter-link.active {
   background-color: #e8edee;
-  color: #202a30;
+  color: #212b32;
 }
 .letter-link.active:hover {
-  color: #202a30;
+  color: #212b32;
 }
 .letter-link.active:visited {
-  color: #202a30;
+  color: #212b32;
 }
 .letter-link:hover, .letter-link:active, .letter-link:visited {
   color: #FFF;
@@ -358,6 +358,27 @@ hr {
 
 .normal-text {
   font-weight: 400;
+}
+
+.login input {
+  border: 2px solid #0b0c0c;
+  border-radius: 0;
+}
+.login input:focus {
+  border-color: #0b0c0c;
+  outline: 3px solid #ffb81c;
+  outline-offset: 0;
+}
+.login .btn-success {
+  background-color: #007f3b;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+.login .btn-success:hover {
+  background-color: #005326;
 }
 
 /*# sourceMappingURL=styles.css.map */

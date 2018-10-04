@@ -9,7 +9,7 @@ $tertiary-colour-text: #425563;
 // the blue text used for sub headers
 $subheader-text-colour: #003087;
 
-$text-colour: #202a30;
+$text-colour: #212b32;
 $text-colour-on-dark: #FFF;
 $footer-height: 300px;
 $main-content-margin: 20px;
@@ -422,4 +422,32 @@ hr {
 }
 .normal-text{
   font-weight: 400;
+}
+
+.login {
+
+  input {
+    border: 2px solid #0b0c0c;
+    border-radius: 0;
+
+    &:focus {
+      border-color: #0b0c0c;
+      outline: 3px solid #ffb81c;
+      outline-offset: 0;
+    }
+  }
+
+  .btn-success {
+    background-color: #007f3b;
+    background-image: none;
+    border: none;
+    border-radius: 0;
+    font-size: 18px;
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: #005326;
+    }
+  }
+
 }
