@@ -92,6 +92,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    care_system = models.ForeignKey(
+        "CareSystem", null=True, on_delete=models.SET_NULL, related_name="users"
+    )
+
     email = models.TextField(null=False, unique=True)
     password = models.TextField(null=True, blank=True)
 
