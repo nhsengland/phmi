@@ -113,6 +113,11 @@ STATIC_URL = "/static/"
 MESSAGE_TAGS = {message_constants.ERROR: "danger"}
 
 
+# Custom User Model
+# https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#substituting-a-custom-user-model
+AUTH_USER_MODEL = "phmi.User"
+
+
 # THIRD PARTY SETTINGS
 # Django Debug Toolbar
 INTERNAL_IPS = ["127.0.0.1"]
