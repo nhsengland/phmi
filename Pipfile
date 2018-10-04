@@ -8,6 +8,7 @@ django = "*"
 "psycopg2-binary" = "*"
 django-environ = "*"
 gunicorn = "*"
+incuna-mail = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

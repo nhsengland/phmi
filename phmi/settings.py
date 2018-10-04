@@ -108,6 +108,13 @@ USE_TZ = False
 STATIC_URL = "/static/"
 
 
+# Emails
+# https://docs.djangoproject.com/en/2.1/topics/email/#email-backends
+EMAIL_BACKEND = env.str(
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
+
+
 # Messages
 # https://docs.djangoproject.com/en/2.1/ref/contrib/messages/#message-tags
 MESSAGE_TAGS = {message_constants.ERROR: "danger"}
@@ -121,3 +128,8 @@ AUTH_USER_MODEL = "phmi.User"
 # THIRD PARTY SETTINGS
 # Django Debug Toolbar
 INTERNAL_IPS = ["127.0.0.1"]
+
+
+# PROJECT SETTINGS
+# Allowed Email Domains for Auth
+ALLOWED_LOGIN_DOMAINS = ["nhs.uk"]

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -5,8 +7,10 @@ from django.contrib.auth.models import (
     _user_has_module_perms,
     _user_has_perm,
 )
+from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
+from incuna_mail import send
 
 
 class CareSystem(models.Model):
@@ -111,8 +115,33 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    LOGIN_SALT = "login"
+
+    def email_login_url(self, url):
+        """Email the given URL to the User."""
+        send(
+            to=self.email,
+            subject="Log into PHMI",
+            template_name="emails/login.txt",
+            context={"login_url": url},
+        )
+
+    @classmethod
+    def get_pk_from_signed_url(cls, signed_pk):
+        signer = TimestampSigner(salt=cls.LOGIN_SALT)
+        return signer.unsign(signed_pk, max_age=timedelta(hours=2))
+
     def has_perm(self, perm, obj=None):
         return _user_has_perm(self, perm, obj=obj)
 
     def has_module_perms(self, module):
         return _user_has_module_perms(self, module)
+
+    def sign_pk(self):
+        """
+        Signs the User's PK.
+
+        Uses TimestampSigner so we can check the age of the signed data when
+        unsigning.
+        """
+        return TimestampSigner(salt=self.LOGIN_SALT).sign(self.pk)
