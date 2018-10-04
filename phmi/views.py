@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login
+from django.db.models.functions import Lower
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
@@ -73,6 +74,9 @@ class GroupEdit(UpdateView):
 class Home(ListView):
     model = CareSystem
     template_name = "home.html"
+
+    def get_queryset(self):
+        return super().get_queryset().order_by(Lower("name"))
 
 
 class Login(View):
