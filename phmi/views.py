@@ -89,8 +89,7 @@ class Login(View):
         # a password and we aren't setting those on our custom User model.
         login(request, user)
 
-        # url = user.caresystem.get_absolute_url() if user.caresystem else "/"
-        url = "/"
+        url = user.care_system.get_absolute_url() if user.care_system else "/"
         return redirect(url)
 
 

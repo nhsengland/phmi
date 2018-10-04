@@ -34,6 +34,7 @@ class UserAdmin(admin.ModelAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
+                    "care_system",
                     "user_permissions",
                 )
             },
