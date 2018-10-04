@@ -51,7 +51,7 @@ class GroupEdit(UpdateView):
         self.object = form.save()
 
         # link the selected orgs to the caresystem
-        self.object.orgs.add(*form.cleaned_data["organisations"])
+        self.object.orgs.set(form.cleaned_data["organisations"], clear=True)
 
         return redirect(self.object.get_absolute_url())
 
