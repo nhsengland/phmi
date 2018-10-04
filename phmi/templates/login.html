@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<div class="container main-content">
-  <form method="POST" class="form-inline center-block" style="margin-top:100px;width:500px">
+<div class="container main-content login">
+  <form method="POST" class="center-block" style="margin-top:100px;width:600px">
     {% csrf_token %}
 
-    <div class="row" style="margin-bottom:30px;">
-      <div class="col">
-        <div class="form-group">
+    <h2>Please enter your NHSmail address</h2>
 
-          {% if form.email.errors %}
-          <div class="alert alert-danger" role="alert">
-            {% for error in form.email.errors %}
-            <p>{{ error|escape }}</li>
-            {% endfor %}
-          </div>
-          {% endif %}
+    <p>You can use either your NHSmail address, or the NHSmail address for your organisation.</p>
 
-          {{ form.email.label_tag }}
-          {{ form.email }}
-
-          <span id="helpBlock" class="help-block">Enter your email address and a login URL will be sent to you.</span>
-        </div>
+    <div class="form-group">
+      {% if form.email.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.email.errors %}
+        <p>{{ error|escape }}</li>
+        {% endfor %}
       </div>
+      {% endif %}
+
+      <strong>{{ form.email.label_tag }}</strong>
+      {{ form.email }}
     </div>
+
+    <p><a href="">No account / need help?</a></p>
+    <p>We will now send a login URL to your NHSmail address. You can click this to login.</p>
 
     <button class="btn btn-success pull-right">Send</button>
 
