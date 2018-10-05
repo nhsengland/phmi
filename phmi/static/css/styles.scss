@@ -453,6 +453,8 @@ form {
   .select2-container--default .select2-selection--single {
     border: 2px solid #0b0c0c;
     border-radius: 0;
+    font-size: 18px;
+    line-height: 38px;
     -webkit-appearance: none;
 
     &:focus {
@@ -460,6 +462,10 @@ form {
       outline: 3px solid #ffb81c;
       outline-offset: 0;
     }
+  }
+
+  select.form-control {
+    line-height: 18px;
   }
 
   // Make Select2 look like our other controls

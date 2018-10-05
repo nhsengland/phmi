@@ -379,6 +379,8 @@ form .form-control,
 form .select2-container--default .select2-selection--single {
   border: 2px solid #0b0c0c;
   border-radius: 0;
+  font-size: 18px;
+  line-height: 38px;
   -webkit-appearance: none;
 }
 form .form-control:focus,
@@ -386,6 +388,9 @@ form .select2-container--default .select2-selection--single:focus {
   border-color: #0b0c0c;
   outline: 3px solid #ffb81c;
   outline-offset: 0;
+}
+form select.form-control {
+  line-height: 18px;
 }
 form .select2-container .select2-selection--single {
   height: 42px !important;
