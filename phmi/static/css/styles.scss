@@ -424,11 +424,17 @@ hr {
   font-weight: 400;
 }
 
-.login {
+form {
 
-  input {
+  .form-group {
+    width: 100%;
+  }
+
+  .form-control,
+  .select2-container--default .select2-selection--single {
     border: 2px solid #0b0c0c;
     border-radius: 0;
+    -webkit-appearance: none;
 
     &:focus {
       border-color: #0b0c0c;
@@ -437,16 +443,45 @@ hr {
     }
   }
 
-  .btn-success {
-    background-color: #007f3b;
+  // Make Select2 look like our other controls
+  .select2-container .select2-selection--single {
+    height: 42px !important;
+  }
+  .select2-selection__rendered {
+    line-height: 38px !important;
+  }
+  .select2-selection__arrow {
+    height: 39px !important;
+  }
+  .select2-container--default .select2-selection--single {
+    padding-left: 6px;
+  }
+
+  .btn {
     background-image: none;
     border: none;
     border-radius: 0;
     font-size: 18px;
     padding: 10px 20px;
+  }
+
+  .btn-success {
+    background-color: #007f3b;
 
     &:hover {
       background-color: #005326;
+    }
+  }
+
+  label {
+    margin-right: 10px;
+  }
+
+  table {
+    border: 1px solid #d8dde0;
+
+    thead {
+      background-color: #d8dde0;
     }
   }
 

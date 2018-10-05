@@ -360,25 +360,54 @@ hr {
   font-weight: 400;
 }
 
-.login input {
+form .form-group {
+  width: 100%;
+}
+form .form-control,
+form .select2-container--default .select2-selection--single {
   border: 2px solid #0b0c0c;
   border-radius: 0;
+  -webkit-appearance: none;
 }
-.login input:focus {
+form .form-control:focus,
+form .select2-container--default .select2-selection--single:focus {
   border-color: #0b0c0c;
   outline: 3px solid #ffb81c;
   outline-offset: 0;
 }
-.login .btn-success {
-  background-color: #007f3b;
+form .select2-container .select2-selection--single {
+  height: 42px !important;
+}
+form .select2-selection__rendered {
+  line-height: 38px !important;
+}
+form .select2-selection__arrow {
+  height: 39px !important;
+}
+form .select2-container--default .select2-selection--single {
+  padding-left: 6px;
+}
+form .btn {
   background-image: none;
   border: none;
   border-radius: 0;
   font-size: 18px;
   padding: 10px 20px;
 }
-.login .btn-success:hover {
+form .btn-success {
+  background-color: #007f3b;
+}
+form .btn-success:hover {
   background-color: #005326;
+}
+form label {
+  margin-right: 10px;
+}
+form table {
+  border: 1px solid #d8dde0;
+}
+form table thead {
+  background-color: #d8dde0;
 }
 
 /*# sourceMappingURL=styles.css.map */
