@@ -20,7 +20,7 @@ from .models import CareSystem, Organisation, OrgType, User
 class GroupAdd(CreateView):
     form_class = CareSystemForm
     model = CareSystem
-    template_name = "group_add.html"
+    template_name = "group_form.html"
 
     def form_valid(self, form):
         # create the CareSystem
@@ -47,7 +47,7 @@ class GroupDetail(DetailView):
 class GroupEdit(UpdateView):
     form_class = CareSystemForm
     model = CareSystem
-    template_name = "group_edit.html"
+    template_name = "group_form.html"
 
     def form_valid(self, form):
         self.object = form.save()

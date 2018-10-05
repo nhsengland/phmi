@@ -1,69 +1,93 @@
-<!-- Form Errors -->
-{% if form.errors %}
-<ul class="errors">
-  {% for error in form.errors %}<li>{{ error }}</li>{% endfor %}
-</ul>
-{% endif %}
+{% extends "base.html" %}
 
-<!-- Display Form -->
-<form method="POST">
-  {% csrf_token %}
+{% block contents %}
+<div class="container main-content">
+  <article>
 
-  <div class="row" style="margin-bottom:50px">
+    <h1 class="title">
+      {% if caresystem %}
+      Edit {{ caresystem.name }}
+      {% else %}
+      Add a Care System
+      {% endif %}
+    </h1>
 
-    <div class="col-sm-8">
-      <div class="form-group">
-        {{ form.name.label_tag }}
-        {{ form.name }}
+    <div class="row">
+      <div class="col-md-12">
+
+        <!-- Form Errors -->
+        {% if form.errors %}
+        <ul class="errors">
+          {% for error in form.errors %}<li>{{ error }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Display Form -->
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="row" style="margin-bottom:50px">
+
+            <div class="col-sm-8">
+              <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                {{ form.type.label_tag }}
+                {{ form.type }}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td><strong><span id="num_added">{{ caresystem.orgs.all|length|default:0 }}</span> added</strong></td>
+                    <td class="text-right"><a id="remove_all" href="#">Remove all</a></td>
+                  </tr>
+                </thead>
+                <tbody id="selected_orgs">
+                  {% for org in caresystem.orgs.all %}
+                  <tr>
+                    <td>
+                      <input type="hidden" name="organisations" value="{{ org.id }}" />
+                      {{ org.name }}
+                    </td>
+                    <td class="text-right"><a href="#">Remove</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                <select id="organisations" class="form-control">
+                  <option value="empty">Search Organisations</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <a href="{% if object %}{{ object.get_absolute_url }}{% else %}/{% endif %}" class="btn btn-default pull-left">Cancel</a>
+              <button class="btn btn-success pull-right" type="submit">Save</button>
+            </div>
+          </div>
+
+        </form>
+
       </div>
     </div>
 
-    <div class="col-sm-4">
-      <div class="form-group">
-        {{ form.type.label_tag }}
-        {{ form.type }}
-      </div>
-    </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col-sm-8">
-      <table class="table">
-        <thead>
-          <tr>
-            <td><strong><span id="num_added">{{ caresystem.orgs.all|length|default:0 }}</span> added</strong></td>
-            <td class="text-right"><a id="remove_all" href="#">Remove all</a></td>
-          </tr>
-        </thead>
-        <tbody id="selected_orgs">
-          {% for org in caresystem.orgs.all %}
-          <tr>
-            <td>
-              <input type="hidden" name="organisations" value="{{ org.id }}" />
-              {{ org.name }}
-            </td>
-            <td class="text-right"><a href="#">Remove</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="form-group">
-        <select id="organisations" class="form-control">
-          <option value="empty">Search Organisations</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <a href="{% if object %}{{ object.get_absolute_url }}{% else %}/{% endif %}" class="btn btn-default pull-left">Cancel</a>
-      <button class="btn btn-success pull-right" type="submit">Save</button>
-    </div>
-  </div>
-
-</form>
+  </article>
+</div>
+{% endblock contents %}
