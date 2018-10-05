@@ -42,6 +42,9 @@ class GroupType(models.Model):
 class OrgType(models.Model):
     name = models.TextField(unique=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
