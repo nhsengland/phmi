@@ -6,7 +6,7 @@ from .models import CareSystem
 
 
 class CareSystemForm(forms.ModelForm):
-    name = forms.CharField(widget=forms.TextInput(attrs={"size": "40"}))
+    name = forms.CharField(widget=forms.TextInput)
 
     class Meta:
         fields = ["name", "type"]
@@ -14,8 +14,8 @@ class CareSystemForm(forms.ModelForm):
 
     def __init__(self, organisations, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["organisations"] = forms.ModelMultipleChoiceField(
-            queryset=organisations
+        self.fields["organisations"] = forms.MultipleChoiceField(
+            choices=[(o.pk, o.pk) for o in organisations]
         )
 
         for field in self.fields:

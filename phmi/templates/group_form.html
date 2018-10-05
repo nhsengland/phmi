@@ -9,33 +9,54 @@
 <form method="POST">
   {% csrf_token %}
 
-  <div class="row">
+  <div class="row" style="margin-bottom:50px">
 
-    {# left hand column #}
-    <div class="col-sm-6">
-
+    <div class="col-sm-8">
       <div class="form-group">
         {{ form.name.label_tag }}
         {{ form.name }}
       </div>
+    </div>
 
+    <div class="col-sm-4">
       <div class="form-group">
         {{ form.type.label_tag }}
         {{ form.type }}
       </div>
-
     </div>
 
-    {# right hand column #}
-    <div class="col-sm-6">
+  </div>
 
+  <div class="row">
+    <div class="col-sm-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <td><strong><span id="num_added">{{ caresystem.orgs.all|length|default:0 }}</span> added</strong></td>
+            <td class="text-right"><a id="remove_all" href="#">Remove all</a></td>
+          </tr>
+        </thead>
+        <tbody id="selected_orgs">
+          {% for org in caresystem.orgs.all %}
+          <tr>
+            <td>
+              <input type="hidden" name="organisations" value="{{ org.id }}" />
+              {{ org.name }}
+            </td>
+            <td class="text-right"><a href="#">Remove</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-4">
       <div class="form-group">
-        {{ form.organisations.label_tag }}
-        {{ form.organisations }}
+        <select id="organisations" class="form-control">
+          <option value="empty">Search Organisations</option>
+        </select>
       </div>
-
     </div>
-
   </div>
 
   <div class="row">
