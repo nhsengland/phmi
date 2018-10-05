@@ -51,7 +51,7 @@ class Organisation(models.Model):
     type = models.ForeignKey("OrgType", on_delete=models.CASCADE, related_name="orgs")
 
     name = models.TextField()
-    ods_code = models.TextField(unique=True)
+    ods_code = models.TextField(unique=True, null=True)
 
     class Meta:
         ordering = ["name"]
