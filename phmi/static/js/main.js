@@ -49,21 +49,19 @@ function updateCounter() {
 }
 
 $(document).ready(function () {
-  $.getJSON("/organisations", function (data) {
-    var control = $("#organisations");
+  var options = {
+    valueNames: ['name']
+  };
+  var orgList = new List('org_list', options);
 
-    // configure with data from Django
-    control.select2({
-      data: data.results,
-    });
-
-    /**
-     * Bind an event handler select2's select event
-     */
-    control.on("select2:select", function (event) {
-      event.stopPropagation();
-      selectOrganisation(event.params.data.id, event.params.data.text);
-    });
+  /**
+   * Bind the click handler to each <li> in the orgs list
+   */
+  $(".org").click(function (event) {
+    selectOrganisation(
+      event.currentTarget.id,
+      event.currentTarget.firstElementChild.textContent
+    );
   });
 
   /**

@@ -456,14 +456,10 @@ form {
   }
 
   .form-control {
-    height: 42px;
-  }
-
-  .form-control,
-  .select2-container--default .select2-selection--single {
     border: 2px solid #0b0c0c;
     border-radius: 0;
     font-size: 18px;
+    height: 42px;
     line-height: 38px;
     -webkit-appearance: none;
 
@@ -478,20 +474,6 @@ form {
     line-height: 20px;
     padding-bottom: 3px;
     padding-top: 3px;
-  }
-
-  // Make Select2 look like our other controls
-  .select2-container .select2-selection--single {
-    height: 42px !important;
-  }
-  .select2-selection__rendered {
-    line-height: 38px !important;
-  }
-  .select2-selection__arrow {
-    height: 39px !important;
-  }
-  .select2-container--default .select2-selection--single {
-    padding-left: 6px;
   }
 
   .btn {
@@ -512,6 +494,35 @@ form {
 
   label {
     margin-right: 10px;
+  }
+
+  // List filter
+  #org_list {
+    .search {
+      border: 1px solid #d8dde0;
+      color: #555;
+      display: block;
+      font-size: 18px;
+      line-height: 38px;
+      padding-left: 12px;
+      width: 100%;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    ul {
+      border: 1px solid #d8dde0;
+      border-top: 0;
+      height: 400px;
+      overflow: scroll;
+
+      li {
+        border-bottom: 1px solid #d8dde0;
+        padding: 6px 12px;
+      }
+    }
   }
 
   table {
