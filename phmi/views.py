@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.db.models.functions import Lower
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
@@ -13,7 +14,7 @@ from django.views.generic import (
 )
 
 from .forms import CareSystemForm, LoginForm
-from .models import CareSystem, Organisation, User
+from .models import CareSystem, Organisation, OrgType, User
 
 
 class GroupAdd(CreateView):
@@ -114,3 +115,20 @@ class GenerateMagicLoginURL(FormView):
         )
 
         return redirect(reverse("request-login"))
+
+
+class OrganisationList(View):
+    def get(self, request, *args, **kwargs):
+        data = {"results": []}
+        for org_type in OrgType.objects.prefetch_related("orgs"):
+            data["results"].append(
+                {
+                    "text": org_type.name,
+                    "children": [
+                        {"id": o.id, "text": o.name}
+                        for o in org_type.orgs.order_by("name")
+                    ],
+                }
+            )
+
+        return JsonResponse(data)
