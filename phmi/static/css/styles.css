@@ -372,8 +372,16 @@ hr {
   font-weight: 400;
 }
 
+form hr {
+  border-color: #212b32;
+  border-style: solid none;
+  margin: 10px 0 25px;
+}
 form .form-group {
   width: 100%;
+}
+form .form-control {
+  height: 42px;
 }
 form .form-control,
 form .select2-container--default .select2-selection--single {

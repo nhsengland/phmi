@@ -445,8 +445,18 @@ hr {
 
 form {
 
+  hr {
+    border-color: #212b32;
+    border-style: solid none;
+    margin: 10px 0 25px;
+  }
+
   .form-group {
     width: 100%;
+  }
+
+  .form-control {
+    height: 42px;
   }
 
   .form-control,
