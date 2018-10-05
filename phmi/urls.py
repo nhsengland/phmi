@@ -18,15 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
-from .views import (
-    GenerateMagicLoginURL,
-    GroupAdd,
-    GroupDetail,
-    GroupEdit,
-    Home,
-    Login,
-    OrganisationList,
-)
+from .views import GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit, Home, Login
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,7 +30,6 @@ urlpatterns = [
     path(
         "groups/<int:pk>/edit", login_required(GroupEdit.as_view()), name="group-edit"
     ),
-    path("organisations", OrganisationList.as_view()),
 ]
 
 

@@ -381,18 +381,14 @@ form .form-group {
   width: 100%;
 }
 form .form-control {
-  height: 42px;
-}
-form .form-control,
-form .select2-container--default .select2-selection--single {
   border: 2px solid #0b0c0c;
   border-radius: 0;
   font-size: 18px;
+  height: 42px;
   line-height: 38px;
   -webkit-appearance: none;
 }
-form .form-control:focus,
-form .select2-container--default .select2-selection--single:focus {
+form .form-control:focus {
   border-color: #0b0c0c;
   outline: 3px solid #ffb81c;
   outline-offset: 0;
@@ -401,18 +397,6 @@ form select.form-control {
   line-height: 20px;
   padding-bottom: 3px;
   padding-top: 3px;
-}
-form .select2-container .select2-selection--single {
-  height: 42px !important;
-}
-form .select2-selection__rendered {
-  line-height: 38px !important;
-}
-form .select2-selection__arrow {
-  height: 39px !important;
-}
-form .select2-container--default .select2-selection--single {
-  padding-left: 6px;
 }
 form .btn {
   background-image: none;
@@ -429,6 +413,28 @@ form .btn-success:hover {
 }
 form label {
   margin-right: 10px;
+}
+form #org_list .search {
+  border: 1px solid #d8dde0;
+  color: #555;
+  display: block;
+  font-size: 18px;
+  line-height: 38px;
+  padding-left: 12px;
+  width: 100%;
+}
+form #org_list .search:focus {
+  outline: 0;
+}
+form #org_list ul {
+  border: 1px solid #d8dde0;
+  border-top: 0;
+  height: 400px;
+  overflow: scroll;
+}
+form #org_list ul li {
+  border-bottom: 1px solid #d8dde0;
+  padding: 6px 12px;
 }
 form table {
   border: 1px solid #d8dde0;
