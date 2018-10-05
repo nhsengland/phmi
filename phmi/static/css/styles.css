@@ -15,12 +15,24 @@ body {
   border: 5px solid #e8edee;
 }
 
-.phmi-breadcrumbs {
+.breadcrumbs {
+  font-size: 16px;
+}
+.breadcrumbs ul {
+  padding: 0;
+}
+.breadcrumbs li {
   display: inline-block;
   padding-right: 16px;
   margin-right: 8px;
-  background: url(../img/icons/chevron.svg) no-repeat 100% 50%;
+  background: url("/static/img/icons/chevron.svg") no-repeat 100% 50%;
   background-size: 9px 12px;
+}
+.lt-ie9 .breadcrumbs li:before {
+  background-image: url("/static/img/icons/chevron.png");
+}
+.breadcrumbs li:last-child {
+  background: none;
 }
 
 .content-offset {

@@ -2,6 +2,18 @@
 
 {% block contents %}
 <div class="container main-content">
+  <nav class="breadcrumbs">
+    <ul>
+      <li><a href="/">Home</a></li>
+      {% if caresystem %}
+      <li><a href="{% url 'group-edit' pk=caresystem.id %}">{{ caresystem.name }}</a></li>
+      <li>Edit</li>
+      {% else %}
+      <li>Add</li>
+      {% endif %}
+    </ul>
+  </nav>
+
   <article>
 
     <h1 class="title">
