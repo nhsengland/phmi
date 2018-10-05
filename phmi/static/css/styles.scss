@@ -31,12 +31,31 @@ body {
   border: 5px solid #e8edee;
 }
 
-.phmi-breadcrumbs{
-  display: inline-block;
-  padding-right: 16px;
-  margin-right: 8px;
-  background: url(../img/icons/chevron.svg) no-repeat 100% 50%;
-  background-size: 9px 12px;
+.breadcrumbs {
+  font-size: 16px;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    padding-right: 16px;
+    margin-right: 8px;
+    background: url("/static/img/icons/chevron.svg") no-repeat 100% 50%;
+    background-size: 9px 12px;
+
+    .lt-ie9 & {
+
+      &:before {
+        background-image: url("/static/img/icons/chevron.png");
+      }
+    }
+  }
+
+  li:last-child {
+    background: none;
+  }
 }
 
 .content-offset{

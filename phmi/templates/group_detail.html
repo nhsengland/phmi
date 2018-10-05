@@ -2,6 +2,13 @@
 
 {% block contents %}
 <div class="container main-content">
+  <nav class="breadcrumbs">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li>{{ caresystem.name }}</li>
+    </ul>
+  </nav>
+
   <article>
 
     {% if request.user.is_authenticated %}
