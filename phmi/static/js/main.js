@@ -40,7 +40,12 @@ function selectOrganisation(id, text) {
  * table body.
  */
 function updateCounter() {
-  $("#num_added").text($("#selected_orgs tr").length);
+  var count = $("#selected_orgs tr").length;
+  var suffix = "";
+  if (count === 0 || count >=2) {
+    suffix = "s";
+  };
+  $("#num_added").text(count.toString() + " Organisation" + suffix);
 }
 
 $(document).ready(function () {
