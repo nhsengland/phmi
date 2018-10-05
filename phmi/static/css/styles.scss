@@ -465,7 +465,9 @@ form {
   }
 
   select.form-control {
-    line-height: 18px;
+    line-height: 20px;
+    padding-bottom: 3px;
+    padding-top: 3px;
   }
 
   // Make Select2 look like our other controls

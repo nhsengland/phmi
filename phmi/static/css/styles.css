@@ -390,7 +390,9 @@ form .select2-container--default .select2-selection--single:focus {
   outline-offset: 0;
 }
 form select.form-control {
-  line-height: 18px;
+  line-height: 20px;
+  padding-bottom: 3px;
+  padding-top: 3px;
 }
 form .select2-container .select2-selection--single {
   height: 42px !important;
