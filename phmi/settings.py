@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "phmi",
-    "support_tool",
 ]
 
 MIDDLEWARE = [
