@@ -56,12 +56,14 @@
 
           </div>
 
+          <hr />
+
           <div class="row">
             <div class="col-sm-8">
               <table class="table">
                 <thead>
                   <tr>
-                    <td><strong><span id="num_added">{{ caresystem.orgs.all|length|default:0 }}</span> added</strong></td>
+                    <td><strong id="num_added">{{ caresystem.orgs.all|length }} Organisation{{ caresystem.orgs.all|pluralize }}</strong></td>
                     <td class="text-right"><a id="remove_all" href="#">Remove all</a></td>
                   </tr>
                 </thead>
