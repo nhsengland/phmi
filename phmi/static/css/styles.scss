@@ -9,10 +9,13 @@ $tertiary-colour-text: #425563;
 // the blue text used for sub headers
 $subheader-text-colour: #003087;
 
+$black: #0b0c0c;
+
 $text-colour: #212b32;
 $text-colour-on-dark: #FFF;
 $footer-height: 300px;
 $main-content-margin: 20px;
+
 
 body {
   background: #fff;
@@ -68,6 +71,10 @@ body {
 
 .content-offset-below-20{
   margin-bottom: 20px;
+}
+
+.relative{
+  position: relative;
 }
 
 h3.subheader{
@@ -448,7 +455,7 @@ form {
   }
 
   .form-control {
-    border: 2px solid #0b0c0c;
+    border: 2px solid $black;
     border-radius: 0;
     font-size: 18px;
     height: 42px;
@@ -456,7 +463,7 @@ form {
     -webkit-appearance: none;
 
     &:focus {
-      border-color: #0b0c0c;
+      border-color: $black;
       outline: 3px solid #ffb81c;
       outline-offset: 0;
     }
@@ -490,14 +497,23 @@ form {
 
   // List filter
   #org_list {
+    .search-icon{
+      color: #555;
+      position: absolute;
+      right: 12px;
+      top: 6px;
+      font-size: 22px
+    }
+
     .search {
-      border: 1px solid #d8dde0;
+      border: 2px solid $black;
       color: #555;
       display: block;
       font-size: 18px;
       line-height: 38px;
       padding-left: 12px;
       width: 100%;
+      padding-right: 24px;
 
       &:focus {
         outline: 0;
@@ -515,6 +531,10 @@ form {
         padding: 6px 12px;
       }
     }
+  }
+
+  .org{
+    cursor: pointer;
   }
 
   table {

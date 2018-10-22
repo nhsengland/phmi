@@ -25,10 +25,8 @@ body {
   display: inline-block;
   padding-right: 16px;
   margin-right: 8px;
-  background: url("/static/img/icons/chevron.svg") no-repeat 100% 50%;
   background-size: 9px 12px;
 }
-
 .breadcrumbs li:last-child {
   background: none;
 }
@@ -51,6 +49,10 @@ body {
 
 .content-offset-below-20 {
   margin-bottom: 20px;
+}
+
+.relative {
+  position: relative;
 }
 
 h3.subheader {
@@ -412,14 +414,22 @@ form .btn-success:hover {
 form label {
   margin-right: 10px;
 }
+form #org_list .search-icon {
+  color: #555;
+  position: absolute;
+  right: 12px;
+  top: 6px;
+  font-size: 22px;
+}
 form #org_list .search {
-  border: 1px solid #d8dde0;
+  border: 2px solid #0b0c0c;
   color: #555;
   display: block;
   font-size: 18px;
   line-height: 38px;
   padding-left: 12px;
   width: 100%;
+  padding-right: 24px;
 }
 form #org_list .search:focus {
   outline: 0;
@@ -433,6 +443,9 @@ form #org_list ul {
 form #org_list ul li {
   border-bottom: 1px solid #d8dde0;
   padding: 6px 12px;
+}
+form .org {
+  cursor: pointer;
 }
 form table {
   border: 1px solid #d8dde0;
