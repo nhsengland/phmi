@@ -1,5 +1,7 @@
+from django.utils.safestring import mark_safe
 from django.contrib import messages
-from django.contrib.auth import login
+from django.conf import settings
+from django.contrib.auth import login, logout
 from django.db.models.functions import Lower
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -101,6 +103,13 @@ class Home(ListView):
         return super().get_queryset().order_by(Lower("name"))
 
 
+class Logout(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        url = reverse("home")
+        return redirect(url)
+
+
 class Login(View):
     def get(self, request, *args, **kwargs):
         pk = User.get_pk_from_signed_url(kwargs["signed_pk"])
@@ -129,10 +138,23 @@ class GenerateMagicLoginURL(FormView):
 
         url = reverse("login", kwargs={"signed_pk": user.sign_pk()})
         absolute_url = self.request.build_absolute_uri(url)
-        user.email_login_url(absolute_url)
 
-        messages.success(
-            self.request, "A login URL has been sent tor your email address"
-        )
+        if settings.EMAIL_LOGIN:
+            user.email_login_url(absolute_url)
+            messages.success(
+                self.request,
+                "A login URL has been sent tor your email address"
+            )
+        else:
+            msg = [
+                "<div class='text-center'>",
+                "In production an email would have been sent to you,",
+                "for devlopment purposes, login by clicking <a href='{}'>here</a>",
+                "</div>"
+            ]
+            messages.success(
+                self.request,
+                mark_safe(" ".join(msg).format(absolute_url))
+            )
 
         return redirect(reverse("request-login"))

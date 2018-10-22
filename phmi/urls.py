@@ -18,13 +18,17 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
-from .views import GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit, Home, Login
+from .views import (
+    GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit,
+    Home, Login, Logout
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", Home.as_view(), name="home"),
     path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", Login.as_view(), name="login"),
+    path("logout", Logout.as_view(), name="logout"),
     path("groups/add", login_required(GroupAdd.as_view()), name="group-add"),
     path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
     path(
