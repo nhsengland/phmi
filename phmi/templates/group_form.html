@@ -27,13 +27,16 @@
     <div class="row">
       <div class="col-md-12">
 
-        <!-- Form Errors -->
-        {% if form.errors %}
         <ul class="errors">
-          {% for error in form.errors %}<li>{{ error }}</li>{% endfor %}
+          {% for error in form.non_field_errors  %}
+            {{ error }}
+          {% endfor %}
+          {% for field in form %}
+            {% for error in field.errors %}
+              {{ field.name | title }} - {{ error }}
+            {% endfor %}
+          {% endfor %}
         </ul>
-        {% endif %}
-
         <!-- Display Form -->
         <form method="POST">
           {% csrf_token %}
