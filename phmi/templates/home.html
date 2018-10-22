@@ -5,7 +5,7 @@
   <article>
 
     {% if request.user.is_authenticated %}
-    <a href="{% url 'group-add' %}" class="pull-right">Add</a>
+      <a href="{% url 'group-add' %}" class="pull-right">Add</a>
     {% endif %}
 
     <h1 class="title">
@@ -14,7 +14,7 @@
 
     <div class="row" style="margin-bottom:30px">
       <div class="col-md-12">
-        <ul class="list-unstyled">
+        <ul id="care-systems" class="list-unstyled">
           {% for care_system in object_list %}
           <li><h3><a href="{{ care_system.get_absolute_url }}">{{ care_system.name }}</a></h3></li>
           {% endfor %}
@@ -23,7 +23,9 @@
     </div>
 
   {% if request.user.is_authenticated %}
-  <a href="{% url 'group-add' %}">Add another</a>
+    {% if object_list.count > 5 %}
+      <a id="add-care-system-another" href="{% url 'group-add' %}">Add another</a>
+    {% endif %}
   {% endif %}
 
 
