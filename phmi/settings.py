@@ -139,4 +139,4 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 # PROJECT SETTINGS
 # Allowed Email Domains for Auth
-ALLOWED_LOGIN_DOMAINS = ["nhs.uk"]
+ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"]
