@@ -35,24 +35,50 @@ function selectOrganisation(id, text) {
   updateCounter();
 }
 
+
+/*
+* Returns the number of of <tr>s currently in the
+* table body.
+*/
+function getOrgCount(){
+  return $("#selected_orgs tr").length;
+}
+
 /**
- * Update the "added" counter based on the number of <tr>s currently in the
- * table body.
+ * Update the "added" counter based on the number orgs
  */
 function updateCounter() {
-  var count = $("#selected_orgs tr").length;
+  var count = getOrgCount();
   var suffix = "";
   if (count === 0 || count >=2) {
     suffix = "s";
   };
   $("#num_added").text(count.toString() + " Organisation" + suffix);
+  showRemoveAll();
+}
+
+
+/*
+* Only show the remove all button if we have orgs
+*/
+function showRemoveAll(){
+  var count = getOrgCount();
+
+  if(count){
+    $("#remove_all").show();
+  }
+  else{
+    $("#remove_all").hide();
+  }
 }
 
 $(document).ready(function () {
+  // ADD OR EDIT VIEW
   var options = {
     valueNames: ['name']
   };
   var orgList = new List('org_list', options);
+  showRemoveAll();
 
   /**
    * Bind the click handler to each <li> in the orgs list
@@ -86,3 +112,5 @@ $(document).ready(function () {
     updateCounter();
   })
 });
+
+
