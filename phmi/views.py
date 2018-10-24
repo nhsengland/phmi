@@ -26,7 +26,7 @@ def get_orgs_by_type():
     """
     for org_type in OrgType.objects.prefetch_related("orgs"):
         yield org_type.name, [
-            {"id": o.id, "name": o.name} for o in org_type.orgs.order_by("name")
+            o for o in org_type.orgs.order_by("name")
         ]
 
 
