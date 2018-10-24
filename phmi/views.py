@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.utils.safestring import mark_safe
 from django.contrib import messages
 from django.conf import settings
@@ -60,6 +61,29 @@ class GroupAdd(CreateView):
 class GroupDetail(DetailView):
     model = CareSystem
     template_name = "group_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+
+        # lets not use default dict just to stop
+        # the weird behaviour of default dicts
+        # in django templates
+        orgs_by_type = {}
+        for organisation in ctx["object"].orgs.all():
+            if organisation.type.name not in orgs_by_type:
+                orgs_by_type[organisation.type.name] = []
+            orgs_by_type[organisation.type.name].append(
+                organisation
+            )
+
+        # resort keys alphabetically
+        ctx["orgs_by_type"] = OrderedDict()
+        alphabetical_org_types = sorted(orgs_by_type.keys())
+        for alphabetical_org_type in alphabetical_org_types:
+            ctx["orgs_by_type"][alphabetical_org_type] = orgs_by_type[
+                alphabetical_org_type
+            ]
+        return ctx
 
 
 class GroupEdit(UpdateView):
