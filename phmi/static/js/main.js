@@ -1,8 +1,8 @@
 ROW_TEMPLATE = `
-<tr>
+<tr id="selected-[[ ID ]]" data-org-name="[[ TEXT ]]">
   <td>
-    <input type="hidden" name="organisations" value="ID" />
-    TEXT
+    <input type="hidden" name="organisations" value="[[ ID ]]" />
+    [[ TEXT ]]
   </td>
   <td class="text-right"><a href="#">Remove</a></td>
 </tr>
@@ -12,6 +12,7 @@ ROW_TEMPLATE = `
  * Add the selected Organisation to the selected Orgs table
  */
 function selectOrganisation(id, text) {
+  text = text.trim();
 
   if (id === "empty") {
     return;
@@ -25,13 +26,21 @@ function selectOrganisation(id, text) {
     return;
   }
 
+  $("#" + id).addClass("text-muted");
+
   // Replace the ID and TEXT placeholders in the template with our real values
-  var new_row = ROW_TEMPLATE.replace("ID", id).replace("TEXT", text);
+  var new_row = ROW_TEMPLATE.replace(/\[\[ ID \]\]/g, id).replace(/\[\[ TEXT \]\]/g, text);
 
   // Parse the template string into HTML and append it to the table body as a
   // new row.
   $("#selected_orgs").append($.parseHTML(new_row));
 
+  updateCounter();
+}
+
+function removeOrganisation(id, text){
+  $("#" + id).removeClass("text-muted");
+  $("#selected-" + id).remove();
   updateCounter();
 }
 
@@ -72,6 +81,15 @@ function showRemoveAll(){
   }
 }
 
+function removeOrgElement(element) {
+  var orgId = element.id.replace("selected-", "");
+  var orgName = $(element).data("orgName")
+  removeOrganisation(
+    orgId,
+    orgName
+  )
+}
+
 $(document).ready(function () {
   // ADD OR EDIT VIEW
   var options = {
@@ -96,11 +114,12 @@ $(document).ready(function () {
    *
    * Using the .on() method here because rows are dynamically added.
    */
-  $("#selected_orgs").on("click", "tr td a", function (event) {
+  $("#selected_orgs").on("click", "tr td a", function (parentElement) {
     event.stopPropagation();
-    event.target.parentElement.parentElement.remove();
-    updateCounter();
-  })
+    var parentElement = event.target.parentElement.parentElement;
+    removeOrgElement(parentElement);
+    return false;
+  });
 
   /**
    * Bind a click handler to the remove all link so we can remove all <tr>s in
@@ -108,8 +127,11 @@ $(document).ready(function () {
    */
   $("#remove_all").click(function (event) {
     event.stopPropagation();
-    $("#selected_orgs tr").remove();
-    updateCounter();
+
+    $("#selected_orgs tr").each(function(i, v){
+      removeOrgElement(v);
+    });
+    return false;
   })
 });
 
