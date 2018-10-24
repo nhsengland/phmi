@@ -92,10 +92,9 @@
                     <input class="search" placeholder="Search Organisations" />
                   </div>
                   <ul class="list list-unstyled">
-                    {% for org_type, orgs in orgs_by_type %}
-                    <li class="org-type"><strong>{{ org_type }}</strong></li>
+                    {% for org_type, orgs in orgs_by_type.items %}
+                    <li data-orgs=class="org-type"><strong>{{ org_type }}</strong></li>
                       {% for org in orgs %}
-
                         <li id="{{ org.id }}" class="{% if org in caresystem.orgs.all %}text-muted {% endif %}org">
                           <span data-org-type="{{ org_type }}" class="name">
                             {{ org.name }}
@@ -120,4 +119,10 @@
     </div>
   </article>
 </div>
+
+<script>
+  ORGANISATION_TO_TYPE = {{ orgs_by_type_json | safe }}
+</script>
+
+
 {% endblock contents %}

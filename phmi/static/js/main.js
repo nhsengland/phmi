@@ -90,12 +90,65 @@ function removeOrgElement(element) {
   )
 }
 
+function matchOrgName(orgName, searchString){
+  return orgName.toLowerCase().search(searchString) > 1;
+}
+
+function matchOrg(listItem, searchString){
+  // match the organisation in the list filter
+  listItem.found = matchOrgName($(listItem.elm).text(), searchString);
+}
+
+function matchOrgType(listItem, searchString){
+  var orgs = ORGANISATION_TO_TYPE[$(listItem.elm).text().trim()]
+  var found = false
+  for (var k = 0, kl = orgs.length; k < kl; k++) {
+    found = found || matchOrgName(orgs[k], searchString);
+  }
+  debugger;
+  listItem.found = found;
+}
+
+function match(listItem, searchString){
+  // sets listItem.found = true
+  // when an item should appear in the
+  // filter
+  debugger;
+  if(!$(listItem.elm).hasClass("org-type")){
+
+    matchOrg(listItem, searchString);
+  }
+  else{
+    debugger;
+    matchOrgType(listItem, searchString);
+  }
+}
+
+
 $(document).ready(function () {
   // ADD OR EDIT VIEW
   var options = {
-    valueNames: ['name']
+    valueNames: ['name'],
+    // listClass: "unused"
   };
   var orgList = new List('org_list', options);
+
+  function listSearch(searchString, columns){
+    for (var k = 0, kl = orgList.items.length; k < kl; k++) {
+      match(orgList.items[k], searchString);
+    }
+  }
+
+  $(".search").keyup(function(e){
+    var target = e.target || e.srcElement; // IE have srcElement
+    orgList.search(target.value, listSearch);
+  });
+
+  // events.bind(getByClass(list.listContainer, "search"), 'keyup', function(e) {
+  //   var target = e.target || e.srcElement; // IE have srcElement
+  //   orgList.search(target.value, listSearch.search);
+  // });
+
   showRemoveAll();
 
   /**

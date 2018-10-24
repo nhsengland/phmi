@@ -1,3 +1,4 @@
+import json
 from collections import OrderedDict
 from django.utils.safestring import mark_safe
 from django.contrib import messages
@@ -25,10 +26,22 @@ def get_orgs_by_type():
 
     Used to build the Organisation filter part of the CareSystem form page.
     """
+
+    result = {}
     for org_type in OrgType.objects.prefetch_related("orgs"):
-        yield org_type.name, [
-            o for o in org_type.orgs.order_by("name")
-        ]
+        result[org_type.name] = org_type.orgs.order_by("name")
+    return result
+
+
+def orgs_by_type_to_json(orgs_by_type):
+    """
+    Converts orgs by type to json structure of
+    org_type_name : [org_name_1, org_name_2]
+    """
+    result = {}
+    for org_type, orgs in orgs_by_type.items():
+        result[org_type] = list(orgs.values_list("name", flat=True))
+    return json.dumps(result)
 
 
 class GroupAdd(CreateView):
@@ -50,6 +63,7 @@ class GroupAdd(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["orgs_by_type"] = get_orgs_by_type()
+        context["orgs_by_type_json"] = orgs_by_type_to_json(context["orgs_by_type"])
         return context
 
     def get_form_kwargs(self):
@@ -102,6 +116,9 @@ class GroupEdit(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["orgs_by_type"] = get_orgs_by_type()
+        context["orgs_by_type_json"] = orgs_by_type_to_json(
+            context["orgs_by_type"]
+        )
         return context
 
     def get_form_kwargs(self):
