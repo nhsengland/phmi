@@ -72,7 +72,7 @@
                 </thead>
                 <tbody id="selected_orgs">
                   {% for org in caresystem.orgs.all %}
-                  <tr>
+                  <tr data-org-name="{{ org.name }}" id="selected-{{ org.id }}">
                     <td>
                       <input type="hidden" name="organisations" value="{{ org.id }}" />
                       {{ org.name }}
@@ -94,9 +94,14 @@
                   <ul class="list list-unstyled">
                     {% for org_type, orgs in orgs_by_type %}
                     <li class="org-type"><strong>{{ org_type }}</strong></li>
-                    {% for org in orgs %}
-                    <li id="{{ org.id }}" class="org"><span class="name">{{ org.name }}</span></li>
-                    {% endfor %}
+                      {% for org in orgs %}
+
+                        <li id="{{ org.id }}" class="{% if org in caresystem.orgs.all %}text-muted {% endif %}org">
+                          <span data-org-type="{{ org_type }}" class="name">
+                            {{ org.name }}
+                          </span>
+                        </li>
+                      {% endfor %}
                     {% endfor %}
                   </ul>
 
@@ -110,12 +115,9 @@
               <button class="btn btn-success pull-right" type="submit">Save</button>
             </div>
           </div>
-
         </form>
-
       </div>
     </div>
-
   </article>
 </div>
 {% endblock contents %}
