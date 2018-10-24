@@ -17,17 +17,18 @@
 
     <h1 class="title">{{ caresystem.name }}</h1>
 
+    {% for org_type, orgs_list in orgs_by_type.items %}
+    <h3>{{ org_type }} </h3>
     <div class="row">
       <div class="col-md-12">
-
         <ul>
-        {% for org in caresystem.orgs.all %}
-          <li>{{ org.name }}</li>
-        {% endfor %}
+          {% for org in orgs_list %}
+            <li>{{ org.name }}</li>
+          {% endfor %}
         </ul>
-
       </div>
     </div>
+    {% endfor %}
 
   </article>
 </div>
