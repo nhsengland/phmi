@@ -45,8 +45,16 @@ body {
     display: inline-block;
     padding-right: 16px;
     margin-right: 8px;
+    background: url("../img/icons/chevron.svg") no-repeat 100% 50%;
     background-size: 9px 12px;
   }
+
+  .lt-ie9 & {
+    &:before {
+      background-image: url("../img/icons/chevron.png");
+    }
+  }
+
 
   li:last-child {
     background: none;
