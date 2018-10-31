@@ -1,0 +1,13 @@
+GIT_REPO: https://github.com/nhsengland/phmi.git
+GIT_BRANCH: master
+
+PROJECT_NAME: phmi
+PROJECT_PATH: /usr/lib/phmi
+LOG_DIR: /usr/lib/phmi/logs
+
+SECRET_KEY: ")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%"
+
+DB_USER: phmi
+DB_NAME: phmi
+DB_PASSWORD: changeM3
+

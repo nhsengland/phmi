@@ -53,8 +53,14 @@ group_vars/all should contain the following vars
 
 #### Project
 PROJECT_NAME - the name of the project.
-PROJECT_DIRECTORY - the directory that we download the code to
+PROJECT_PATH - the directory that we download the code to
+GIT_REPO - https git remo download name
 LOG_DIR - the directory of the logs
+SECRET_KEY - the secret key for django
+
+#### Git
+GIT_REPO - https git remo download name
+GIT_BRANCH - the git branch
 
 #### Database
 DB_USER - the post gres user.
@@ -63,8 +69,8 @@ DB_PASSWORD - the post gres database password
 
 The created output should look something like
 
-{{ PROJECT DIRECTORY }}/{{ PROJECT_NAME }}/ manage.py/wsgi etc
-{{ PROJECT_DIRECTORY }}/static
+{{ PROJECT PATH }}/{{ PROJECT_NAME }}/ manage.py/wsgi etc
+{{ PROJECT_PATH }}/static
 {{ LOG_DIR }}/{{ PROJECT_NAME }}.error.log
 
 

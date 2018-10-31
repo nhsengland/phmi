@@ -1,6 +1,6 @@
 [watcher:app]
-cmd = gunicorn
-args = phmi.wsgi -c deployment/config/gunicorn_conf.py
+cmd = pipenv run gunicorn
+args = phmi.wsgi -c vars/gunicorn_conf.py
 working_dir = {{ PROJECT_PATH }}
 uid = ubuntu
 numprocesses = 1
