@@ -123,9 +123,6 @@ class Home(ListView):
     model = CareSystem
     template_name = "home.html"
 
-    def get_queryset(self):
-        return super().get_queryset().order_by(Lower("name"))
-
 
 class Logout(View):
     def get(self, request, *args, **kwargs):
