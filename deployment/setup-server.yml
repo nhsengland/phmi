@@ -8,12 +8,6 @@
     - server
 
 - name: Make the server capable of running a standard Django deployment
-  user: ubuntu
-  hosts: webserver
-  roles:
-    - django
-
-- name: Make the server capable of running a standard Django deployment
   sudo: yes
   user: ubuntu
   hosts: webserver
@@ -26,8 +20,3 @@
   roles:
     - phmi
 
-- name: Set the project back ups
-  user: ubuntu
-  hosts: webserver
-  roles:
-    - backup

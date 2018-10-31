@@ -1,5 +1,11 @@
 ---
 # set up the PHMI project itself
+- name: Creates project dir
+  become: true
+  file:
+    path: "{{ PROJECT_PATH }}"
+    state: directory
+    mode: 0777
 
 - name: Setup the Git repo
   git: repo={{ GIT_REPO }}
@@ -13,6 +19,10 @@
     path: "{{ LOG_DIR }}"
     state: directory
 
+- name: Creates config dir
+  file:
+    path: "{{ PROJECT_PATH }}/vars"
+    state: directory
 
 # otherwise it complains silently and
 # blows up the world
@@ -24,7 +34,7 @@
 - name: Create configs
   template:
     src: "templates/{{ item }}.jinja2"
-    dest: "{{ PROJECT_PATH }}/deployment/config/{{ item }}"
+    dest: "{{ PROJECT_PATH }}/vars/{{ item }}"
     mode: 0744
     owner: ubuntu
   with_items:
@@ -39,15 +49,20 @@
     mode: 0744
     owner: ubuntu
 
+- name: Install python dependencies
+  args:
+    chdir: "{{ PROJECT_PATH}}"
+  command: "pipenv install"
+
 - name: Run Django database migrations
   args:
     chdir: "{{ PROJECT_PATH}}"
-  command: "pipenv run manage.py migrate"
+  command: "pipenv run python manage.py migrate"
 
 - name: Run Django collectstatic
   args:
     chdir: "{{ PROJECT_PATH}}"
-  command: "pipenv run manage.py collectstatic --noinput"
+  command: "pipenv run python manage.py collectstatic --noinput"
 
 - name: Run Django initial_load
   args:
@@ -63,7 +78,7 @@
 - name: Symlink nginx
   become: true
   file:
-    src: "{{ PROJECT_PATH }}/deployment/config/nginx_site.conf"
+    src: "{{ PROJECT_PATH }}/vars/nginx_site.conf"
     dest: "/etc/nginx/sites-available/default"
     owner: root
     group: root

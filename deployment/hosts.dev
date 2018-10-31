@@ -1,0 +1,5 @@
+[webserver]
+ec2-54-171-52-35.eu-west-1.compute.amazonaws.com
+
+[webserver:vars]
+ansible_python_interpreter=/usr/bin/python3

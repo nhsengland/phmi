@@ -4,16 +4,19 @@
   apt: update_cache=yes
 
 - name: install Postgres, its headers, and psycopg2
-  apt: pkg={{ item }} state=installed
-  with_items:
+  apt:
+    name: "{{ packages }}"
+    state: installed
+  vars:
+    packages:
     - postgresql
-    - postgresql-server-dev-9.5
+    - postgresql-server-dev-10
     - python3-psycopg2
 
 - name: Copy in pg_hba.conf
   template:
     src: templates/pg_hba.conf.jinja2
-    dest: /etc/postgresql/9.5/main/pg_hba.conf
+    dest: /etc/postgresql/10/main/pg_hba.conf
     owner: postgres
     group: postgres
     mode: 0640
