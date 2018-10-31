@@ -43,5 +43,34 @@ Note: the `add_orgs` command will ask which OrgType a given set of Organisations
     sass --watch phmi/static/css/styles.scss:phmi/static/css/styles.css
 
 
+## deployment
+update hosts.dev (and use keys natch)
+set your branch in deployment/group_vars/all
+cd deployment
+ansible-playbook setup-server.yml -i hosts.dev
+
+group_vars/all should contain the following vars
+
+#### Project
+PROJECT_NAME - the name of the project.
+PROJECT_DIRECTORY - the directory that we download the code to
+LOG_DIR - the directory of the logs
+
+#### Database
+DB_USER - the post gres user.
+DB_NAME - the post gres database
+DB_PASSWORD - the post gres database password
+
+The created output should look something like
+
+{{ PROJECT DIRECTORY }}/{{ PROJECT_NAME }}/ manage.py/wsgi etc
+{{ PROJECT_DIRECTORY }}/static
+{{ LOG_DIR }}/{{ PROJECT_NAME }}.error.log
+
+
+
+
+
+
 ## Notes
 Currently this just has an NHS England skin as used by [NCDR](https://data.england.nhs.uk/ncdr/database)
