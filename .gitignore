@@ -119,4 +119,6 @@ dmypy.json
 #ide
 .vscode
 
+# deployment
+*.retry
 

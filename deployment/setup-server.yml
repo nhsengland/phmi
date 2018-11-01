@@ -20,3 +20,9 @@
   roles:
     - phmi
 
+- name: Set up backups
+  user: ubuntu
+  hosts: webserver
+  roles:
+    - backup
+

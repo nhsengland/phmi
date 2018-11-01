@@ -74,7 +74,11 @@ The created output should look something like
 {{ LOG_DIR }}/{{ PROJECT_NAME }}.error.log
 
 
-
+#### Backups
+BACK_UPS_DIR - the local copy of where we store backups
+AWS_BUCKET_NAME - the AWS back up were we are backing up to
+AWS_ACCESS_KEY_ID - AWS config
+AWS_SECRET_ACCESS_KEY - AWS config
 
 
 
