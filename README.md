@@ -50,22 +50,22 @@ cd deployment
 ansible-playbook setup-server.yml -i hosts.dev
 
 group_vars/all should contain the following vars
-
+```
 #### Project
-PROJECT_NAME - the name of the project.
-PROJECT_PATH - the directory that we download the code to
-GIT_REPO - https git remo download name
-LOG_DIR - the directory of the logs
-SECRET_KEY - the secret key for django
+PROJECT_NAME: # the name of the project.
+PROJECT_PATH: # the directory that we download the code to
+GIT_REPO: # https git remo download name
+LOG_DIR: # the directory of the logs
+SECRET_KEY: # the secret key for django
 
 #### Git
-GIT_REPO - https git remo download name
-GIT_BRANCH - the git branch
+GIT_REPO: # https git remo download name
+GIT_BRANCH: # the git branch
 
 #### Database
-DB_USER - the post gres user.
-DB_NAME - the post gres database
-DB_PASSWORD - the post gres database password
+DB_USER: # the post gres user.
+DB_NAME: # the post gres database
+DB_PASSWORD: # the post gres database password
 
 The created output should look something like
 
@@ -75,11 +75,16 @@ The created output should look something like
 
 
 #### Backups
-BACK_UPS_DIR - the local copy of where we store backups
-AWS_BUCKET_NAME - the AWS back up were we are backing up to
-AWS_ACCESS_KEY_ID - AWS config
-AWS_SECRET_ACCESS_KEY - AWS config
+BACK_UPS_DIR: # the local copy of where we store backups
+AWS_BUCKET_NAME: # the AWS back up were we are backing up to
+AWS_ACCESS_KEY_ID: # AWS config
+AWS_SECRET_ACCESS_KEY: # AWS config
+```
 
+to edit the group_vars/all use
+```
+ansible-vault edit all --vault-password-file ~/.vault.txt
+```
 
 
 ## Notes
