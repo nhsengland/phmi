@@ -10,6 +10,9 @@ django-environ = "*"
 gunicorn = "*"
 incuna-mail = "*"
 whitenoise = "*"
+"boto3" = "*"
+pip = "*"
+django-ses = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

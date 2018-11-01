@@ -1,0 +1,2 @@
+cd {{ PROJECT_PATH }}
+pipenv run python scripts/backup.py {{ DB_NAME }} {{ DB_USER }} {{ BACKUPS_DIR }} {{ AWS_BUCKET_NAME }}

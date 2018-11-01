@@ -1,0 +1,28 @@
+---
+- name: Things you want on servers generally
+  sudo: yes
+  user: ubuntu
+  hosts: webserver
+  gather_facts: no
+  roles:
+    - server
+
+- name: Make the server capable of running a standard Django deployment
+  sudo: yes
+  user: ubuntu
+  hosts: webserver
+  roles:
+    - db
+
+- name: Set up our project
+  user: ubuntu
+  hosts: webserver
+  roles:
+    - phmi
+
+- name: Set up backups
+  user: ubuntu
+  hosts: webserver
+  roles:
+    - backup
+

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 
 import environ
 from django.contrib.messages import constants as message_constants
@@ -139,7 +140,14 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 # PROJECT SETTINGS
 # Allowed Email Domains for Auth
-ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"]
+ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net", "openhealthcare.org.uk"]
 
 # turn on to true and set up send mail facilities to send the users login details
 EMAIL_LOGIN = False
+
+
+if 'test' not in sys.argv:
+    try:
+        from phmi.local_settings import *
+    except ImportError:
+        pass
