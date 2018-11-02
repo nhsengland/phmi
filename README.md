@@ -46,8 +46,19 @@ Note: the `add_orgs` command will ask which OrgType a given set of Organisations
 ## deployment
 update hosts.dev (and use keys natch)
 set your branch in deployment/group_vars/all
+
+```
 cd deployment
 ansible-playbook setup-server.yml -i hosts.dev
+```
+
+## restore
+Get the file name you want to restore from S3
+
+```
+cd deployment
+ansible-playbook restore-server.yml -i hosts.dev --vault-password-file ~/.vault.txt --extra-vars "BUCKET_NAME={{ YOUR BUCKET NAME FROM S3 }}"
+```
 
 group_vars/all should contain the following vars
 ```

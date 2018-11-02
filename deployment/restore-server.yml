@@ -1,0 +1,6 @@
+---
+- name: Restore the server
+  user: ubuntu
+  hosts: webserver
+  roles:
+    - restore
