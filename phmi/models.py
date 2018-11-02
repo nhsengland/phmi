@@ -22,6 +22,7 @@ class CareSystem(models.Model):
 
     class Meta:
         unique_together = ("type", "name")
+        ordering = ["-type__name", "name"]
 
     def __str__(self):
         return self.name
@@ -35,7 +36,17 @@ class CareSystem(models.Model):
 class GroupType(models.Model):
     name = models.TextField(unique=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
+        return self.name
+
+    def get_display_name(self):
+        if "(" and ")" in self.name:
+            start = self.name.find("(") + 1
+            end = self.name.find(")")
+            return self.name[start:end]
         return self.name
 
 

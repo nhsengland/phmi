@@ -15,7 +15,9 @@
     <a href="{% url 'group-edit' pk=caresystem.id %}" class="pull-right">Edit</a>
     {% endif %}
 
-    <h1 class="title">{{ caresystem.name }}</h1>
+    <h1 class="title">{{ caresystem.name }}
+      <small>{{ caresystem.type.get_display_name }}</small>
+    </h1>
 
     {% for org_type, orgs_list in orgs_by_type.items %}
     <h3>{{ org_type }} </h3>
