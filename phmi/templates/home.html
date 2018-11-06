@@ -4,7 +4,7 @@
 <div class="card-list container main-content">
   <article>
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and request.user.is_staff %}
       <a href="{% url 'group-add' %}" class="pull-right">Add</a>
     {% endif %}
 
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-  {% if request.user.is_authenticated %}
+  {% if request.user.is_authenticated and request.user.is_staff %}
     {% if object_list.count > 5 %}
       <a id="add-care-system-another" href="{% url 'group-add' %}">Add another</a>
     {% endif %}

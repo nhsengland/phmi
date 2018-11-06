@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from django.utils.safestring import mark_safe
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.conf import settings
 from django.contrib.auth import login, logout
 from django.db.models.functions import Lower
@@ -31,7 +32,12 @@ def get_orgs_by_type():
         ]
 
 
-class GroupAdd(CreateView):
+class IsStaffMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class GroupAdd(IsStaffMixin, CreateView):
     form_class = CareSystemForm
     model = CareSystem
     template_name = "group_form.html"
@@ -86,7 +92,7 @@ class GroupDetail(DetailView):
         return ctx
 
 
-class GroupEdit(UpdateView):
+class GroupEdit(IsStaffMixin, UpdateView):
     form_class = CareSystemForm
     model = CareSystem
     template_name = "group_form.html"
@@ -156,6 +162,13 @@ class GenerateMagicLoginURL(FormView):
     def form_valid(self, form):
         """Email a login URL to the address specified by the user."""
         user, _ = User.objects.get_or_create(email=form.cleaned_data["email"])
+
+        # if the user's email ends in one of the STAFF_LOGIN_DOMAINS
+        # automatically set is_staff to be True
+        if not user.is_staff:
+            if user.email.endswith(tuple(settings.STAFF_LOGIN_DOMAINS)):
+                user.is_staff = True
+                user.save()
 
         url = reverse("login", kwargs={"signed_pk": user.sign_pk()})
         absolute_url = self.request.build_absolute_uri(url)
