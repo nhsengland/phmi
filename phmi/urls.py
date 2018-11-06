@@ -18,9 +18,9 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
-from .views import (
+from phmi.views import (
     GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit,
-    Home, Login, Logout
+    Home, Login, Logout, OrganisationAdd
 )
 
 urlpatterns = [
@@ -29,11 +29,16 @@ urlpatterns = [
     path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", Login.as_view(), name="login"),
     path("logout", Logout.as_view(), name="logout"),
+
+    # groups
     path("groups/add", login_required(GroupAdd.as_view()), name="group-add"),
     path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
     path(
         "groups/<int:pk>/edit", login_required(GroupEdit.as_view()), name="group-edit"
     ),
+
+    # organisations
+    path("organisation/add", OrganisationAdd.as_view(), name="organisation-add"),
 ]
 
 

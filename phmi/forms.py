@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
-from .models import CareSystem
+from phmi.models import CareSystem, Organisation
 
 
 class CareSystemForm(forms.ModelForm):
@@ -20,6 +20,18 @@ class CareSystemForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs["class"] = "form-control"
+
+
+class OrganisationForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"autofocus": True, "class": "form-control", "size": 50}
+        )
+    )
+
+    class Meta:
+        fields = ["name"]
+        model = Organisation
 
 
 class LoginForm(forms.Form):

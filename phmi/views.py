@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import login, logout
 from django.db.models.functions import Lower
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -16,8 +16,8 @@ from django.views.generic import (
     View,
 )
 
-from .forms import CareSystemForm, LoginForm
-from .models import CareSystem, Organisation, OrgType, User
+from phmi.forms import CareSystemForm, LoginForm, OrganisationForm
+from phmi.models import CareSystem, Organisation, OrgType, User
 
 
 def get_orgs_by_type():
@@ -123,6 +123,19 @@ class GroupEdit(IsStaffMixin, UpdateView):
     def get_object(self, queryset=None):
         qs = self.model.objects.prefetch_related("orgs")
         return super().get_object(queryset=qs)
+
+
+class OrganisationAdd(IsStaffMixin, CreateView):
+    form_class = OrganisationForm
+    model = Organisation
+    template_name = "organisation_form.html"
+    success_url = reverse_lazy("group-add")
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.type = OrgType.objects.get(name="Other")
+        self.object.save()
+        return super().form_valid(form)
 
 
 class Home(ListView):
