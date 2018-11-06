@@ -11,7 +11,7 @@
 
   <article>
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and request.user.is_staff %}
     <a href="{% url 'group-edit' pk=caresystem.id %}" class="pull-right">Edit</a>
     {% endif %}
 

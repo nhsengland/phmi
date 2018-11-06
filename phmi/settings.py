@@ -140,7 +140,8 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 # PROJECT SETTINGS
 # Allowed Email Domains for Auth
-ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net", "openhealthcare.org.uk"]
+STAFF_LOGIN_DOMAINS = ["openhealthcare.org.uk"]
+ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"] + STAFF_LOGIN_DOMAINS
 
 # turn on to true and set up send mail facilities to send the users login details
 EMAIL_LOGIN = False
