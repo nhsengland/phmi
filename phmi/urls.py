@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
 from .views import (
@@ -29,10 +28,10 @@ urlpatterns = [
     path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", Login.as_view(), name="login"),
     path("logout", Logout.as_view(), name="logout"),
-    path("groups/add", login_required(GroupAdd.as_view()), name="group-add"),
+    path("groups/add", GroupAdd.as_view(), name="group-add"),
     path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
     path(
-        "groups/<int:pk>/edit", login_required(GroupEdit.as_view()), name="group-edit"
+        "groups/<int:pk>/edit", GroupEdit.as_view(), name="group-edit"
     ),
 ]
 
