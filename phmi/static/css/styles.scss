@@ -526,6 +526,12 @@ form {
       &:focus {
         outline: 0;
       }
+
+      &::-ms-clear {
+        display: none;
+      }
+
+
     }
 
     ul {

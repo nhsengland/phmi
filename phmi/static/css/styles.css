@@ -438,6 +438,9 @@ form #org_list .search {
 form #org_list .search:focus {
   outline: 0;
 }
+form #org_list .search::-ms-clear {
+  display: none;
+}
 form #org_list ul {
   border: 1px solid #d8dde0;
   border-top: 0;
