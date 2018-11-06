@@ -1,12 +1,12 @@
-ROW_TEMPLATE = `
-<tr id="selected-[[ ID ]]" data-org-name="[[ TEXT ]]">
-  <td>
-    <input type="hidden" name="organisations" value="[[ ID ]]" />
-    [[ TEXT ]]
-  </td>
-  <td class="text-right"><a href="#">Remove</a></td>
-</tr>
-`;
+ROW_TEMPLATE = [
+  '<tr id="selected-[[ ID ]]" data-org-name="[[ TEXT ]]">',
+  '  <td>',
+  '    <input type="hidden" name="organisations" value="[[ ID ]]" />',
+  '    [[ TEXT ]]',
+  '  </td>',
+  '  <td class="text-right"><a href="#">Remove</a></td>',
+  '</tr>'
+].join("\n");
 
 /**
  * Add the selected Organisation to the selected Orgs table
