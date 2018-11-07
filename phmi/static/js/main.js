@@ -90,12 +90,33 @@ function removeOrgElement(element) {
   )
 }
 
+
+
 $(document).ready(function () {
   // ADD OR EDIT VIEW
   var options = {
     valueNames: ['name']
   };
+
+
   var orgList = new List('org_list', options);
+
+  function searchComplete(){
+    /*
+    * A function that get's called after every search has
+    * happened
+    */
+    var size = orgList.visibleItems.length;
+    if(size){
+      $("#org_list .list").show()
+      $("#no-items").hide()
+    }
+    else{
+      $("#org_list .list").hide()
+      $("#no-items").show()
+    }
+  }
+  orgList.on("searchComplete", searchComplete);
   showRemoveAll();
 
   /**

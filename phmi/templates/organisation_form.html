@@ -2,12 +2,11 @@
 
 {% block contents %}
     <div class="container main-content">
-        <h1 class="title">
-            Add an Organisation
-        </h1>
-
         <div class="row">
             <div class="col-md-8 col-md-push-2">
+                <h1 class="title">
+                    Add an Organisation
+                </h1>
 
                 <ul class="errors">
                     {% for error in form.non_field_errors  %}
@@ -22,7 +21,6 @@
                 <!-- Display Form -->
                 <form method="POST">
                     {% csrf_token %}
-                    
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">

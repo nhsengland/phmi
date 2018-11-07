@@ -6,7 +6,8 @@ from django.conf import settings
 from django.contrib.auth import login, logout
 from django.db.models.functions import Lower
 from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
+from django.utils.http import is_safe_url
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -37,21 +38,29 @@ class IsStaffMixin(UserPassesTestMixin):
         return self.request.user.is_staff
 
 
-class GroupAdd(IsStaffMixin, CreateView):
+class GroupChangeMixin(object):
+    def get_success_url(self):
+        # add_org is added by the submit button to add a new
+        # organisation, ie when an organisation is not found
+        if "add_org" in self.request.POST:
+            url = reverse("organisation-add")
+            return "{}?name={}&care_system={}".format(
+                url, self.request.POST["search_term"], self.object.id
+            )
+        else:
+            return super().get_success_url()
+
+
+class GroupAdd(IsStaffMixin, GroupChangeMixin, CreateView):
     form_class = CareSystemForm
     model = CareSystem
     template_name = "group_form.html"
 
     def form_valid(self, form):
         # create the CareSystem
-        care_system = CareSystem.objects.create(
-            name=form.cleaned_data["name"], type=form.cleaned_data["type"]
-        )
-
-        # link the selected orgs to the new caresystem
-        care_system.orgs.add(*form.cleaned_data["organisations"])
-
-        return redirect(care_system.get_absolute_url())
+        result = super().form_valid(form)
+        self.object.orgs.add(*form.cleaned_data["organisations"])
+        return result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,18 +101,19 @@ class GroupDetail(DetailView):
         return ctx
 
 
-class GroupEdit(IsStaffMixin, UpdateView):
+class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
     form_class = CareSystemForm
     model = CareSystem
     template_name = "group_form.html"
 
     def form_valid(self, form):
-        self.object = form.save()
+        # create the CareSystem
+        result = super().form_valid(form)
 
         # link the selected orgs to the caresystem
         self.object.orgs.set(form.cleaned_data["organisations"], clear=True)
 
-        return redirect(self.object.get_absolute_url())
+        return result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -129,12 +139,25 @@ class OrganisationAdd(IsStaffMixin, CreateView):
     form_class = OrganisationForm
     model = Organisation
     template_name = "organisation_form.html"
-    success_url = reverse_lazy("group-add")
+
+    def get_success_url(self, *args, **kwargs):
+        care_system = self.request.GET["care_system"]
+        return reverse("group-edit", kwargs=dict(pk=care_system))
+
+    def get_initial(self):
+        initial = super().get_initial()
+        if "name" in self.request.GET:
+            initial["name"] = self.request.GET["name"]
+        return initial
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.type = OrgType.objects.get(name="Other")
         self.object.save()
+        care_system = CareSystem.objects.get(
+            id=self.request.GET["care_system"]
+        )
+        self.object.care_system.add(care_system)
         return super().form_valid(form)
 
 

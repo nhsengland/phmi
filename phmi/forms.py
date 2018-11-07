@@ -15,7 +15,7 @@ class CareSystemForm(forms.ModelForm):
     def __init__(self, organisations, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["organisations"] = forms.MultipleChoiceField(
-            choices=[(o.pk, o.pk) for o in organisations]
+            choices=[(o.pk, o.pk) for o in organisations], required=False
         )
 
         for field in self.fields:
