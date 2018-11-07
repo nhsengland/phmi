@@ -16,22 +16,21 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-
-from .views import (
-    GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit,
-    Home, Login, Logout
-)
+from phmi import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", Home.as_view(), name="home"),
-    path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
-    path("login/<signed_pk>", Login.as_view(), name="login"),
-    path("logout", Logout.as_view(), name="logout"),
-    path("groups/add", GroupAdd.as_view(), name="group-add"),
-    path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
+    path("", views.Home.as_view(), name="home"),
+    path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
+    path("login/<signed_pk>", views.Login.as_view(), name="login"),
+    path("logout", views.Logout.as_view(), name="logout"),
+    path("groups/add", views.GroupAdd.as_view(), name="group-add"),
+    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path(
-        "groups/<int:pk>/edit", GroupEdit.as_view(), name="group-edit"
+        "groups/<int:pk>/edit", views.GroupEdit.as_view(), name="group-edit"
+    ),
+    path(
+        "group_type/<slug:slug>", views.OrgTypeDetail.as_view(), name="org-type-detail"
     ),
 ]
 

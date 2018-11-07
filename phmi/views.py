@@ -18,6 +18,7 @@ from django.views.generic import (
 
 from .forms import CareSystemForm, LoginForm
 from .models import CareSystem, Organisation, OrgType, User
+from phmi import models
 
 
 def get_orgs_by_type():
@@ -39,7 +40,7 @@ class IsStaffMixin(UserPassesTestMixin):
 
 class GroupAdd(IsStaffMixin, CreateView):
     form_class = CareSystemForm
-    model = CareSystem
+    model = models.CareSystem
     template_name = "group_form.html"
 
     def form_valid(self, form):
@@ -65,7 +66,7 @@ class GroupAdd(IsStaffMixin, CreateView):
 
 
 class GroupDetail(DetailView):
-    model = CareSystem
+    model = models.CareSystem
     template_name = "group_detail.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -77,14 +78,16 @@ class GroupDetail(DetailView):
         orgs_by_type = {}
         for organisation in ctx["object"].orgs.all():
             if organisation.type.name not in orgs_by_type:
-                orgs_by_type[organisation.type.name] = []
-            orgs_by_type[organisation.type.name].append(
+                orgs_by_type[organisation.type] = []
+            orgs_by_type[organisation.type].append(
                 organisation
             )
 
         # resort keys alphabetically
         ctx["orgs_by_type"] = OrderedDict()
-        alphabetical_org_types = sorted(orgs_by_type.keys())
+        alphabetical_org_types = sorted(
+            orgs_by_type.keys(), key=lambda x: x.name
+        )
         for alphabetical_org_type in alphabetical_org_types:
             ctx["orgs_by_type"][alphabetical_org_type] = orgs_by_type[
                 alphabetical_org_type
@@ -123,6 +126,37 @@ class GroupEdit(IsStaffMixin, UpdateView):
     def get_object(self, queryset=None):
         qs = self.model.objects.prefetch_related("orgs")
         return super().get_object(queryset=qs)
+
+
+class OrgTypeDetail(DetailView):
+    model = models.OrgType
+    template_name = "org_type_detail.html"
+
+    def get_activites(self):
+        """
+            returns an ordered dictionary of
+            {
+                actvity_name: allowed=True
+                              [legal_justifications]
+            }
+        """
+        org_type_activities_ids = set(self.object.activities.values_list(
+            "id", flat=True
+        ))
+        result = OrderedDict()
+        for i in models.Activity.objects.all():
+            allowed = i.id in org_type_activities_ids
+            if allowed:
+                justifications = i.legalmapping_set.filter(
+                    org_type=self.object
+                ).values_list("justification__name", flat=True).distinct()
+            else:
+                justifications = []
+            result[i.name] = dict(
+                allowed=allowed,
+                justifications=justifications
+            )
+        return result
 
 
 class Home(ListView):

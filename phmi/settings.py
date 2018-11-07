@@ -29,7 +29,7 @@ env = environ.Env()
 SECRET_KEY = ")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
