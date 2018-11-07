@@ -409,6 +409,11 @@ form .btn {
   font-size: 18px;
   padding: 10px 20px;
 }
+form .btn.btn-sm {
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
 form .btn-success {
   background-color: #007f3b;
 }
@@ -459,6 +464,10 @@ form table {
 }
 form table thead {
   background-color: #d8dde0;
+}
+
+#no-items {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

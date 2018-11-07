@@ -17,9 +17,9 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-from .views import (
+from phmi.views import (
     GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit,
-    Home, Login, Logout
+    Home, Login, Logout, OrganisationAdd
 )
 
 urlpatterns = [
@@ -28,11 +28,16 @@ urlpatterns = [
     path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", Login.as_view(), name="login"),
     path("logout", Logout.as_view(), name="logout"),
+
+    # groups
     path("groups/add", GroupAdd.as_view(), name="group-add"),
     path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
     path(
         "groups/<int:pk>/edit", GroupEdit.as_view(), name="group-edit"
     ),
+
+    # organisations
+    path("organisation/add", OrganisationAdd.as_view(), name="organisation-add"),
 ]
 
 
