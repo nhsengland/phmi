@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block contents %}
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                <h1 class="title">
+                    Add an Organisation
+                </h1>
+
+                <ul class="errors">
+                    {% for error in form.non_field_errors  %}
+                    {{ error }}
+                    {% endfor %}
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    {{ field.name | title }} - {{ error }}
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+                <!-- Display Form -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-success pull-right" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
