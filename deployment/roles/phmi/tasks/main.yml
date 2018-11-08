@@ -69,6 +69,16 @@
     chdir: "{{ PROJECT_PATH}}"
   command: "pipenv run python manage.py loaddata data/db-dump.json"
 
+- name: Run Django load care groups
+  args:
+    chdir: "{{ PROJECT_PATH}}"
+  command: "pipenv run python manage.py load_care_groups"
+
+- name: Run Django load activites
+  args:
+    chdir: "{{ PROJECT_PATH}}"
+  command: "pipenv run python manage.py load_activities"
+
 - name: Remove old nginx default
   become: true
   file:
