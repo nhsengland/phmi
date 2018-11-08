@@ -220,11 +220,11 @@ class Logout(View):
 
 class Login(View):
     def get(self, request, *args, **kwargs):
-        pk = User.get_pk_from_signed_url(kwargs["signed_pk"])
+        pk = models.User.get_pk_from_signed_url(kwargs["signed_pk"])
 
         try:
-            user = User.objects.get(pk=pk)
-        except User.DoesNotExist:
+            user = models.User.objects.get(pk=pk)
+        except models.User.DoesNotExist:
             messages.error(request, "Unknown user, please login")
             return redirect(reverse("login"))
 
@@ -242,7 +242,7 @@ class GenerateMagicLoginURL(FormView):
 
     def form_valid(self, form):
         """Email a login URL to the address specified by the user."""
-        user, _ = User.objects.get_or_create(email=form.cleaned_data["email"])
+        user, _ = models.User.objects.get_or_create(email=form.cleaned_data["email"])
 
         # if the user's email ends in one of the STAFF_LOGIN_DOMAINS
         # automatically set is_staff to be True
