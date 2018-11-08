@@ -10,6 +10,7 @@ from django.contrib.auth.models import (
 from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from incuna_mail import send
 
 
@@ -51,13 +52,85 @@ class GroupType(models.Model):
 
 
 class OrgType(models.Model):
-    name = models.TextField(unique=True)
+    name = models.CharField(
+        max_length=256, unique=True
+    )
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    activities = models.ManyToManyField(
+        "Activity",
+        through="LegalMapping"
+    )
 
     class Meta:
         ordering = ["name"]
 
     def __str__(self):
         return self.name
+
+    def save(self):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save()
+
+
+class Activity(models.Model):
+    class Meta:
+        verbose_name_plural = "Activities"
+
+    name = models.TextField(unique=True)
+    DUTY_OF_CONFIDENCE_CHOICES = (
+        (
+            "Implied or explicit consent",
+            "Implied or explicit consent,"
+        ),
+        (
+            "Set aside as data will be de-identified",
+            "Set aside as data will be de-identified",
+        ),
+    )
+
+    name = models.TextField(unique=True)
+    duty_of_confidence = models.CharField(
+        max_length=256,
+        default="",
+        blank=True,
+        choices=DUTY_OF_CONFIDENCE_CHOICES
+    )
+
+    def __str__(self):
+        return "{}: {}".format(
+            self.__class__.__name__,
+            self.name
+        )
+
+    class Meta:
+        ordering = ["name"]
+
+
+class LegalJustification(models.Model):
+    name = models.TextField(unique=True)
+
+    def __str__(self):
+        return "{}: {}".format(
+            self.__class__.__name__,
+            self.name
+        )
+
+    class Meta:
+        ordering = ["name"]
+
+
+class LegalMapping(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    org_type = models.ForeignKey(OrgType, on_delete=models.CASCADE)
+    justification = models.ManyToManyField(LegalJustification)
+
+    def __str__(self):
+        return "{}: {} - {}".format(
+            self.__class__.__name__,
+            self.activity.name,
+            self.organisation.name
+        )
 
 
 class Organisation(models.Model):
@@ -109,7 +182,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     care_system = models.ForeignKey(
-        "CareSystem", null=True, on_delete=models.SET_NULL, related_name="users"
+        "CareSystem",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="users"
     )
 
     email = models.TextField(null=False, unique=True)

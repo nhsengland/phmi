@@ -2,16 +2,29 @@ from django.contrib import admin
 from django.db.models import TextField
 from django.forms import TextInput
 from django.utils.translation import gettext_lazy as _
+from phmi import models
 
-from .models import CareSystem, GroupType, Organisation, OrgType, User
-
-admin.site.register(CareSystem)
-admin.site.register(GroupType)
-admin.site.register(OrgType)
-admin.site.register(Organisation)
+admin.site.register(models.CareSystem)
+admin.site.register(models.GroupType)
+admin.site.register(models.OrgType)
+admin.site.register(models.Organisation)
 
 
-@admin.register(User)
+
+
+class NameSearchAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+admin.site.register(models.Activity, NameSearchAdmin)
+admin.site.register(models.LegalJustification, NameSearchAdmin)
+
+
+@admin.register(models.LegalMapping)
+class LegalMappingAdmin(admin.ModelAdmin):
+    search_fields = ['activity__name', 'organisation__name']
+
+
+@admin.register(models.User)
 class UserAdmin(admin.ModelAdmin):
     """
     Register our Custom User Model in the admin.
