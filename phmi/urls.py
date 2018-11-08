@@ -16,28 +16,30 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-
-from phmi.views import (
-    GenerateMagicLoginURL, GroupAdd, GroupDetail, GroupEdit,
-    Home, Login, Logout, OrganisationAdd
-)
+from phmi import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", Home.as_view(), name="home"),
-    path("login", GenerateMagicLoginURL.as_view(), name="request-login"),
-    path("login/<signed_pk>", Login.as_view(), name="login"),
-    path("logout", Logout.as_view(), name="logout"),
-
-    # groups
-    path("groups/add", GroupAdd.as_view(), name="group-add"),
-    path("groups/<int:pk>", GroupDetail.as_view(), name="group-detail"),
+    path("", views.Home.as_view(), name="home"),
+    path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
+    path("login/<signed_pk>", views.Login.as_view(), name="login"),
+    path("logout", views.Logout.as_view(), name="logout"),
+    path("groups/add", views.GroupAdd.as_view(), name="group-add"),
+    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path(
-        "groups/<int:pk>/edit", GroupEdit.as_view(), name="group-edit"
+        "groups/<int:pk>/edit", views.GroupEdit.as_view(), name="group-edit"
     ),
-
+    path(
+        "organisation/<int:pk>",
+        views.OrgDetail.as_view(),
+        name="organisation-detail"
+    ),
     # organisations
-    path("organisation/add", OrganisationAdd.as_view(), name="organisation-add"),
+    path(
+        "organisation/add",
+        views.OrganisationAdd.as_view(),
+        name="organisation-add"
+    ),
 ]
 
 

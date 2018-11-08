@@ -3,7 +3,7 @@ from django.db import transaction
 from django.core.management.base import BaseCommand, CommandError
 
 data = {
-    ("South Yorkshire and Bassetlaw", "Susta",): [
+    ("Cheshire and Merseyside Health and Care Partnership", "Susta",): [
         "Aintree University Hospital NHS Foundation Trust",
         "Alder Hey Children's NHS Foundation Trust",
         "Bridgewater Community Healthcare NHS Foundation Trust",

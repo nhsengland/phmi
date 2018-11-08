@@ -18,7 +18,7 @@ from django.views.generic import (
 )
 
 from phmi.forms import CareSystemForm, LoginForm, OrganisationForm
-from phmi.models import CareSystem, Organisation, OrgType, User
+from phmi import models
 
 
 def get_orgs_by_type():
@@ -27,7 +27,7 @@ def get_orgs_by_type():
 
     Used to build the Organisation filter part of the CareSystem form page.
     """
-    for org_type in OrgType.objects.prefetch_related("orgs"):
+    for org_type in models.OrgType.objects.prefetch_related("orgs"):
         yield org_type.name, [
             o for o in org_type.orgs.order_by("name")
         ]
@@ -53,7 +53,7 @@ class GroupChangeMixin(object):
 
 class GroupAdd(IsStaffMixin, GroupChangeMixin, CreateView):
     form_class = CareSystemForm
-    model = CareSystem
+    model = models.CareSystem
     template_name = "group_form.html"
 
     def form_valid(self, form):
@@ -69,12 +69,12 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["organisations"] = Organisation.objects.all()
+        kwargs["organisations"] = models.Organisation.objects.all()
         return kwargs
 
 
 class GroupDetail(DetailView):
-    model = CareSystem
+    model = models.CareSystem
     template_name = "group_detail.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -85,25 +85,28 @@ class GroupDetail(DetailView):
         # in django templates
         orgs_by_type = {}
         for organisation in ctx["object"].orgs.all():
-            if organisation.type.name not in orgs_by_type:
-                orgs_by_type[organisation.type.name] = []
-            orgs_by_type[organisation.type.name].append(
+            if organisation.type not in orgs_by_type:
+                orgs_by_type[organisation.type] = []
+            orgs_by_type[organisation.type].append(
                 organisation
             )
 
         # resort keys alphabetically
         ctx["orgs_by_type"] = OrderedDict()
-        alphabetical_org_types = sorted(orgs_by_type.keys())
+        alphabetical_org_types = sorted(
+            orgs_by_type.keys(), key=lambda x: x.name
+        )
         for alphabetical_org_type in alphabetical_org_types:
             ctx["orgs_by_type"][alphabetical_org_type] = orgs_by_type[
                 alphabetical_org_type
             ]
+
         return ctx
 
 
 class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
     form_class = CareSystemForm
-    model = CareSystem
+    model = models.CareSystem
     template_name = "group_form.html"
 
     def form_valid(self, form):
@@ -122,7 +125,7 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["organisations"] = Organisation.objects.all()
+        kwargs["organisations"] = models.Organisation.objects.all()
         return kwargs
 
     def get_initial(self):
@@ -135,9 +138,51 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
         return super().get_object(queryset=qs)
 
 
+class OrgDetail(DetailView):
+    model = models.Organisation
+    template_name = "org_detail.html"
+
+    def get_activites(self):
+        """
+            returns an ordered dictionary of
+            {
+                actvity_name: allowed=True
+                              allowed_orgs=[]
+                              [legal_justifications]
+            }
+        """
+        org_type_activities_ids = set(self.object.type.activities.values_list(
+            "id", flat=True
+        ))
+        result = OrderedDict()
+        for i in models.Activity.objects.all():
+            allowed = i.id in org_type_activities_ids
+            if allowed:
+                allowed_orgs = []
+                justifications = i.legalmapping_set.filter(
+                    org_type=self.object.type
+                ).values_list("justification__name", flat=True).distinct()
+            else:
+                allowed_orgs = []
+                allowed_types = i.orgtype_set.all()
+                for orgtype in allowed_types:
+                    for org in  self.object.care_system.first().orgs.filter(
+                        type=orgtype
+                    ):
+                        allowed_orgs.append(org)
+                justifications = []
+
+            result[i] = dict(
+                allowed=allowed,
+                justifications=justifications,
+                allowed_orgs=allowed_orgs
+            )
+        return result
+
+
 class OrganisationAdd(IsStaffMixin, CreateView):
     form_class = OrganisationForm
-    model = Organisation
+    model = models.Organisation
     template_name = "organisation_form.html"
 
     def get_success_url(self, *args, **kwargs):
@@ -152,9 +197,9 @@ class OrganisationAdd(IsStaffMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.type = OrgType.objects.get(name="Other")
+        self.object.type = models.OrgType.objects.get(name="Other")
         self.object.save()
-        care_system = CareSystem.objects.get(
+        care_system = models.CareSystem.objects.get(
             id=self.request.GET["care_system"]
         )
         self.object.care_system.add(care_system)
@@ -162,7 +207,7 @@ class OrganisationAdd(IsStaffMixin, CreateView):
 
 
 class Home(ListView):
-    model = CareSystem
+    model = models.CareSystem
     template_name = "home.html"
 
 

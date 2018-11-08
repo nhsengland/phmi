@@ -19,6 +19,7 @@ Load the data dump:
 
     pipenv run python manage.py loaddata data/db-dump.json
     pipenv run python manage.py load_care_groups
+    pipenv run python manage.py load_activities
 
 
 Alternatively you can load the current data from the CSVs:
@@ -35,6 +36,7 @@ Alternatively you can load the current data from the CSVs:
     pipenv run python manage.py add_orgs data/csvs/local-authority.csv
     pipenv run python manage.py add_orgs data/csvs/mental-health-trust.csv
     pipenv run python manage.py load_care_groups
+    pipenv run python manage.py load_activities
 
 Note: the `add_orgs` command will ask which OrgType a given set of Organisations is, the filename should be enough to work that out.
 
