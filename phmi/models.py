@@ -186,6 +186,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     care_system = models.ForeignKey(
         "CareSystem",
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name="users"
     )
