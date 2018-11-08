@@ -85,7 +85,7 @@ class GroupDetail(DetailView):
         # in django templates
         orgs_by_type = {}
         for organisation in ctx["object"].orgs.all():
-            if organisation.type.name not in orgs_by_type:
+            if organisation.type not in orgs_by_type:
                 orgs_by_type[organisation.type] = []
             orgs_by_type[organisation.type].append(
                 organisation
@@ -100,6 +100,7 @@ class GroupDetail(DetailView):
             ctx["orgs_by_type"][alphabetical_org_type] = orgs_by_type[
                 alphabetical_org_type
             ]
+
         return ctx
 
 
@@ -137,33 +138,44 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
         return super().get_object(queryset=qs)
 
 
-class OrgTypeDetail(DetailView):
-    model = models.OrgType
-    template_name = "org_type_detail.html"
+class OrgDetail(DetailView):
+    model = models.Organisation
+    template_name = "org_detail.html"
 
     def get_activites(self):
         """
             returns an ordered dictionary of
             {
                 actvity_name: allowed=True
+                              allowed_orgs=[]
                               [legal_justifications]
             }
         """
-        org_type_activities_ids = set(self.object.activities.values_list(
+        org_type_activities_ids = set(self.object.type.activities.values_list(
             "id", flat=True
         ))
         result = OrderedDict()
         for i in models.Activity.objects.all():
             allowed = i.id in org_type_activities_ids
             if allowed:
+                allowed_orgs = []
                 justifications = i.legalmapping_set.filter(
-                    org_type=self.object
+                    org_type=self.object.type
                 ).values_list("justification__name", flat=True).distinct()
             else:
+                allowed_orgs = []
+                allowed_types = i.orgtype_set.all()
+                for orgtype in allowed_types:
+                    for org in  self.object.care_system.first().orgs.filter(
+                        type=orgtype
+                    ):
+                        allowed_orgs.append(org)
                 justifications = []
-            result[i.name] = dict(
+
+            result[i] = dict(
                 allowed=allowed,
-                justifications=justifications
+                justifications=justifications,
+                allowed_orgs=allowed_orgs
             )
         return result
 

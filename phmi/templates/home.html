@@ -33,7 +33,7 @@
 
   {% if request.user.is_authenticated and request.user.is_staff %}
     {% if object_list.count > 5 %}
-      <a id="add-care-system-another" href="{% url 'group-add' %}">Add another</a>
+      <a id="add-care-system-another" href="{% url 'group-add' %}">Add</a>
     {% endif %}
   {% endif %}
 

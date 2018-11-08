@@ -30,11 +30,10 @@ urlpatterns = [
         "groups/<int:pk>/edit", views.GroupEdit.as_view(), name="group-edit"
     ),
     path(
-        "group_type/<slug:slug>",
-        views.OrgTypeDetail.as_view(),
-        name="org-type-detail"
+        "organisation/<int:pk>",
+        views.OrgDetail.as_view(),
+        name="organisation-detail"
     ),
-
     # organisations
     path(
         "organisation/add",
