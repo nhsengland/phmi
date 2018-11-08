@@ -491,6 +491,12 @@ form {
     padding: 10px 20px;
   }
 
+  .btn.btn-sm{
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
   .btn-success {
     background-color: #007f3b;
 
@@ -559,4 +565,8 @@ form {
     }
   }
 
+}
+
+#no-items{
+  display: none;
 }
