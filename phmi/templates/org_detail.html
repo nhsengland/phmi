@@ -25,6 +25,7 @@
                     {{ activity.name }}
                 </h3>
                 <div class="row">
+                    {% if d.justifications %}
                     <div class="col-md-6">
                         <h4>GDPR Condition for Processing</h4>
                         <p>
@@ -37,6 +38,7 @@
                             {{ activity.duty_of_confidence }}
                         </p>
                     </div>
+                    {% endif %}
 
                     <div class="col-md-6">
                     {% if d.justifications %}
