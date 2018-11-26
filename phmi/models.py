@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
     _user_has_module_perms,
     _user_has_perm,
 )
+from django.urls import reverse
 from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
@@ -29,8 +30,6 @@ class CareSystem(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        from django.urls import reverse
-
         return reverse("group-detail", args=[str(self.id)])
 
 
@@ -148,6 +147,9 @@ class Organisation(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("organisation-detail", args=[str(self.id)])
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -184,6 +186,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     care_system = models.ForeignKey(
         "CareSystem",
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name="users"
     )

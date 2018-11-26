@@ -22,6 +22,7 @@ Load the initial data:
     pipenv run python manage.py load_care_groups
     pipenv run python manage.py load_activities
 
+
 Note: the `add_orgs` command will ask which OrgType a given set of Organisations is, the filename should be enough to work that out.
 
 

@@ -6,6 +6,7 @@ from django.core.management.base import BaseCommand, CommandError
 IMPLIED = "Implied consent/reasonable expectations"
 SET_ASIDE = "Set aside as data will be de-identified for this purpose"
 
+
 ACT_1 = ("Allocating risk scores and stratifying populations \
 for specified future adverse events causing poor health outcomes \
 to individuals", SET_ASIDE,)
@@ -36,6 +37,7 @@ data = {
         "NHS England": [
             "DUTY: To exercise relevant public health functions",
             "POWER: To assist SoS in providing health services and exercising public health functions",
+
         ]
     },
     ACT_2: {
@@ -115,6 +117,10 @@ class Command(BaseCommand):
                 duty_of_confidence=activity_details[1]
             )
             for org_type_name, justifications in org_type_dict.items():
+                if not models.OrgType.objects.filter(
+                    name__startswith=org_type_name
+                ).exists():
+                    import ipdb; ipdb.set_trace()
                 org_type = models.OrgType.objects.get(
                     name__startswith=org_type_name
                 )

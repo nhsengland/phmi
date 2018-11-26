@@ -33,7 +33,7 @@ class Command(BaseCommand):
         Org types should already have been loaded.
         """
         return OrgType.objects.get(
-            name__iexact=name.replace("-")
+            name__iexact=csv_name.replace("-", " ")
         )
 
     def handle(self, *args, **options):
@@ -47,7 +47,7 @@ class Command(BaseCommand):
             if not os.path.exists(path):
                 raise CommandError(f"Unknown path: {path}")
 
-            org_type = self.get_type(org_types)
+            org_type = self.get_type(csv_name)
 
             with open(path, "r") as f:
                 data = csv.reader(f)
