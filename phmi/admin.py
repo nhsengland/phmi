@@ -10,17 +10,14 @@ admin.site.register(models.OrgType)
 admin.site.register(models.Organisation)
 
 
-
-
 class NameSearchAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 admin.site.register(models.Activity, NameSearchAdmin)
-admin.site.register(models.LegalJustification, NameSearchAdmin)
 
 
-@admin.register(models.LegalMapping)
-class LegalMappingAdmin(admin.ModelAdmin):
+@admin.register(models.LegalJustification)
+class LegalJustificationAdmin(admin.ModelAdmin):
     search_fields = ['activity__name', 'organisation__name']
 
 

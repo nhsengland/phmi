@@ -55,16 +55,17 @@ class OrgType(models.Model):
         max_length=256, unique=True
     )
     slug = models.SlugField(unique=True, blank=True, null=True)
-    activities = models.ManyToManyField(
-        "Activity",
-        through="LegalMapping"
-    )
 
     class Meta:
         ordering = ["name"]
 
     def __str__(self):
         return self.name
+
+    def get_activities(self):
+        return Activity.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        )
 
     def save(self):
         if not self.slug:
@@ -96,6 +97,11 @@ class Activity(models.Model):
         choices=DUTY_OF_CONFIDENCE_CHOICES
     )
 
+    def get_org_types(self):
+        return OrgType.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        )
+
     def __str__(self):
         return "{}: {}".format(
             self.__class__.__name__,
@@ -107,7 +113,17 @@ class Activity(models.Model):
 
 
 class LegalJustification(models.Model):
-    name = models.TextField(unique=True)
+    name = models.TextField()
+    org_type = models.ForeignKey(
+        OrgType,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    statute = models.TextField(
+        default=""
+    )
+    activites = models.ManyToManyField(Activity)
 
     def __str__(self):
         return "{}: {}".format(
@@ -117,19 +133,7 @@ class LegalJustification(models.Model):
 
     class Meta:
         ordering = ["name"]
-
-
-class LegalMapping(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    org_type = models.ForeignKey(OrgType, on_delete=models.CASCADE)
-    justification = models.ManyToManyField(LegalJustification)
-
-    def __str__(self):
-        return "{}: {} - {}".format(
-            self.__class__.__name__,
-            self.activity.name,
-            self.org_type.name
-        )
+        unique_together = (("name", "org_type",),)
 
 
 class Organisation(models.Model):

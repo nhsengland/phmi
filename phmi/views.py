@@ -138,7 +138,6 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
         return super().get_object(queryset=qs)
 
 
-
 class OrgDetail(DetailView):
     model = models.Organisation
     template_name = "org_detail.html"
@@ -152,7 +151,7 @@ class OrgDetail(DetailView):
                               [legal_justifications]
             }
         """
-        org_type_activities_ids = set(self.object.type.activities.values_list(
+        org_type_activities_ids = set(self.object.type.get_activities().values_list(
             "id", flat=True
         ))
         result = OrderedDict()
@@ -160,14 +159,14 @@ class OrgDetail(DetailView):
             allowed = i.id in org_type_activities_ids
             if allowed:
                 allowed_orgs = []
-                justifications = i.legalmapping_set.filter(
+                justifications = i.legaljustification_set.filter(
                     org_type=self.object.type
-                ).values_list("justification__name", flat=True).distinct()
+                ).values_list("name", flat=True).distinct()
             else:
                 allowed_orgs = []
-                allowed_types = i.orgtype_set.all()
+                allowed_types = i.get_org_types()
                 for orgtype in allowed_types:
-                    for org in  self.object.care_system.first().orgs.filter(
+                    for org in self.object.care_system.first().orgs.filter(
                         type=orgtype
                     ):
                         allowed_orgs.append(org)
