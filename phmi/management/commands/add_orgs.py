@@ -6,11 +6,15 @@ from django.core.management.base import BaseCommand, CommandError
 from ...models import Organisation, OrgType
 
 
-class Command(BaseCommand):
-    help = "Load Organisations from the given CSV"
+ORG_CSVS = [
+    "ccg", "csu", "dscro", "independent-sector",
+    "local-authority", "nhs-trust"
 
-    def add_arguments(self, parser):
-        parser.add_argument("file", help="CSV file to load Organisations from")
+]
+
+
+class Command(BaseCommand):
+    help = "Load Organisations"
 
     def build_organisations(self, data, org_type):
         for row in data:
@@ -21,49 +25,38 @@ class Command(BaseCommand):
 
             yield Organisation(name=row[0], ods_code=ods_code, type=org_type)
 
-    def get_type(self, org_types):
-        # cast so we can index later
-        org_types = list(org_types)
+    def get_type(self, csv_name):
+        """
+        We expect an org type csv to be a case insensitive
+        version of an org type.
 
-        while True:
-            self.stdout.write("Which Organisation Type are you loading in?")
-            for i, org_type in enumerate(org_types, start=1):
-                self.stdout.write(f" - [{i}] {org_type.name}")
-            number = input("Enter a number: ")
-
-            try:
-                number = int(number)
-            except ValueError:
-                self.stderr.write(
-                    self.style.ERROR(
-                        f"{number} is not a valid number, please try again."
-                    )
-                )
-                continue
-
-            break
-
-        return org_types[number - 1]
+        Org types should already have been loaded.
+        """
+        return OrgType.objects.get(
+            name__iexact=name.replace("-")
+        )
 
     def handle(self, *args, **options):
-        path = options["file"]
-        if not os.path.exists(path):
-            raise CommandError(f"Unknown path: {path}")
 
         org_types = OrgType.objects.all()
         if len(org_types) < 1:
             raise CommandError("No OrgTypes found, try running add_org_types first.")
 
-        org_type = self.get_type(org_types)
+        for csv_name in ORG_CSVS:
+            path = f"data/csvs/{csv_name}.csv"
+            if not os.path.exists(path):
+                raise CommandError(f"Unknown path: {path}")
 
-        with open(path, "r") as f:
-            data = csv.reader(f)
-            organisations = list(self.build_organisations(data, org_type))
+            org_type = self.get_type(org_types)
 
-        Organisation.objects.bulk_create(organisations)
+            with open(path, "r") as f:
+                data = csv.reader(f)
+                organisations = list(self.build_organisations(data, org_type))
 
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"Successfully created {len(organisations)} Organisations"
+            Organisation.objects.bulk_create(organisations)
+
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"Successfully created {len(organisations)} Organisations"
+                )
             )
-        )

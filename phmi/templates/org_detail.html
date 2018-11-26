@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="container main-content">
+  <nav class="breadcrumbs">
+    <ul>
+      <li>
+          <a href="/">Home</a>
+       </li>
+      <li>
+          <a href="{{ object.care_system.first.get_absolute_url }}">{{ object.care_system.first.name }}</a>
+       </li>
+      <li>{{ object.name }}</li>
+    </ul>
+  </nav>
+  <article>
+      <h1 class="title">{{ object.name }}</h1>
+        <h2 class="text-muted">
+            Population health management activities
+        </h2>
+        {% for activity, d in view.get_activites.items %}
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="{% if d.allowed %}text-success{% else %}text-danger{% endif %}">
+                    {{ activity.name }}
+                </h3>
+                <div class="row">
+                    {% if d.justifications %}
+                    <div class="col-md-6">
+                        <h4>GDPR Condition for Processing</h4>
+                        <p>
+                           Article 6 (e): Official Authority - for NHS bodies and local authorities
+                           Article 6 (b): Legitimate Interests - for non-NHS providers and charities<br />
+                           AND <br />
+                           Article 9 (h): Management of a Health or Social Care System
+                        </p>
+
+                        <h4>Common Law Duty of Confidence</h4>
+                        <p>
+                            {{ activity.duty_of_confidence }}
+                        </p>
+                    </div>
+                    {% endif %}
+
+                    <div class="col-md-6">
+                    {% if d.justifications %}
+                        <h4>Legal basis to carry out this activity</h4>
+                            <ul class="list-unstyled">
+                                {% for legal_justification in d.justifications %}
+                                    <li>{{ legal_justification }}</li>
+                                {% endfor %}
+                            </ul>
+                    {% endif %}
+
+                    {% if d.allowed_orgs %}
+                    <h4>
+                        Organisations with a legal basis
+                    </h4>
+                            <ul class="list-unstyled">
+                                {% for org in d.allowed_orgs %}
+                                <li>
+                                    <a href="/organisation/{{org.id}}">
+                                    {{ org.name }}
+                                </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-left">
+                <h3 class="{% if d.allowed %}text-success{% else %}text-danger{% endif %}">
+                {% if d.allowed %}
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                {% else %}
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                {% endif %}
+                </h3>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+
+  </article>
+</div>
+{% endblock contents %}

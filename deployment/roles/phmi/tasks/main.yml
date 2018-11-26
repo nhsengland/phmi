@@ -64,10 +64,15 @@
     chdir: "{{ PROJECT_PATH}}"
   command: "pipenv run python manage.py collectstatic --noinput"
 
-- name: Run Django initial_load
+- name: Load in initial data
   args:
     chdir: "{{ PROJECT_PATH}}"
-  command: "pipenv run python manage.py loaddata data/db-dump.json"
+
+  command: "pipenv run python manage.py {{ item }}"
+  loop:
+     - "add_org_types data/csvs/org-types.csv"
+     - "add_group_types data/csvs/group-types.csv"
+     - "add_orgs"
 
 - name: Remove old nginx default
   become: true

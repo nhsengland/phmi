@@ -80,12 +80,12 @@ class Activity(models.Model):
     name = models.TextField(unique=True)
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
-            "Implied or explicit consent",
-            "Implied or explicit consent,"
+            "Implied consent/reasonable expectations",
+            "Implied consent/reasonable expectations",
         ),
         (
-            "Set aside as data will be de-identified",
-            "Set aside as data will be de-identified",
+            "Set aside as data will be de-identified for this purpose",
+            "Set aside as data will be de-identified for this purpose",
         ),
     )
 
@@ -129,7 +129,7 @@ class LegalMapping(models.Model):
         return "{}: {} - {}".format(
             self.__class__.__name__,
             self.activity.name,
-            self.organisation.name
+            self.org_type.name
         )
 
 

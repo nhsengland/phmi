@@ -122,3 +122,4 @@ dmypy.json
 # deployment
 *.retry
 deployment/group_vars/*
+deployment/ansible.cfg

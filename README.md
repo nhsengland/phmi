@@ -15,24 +15,12 @@ Migrate your database with:
 
     pipenv run python manage.py migrate
 
-Load the data dump:
-
-    pipenv run python manage.py loaddata data/db-dump.json
-
-
-Alternatively you can load the current data from the CSVs:
-
+Load the initial data:
     pipenv run python manage.py add_org_types data/csvs/org-types.csv
     pipenv run python manage.py add_group_types data/csvs/group-types.csv
-    pipenv run python manage.py add_orgs data/csvs/acute-trust.csv
-    pipenv run python manage.py add_orgs data/csvs/ambulance-trust.csv
-    pipenv run python manage.py add_orgs data/csvs/ccg.csv
-    pipenv run python manage.py add_orgs data/csvs/csu.csv
-    pipenv run python manage.py add_orgs data/csvs/community.csv
-    pipenv run python manage.py add_orgs data/csvs/dscro.csv
-    pipenv run python manage.py add_orgs data/csvs/independent-sector.csv
-    pipenv run python manage.py add_orgs data/csvs/local-authority.csv
-    pipenv run python manage.py add_orgs data/csvs/mental-health-trust.csv
+    pipenv run python manage.py add_orgs
+    pipenv run python manage.py load_care_groups
+    pipenv run python manage.py load_activities
 
 Note: the `add_orgs` command will ask which OrgType a given set of Organisations is, the filename should be enough to work that out.
 
