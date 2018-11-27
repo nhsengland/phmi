@@ -13,6 +13,7 @@ whitenoise = "*"
 "boto3" = "*"
 pip = "*"
 django-ses = "*"
+django-markdownify = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

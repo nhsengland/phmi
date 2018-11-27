@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load markdownify %}
 {% block contents %}
 <div class="card-list container main-content">
     <nav class="breadcrumbs">
@@ -33,7 +34,7 @@
             <div class="col-md-8">
                 <h4>{{ justification.name }}</h4>
                 <p>
-                    {{ justification.statute }}
+                    {{ justification.statute|markdownify }}
                 </p>
             </div>
         </div>
