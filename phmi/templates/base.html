@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load utils %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -41,6 +42,24 @@
             </div>
           </div>
         </div>
+        <div class="row header-nav">
+            <div class="col-md-10 col-md-push-1">
+              <nav>
+                <ul>
+                  <li>
+                    <a {% if request|url_name == 'home' %} class="active" {% endif %} href="{% url 'home' %}">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                      <a {% if request|url_name == 'activity-list' %} class="active" {% endif %} href="{% url 'activity-list' %}">
+                        Activities
+                      </a>
+                    </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
       </div>
     </header>
     {% endblock header %}
