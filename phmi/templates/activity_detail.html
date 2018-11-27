@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block contents %}
+<div class="card-list container main-content">
+    <nav class="breadcrumbs">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="{% url "activity-list" %}">
+                    Activities
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <article>
+        <h1 class="title">{{ object.name }}</h1>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    The following types of institution have
+                    a legal basis to perform this activity:
+                </p>
+            </div>
+        </div>
+        {% for org in org_types %}
+        <h2>
+            {{ org.name }}
+        </h2>
+        {% for justification in org.justifications %}
+        <div class="row">
+            <div class="col-md-8">
+                <h4>{{ justification.name }}</h4>
+                <p>
+                    {{ justification.statute }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+        
+        {% endfor %}
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h2>GDPR condition for processing</h2>
+                <p>
+                    Article 6 (e): Official Authority - for
+                    NHS bodies and local authorities
+                </p>
+                <p>
+                    Article 6 (b): Legitimate Interests - for
+                    non-NHS providers and charities
+                </p>
+                <p>
+                    Article 9 (h): Management of a H
+                    ealth or Social Care System
+                </p>
+                <h2>Common law duty of confidence</h2>
+                <p>
+                    {{ object.duty_of_confidence }}
+                </p>
+            </div>
+        </div>
+        
+    </article>
+</div>
+{% endblock contents %}
+

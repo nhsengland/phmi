@@ -242,7 +242,7 @@ class Command(BaseCommand):
                 statute=name_to_statute[name],
                 org_type=org_type
             )
-            justification.activites.add(activitiy)
+            justification.activities.add(activitiy)
 
             if created:
                 count += 1

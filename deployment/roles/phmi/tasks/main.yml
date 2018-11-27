@@ -79,7 +79,7 @@
     chdir: "{{ PROJECT_PATH}}"
   command: "pipenv run python manage.py load_care_groups"
 
-- name: Run Django load activites
+- name: Run Django load activities
   args:
     chdir: "{{ PROJECT_PATH}}"
   command: "pipenv run python manage.py load_activities"

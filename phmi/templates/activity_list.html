@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<div class="card-list container main-content">
+	<article>
+    <h1 class="title">Population health management activities</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          {% for org_type in org_permissions.keys %}
+            <th>
+              {{ org_type.name }}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for activity in object_list %}
+          <tr>
+            <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
+            {% for org_type, allowed_activities in org_permissions.items %}
+            <td>
+              {% if activity in allowed_activities %}
+                <i class="fa fa-check" aria-hidden="true"></i>
+              {% else %}
+                <i class="fa fa-times" aria-hidden="true"></i>
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+	</article>
+</div>
+
+{% endblock %}

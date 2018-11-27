@@ -142,7 +142,7 @@ class OrgDetail(DetailView):
     model = models.Organisation
     template_name = "org_detail.html"
 
-    def get_activites(self):
+    def get_activities(self):
         """
             returns an ordered dictionary of
             {
@@ -178,6 +178,50 @@ class OrgDetail(DetailView):
                 allowed_orgs=allowed_orgs
             )
         return result
+
+
+class ActivityList(IsStaffMixin, ListView):
+    model = models.Activity
+    template_name = "activity_list.html"
+
+    def get_org_permissions(self):
+        """
+        Returns a dictionary of org_type:
+        to a set of activities it can do
+        """
+        org_types = models.OrgType.objects.all()
+        result = {}
+        for org_type in org_types:
+            result[org_type] = org_type.get_activities()
+
+        return result
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        ctx["org_permissions"] = self.get_org_permissions()
+        return ctx
+
+
+class ActivityDetail(IsStaffMixin, DetailView):
+    model = models.Activity
+    template_name = "activity_detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+
+        data = []
+        for orgtype in self.object.get_org_types():
+            data.append(
+                dict(
+                    name=orgtype.name,
+                    justifications=models.LegalJustification.objects.filter(
+                        org_type=orgtype
+                    ).filter(activities=self.object)
+                )
+            )
+
+        ctx["org_types"] = data
+        return ctx
 
 
 class OrganisationAdd(IsStaffMixin, CreateView):

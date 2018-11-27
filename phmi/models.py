@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+from django.utils.text import slugify
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -11,7 +11,6 @@ from django.urls import reverse
 from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
-from django.utils.text import slugify
 from incuna_mail import send
 
 
@@ -77,7 +76,6 @@ class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
 
-    name = models.TextField(unique=True)
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
             "Implied consent/reasonable expectations",
@@ -100,13 +98,16 @@ class Activity(models.Model):
     def get_org_types(self):
         return OrgType.objects.filter(
             legaljustification__in=self.legaljustification_set.all()
-        )
+        ).distinct()
 
     def __str__(self):
         return "{}: {}".format(
             self.__class__.__name__,
             self.name
         )
+
+    def get_absolute_url(self):
+        return reverse("activity-detail", kwargs=dict(pk=self.id))
 
     class Meta:
         ordering = ["name"]
@@ -123,7 +124,7 @@ class LegalJustification(models.Model):
     statute = models.TextField(
         default=""
     )
-    activites = models.ManyToManyField(Activity)
+    activities = models.ManyToManyField(Activity)
 
     def __str__(self):
         return "{}: {}".format(

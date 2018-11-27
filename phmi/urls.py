@@ -21,6 +21,8 @@ from phmi import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.Home.as_view(), name="home"),
+    path("activities", views.ActivityList.as_view(), name="activity-list"),
+    path("activities/<int:pk>", views.ActivityDetail.as_view(), name="activity-detail"),
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", views.Login.as_view(), name="login"),
     path("logout", views.Logout.as_view(), name="logout"),
