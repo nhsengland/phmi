@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='legaljustification',
             name='statute',
-            field=models.TextField(default='', unique=True),
+            field=models.TextField(default=''),
         ),
         migrations.AlterField(
             model_name='activity',
