@@ -88,6 +88,8 @@ class Activity(models.Model):
     )
 
     name = models.TextField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
     duty_of_confidence = models.CharField(
         max_length=256,
         default="",
@@ -107,10 +109,15 @@ class Activity(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse("activity-detail", kwargs=dict(pk=self.id))
+        return reverse("activity-detail", kwargs=dict(slug=self.slug))
 
     class Meta:
         ordering = ["name"]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
 
 
 class LegalJustification(models.Model):

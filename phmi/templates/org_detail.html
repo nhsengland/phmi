@@ -51,6 +51,9 @@
                                     <li>{{ legal_justification }}</li>
                                 {% endfor %}
                             </ul>
+                        <p>
+                            <a href="{{ activity.get_absolute_url }}">Further information</a>
+                        </p>
                     {% endif %}
 
                     {% if d.allowed_orgs %}
