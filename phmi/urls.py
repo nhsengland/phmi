@@ -26,6 +26,7 @@ urlpatterns = [
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", views.Login.as_view(), name="login"),
     path("logout", views.Logout.as_view(), name="logout"),
+    path("group", views.GroupList.as_view(), name="group-list"),
     path("groups/add", views.GroupAdd.as_view(), name="group-add"),
     path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path(

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="card-list container main-content">
+  <article>
+
+    {% if request.user.is_authenticated and request.user.is_staff %}
+      <a href="{% url 'group-add' %}" class="pull-right">Add</a>
+    {% endif %}
+
+    <h1 class="title">
+      Care Systems
+    </h1>
+
+    <div class="row" style="margin-bottom:30px">
+      <div class="col-md-12">
+        <ul id="care-systems" class="list-unstyled">
+          {% for care_system in object_list %}
+            <li>
+              <h3>
+                <a href="{{ care_system.get_absolute_url }}">
+                  {{ care_system.name }}
+                </a>
+                <small>
+                  {{ care_system.type.get_display_name }}
+                </small>
+              </h3>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  {% if request.user.is_authenticated and request.user.is_staff %}
+    {% if object_list.count > 5 %}
+      <a id="add-care-system-another" href="{% url 'group-add' %}">Add</a>
+    {% endif %}
+  {% endif %}
+
+
+  </article>
+</div>
+{% endblock contents %}

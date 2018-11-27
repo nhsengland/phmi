@@ -52,6 +52,11 @@
                     </a>
                   </li>
                   <li>
+                    <a {% if request|url_name == 'group-list' %} class="active" {% endif %} href="{% url 'group-list' %}">
+                      Care Systems
+                    </a>
+                  </li>
+                  <li>
                       <a {% if request|url_name == 'activity-list' %} class="active" {% endif %} href="{% url 'activity-list' %}">
                         Activities
                       </a>

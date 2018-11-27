@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import is_safe_url
 from django.views.generic import (
+    TemplateView,
     CreateView,
     DetailView,
     FormView,
@@ -250,8 +251,12 @@ class OrganisationAdd(IsStaffMixin, CreateView):
         return super().form_valid(form)
 
 
-class Home(ListView):
+class GroupList(ListView):
     model = models.CareSystem
+    template_name = "group_list.html"
+
+
+class Home(TemplateView):
     template_name = "home.html"
 
 
