@@ -137,10 +137,10 @@ header.masthead li {
 header.masthead li a {
   padding: 15px 30px;
   color: white;
-  box-shadow: 0 0 0 4px transparent;
+  box-shadow: inset 0 0 0 4px transparent;
 }
 header.masthead li a:hover {
-  box-shadow: 0 0 0 4px #ffb81c;
+  box-shadow: inset 0 0 0 4px #ffb81c;
 }
 header.masthead li a:hover, header.masthead li a.active {
   background-color: #0072ce;
