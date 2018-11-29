@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="container main-content">
+	<div class="row">
+		<div class="col-md-8">
+			<nav class="breadcrumbs">
+				<ul>
+				<li><a href="/">Home</a></li>
+				<li>Project Description</li>
+				</ul>
+			</nav>
+			<article>
+				<form method="post">
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="projectName">Project Name</label>
+								<input required type="text" name="project_name" class="form-control" id="projectName">
+							</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group">
+									<label for="careSystem">Care System</label>
+									<select required name="care_system" id="careSystem" class="form-control">
+										{% for care_system in view.care_systems %}
+											<option value="{{ care_system.id }}">{{ care_system.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+					</div>
+					<div class="row content-offset-30">
+						<div class="col-md-12">
+							<h2>Governance</h2>
+							<p>
+								Is there a formal governance mechanism in place that meets, as a minimum, the
+								requirements outlined below?
+							</p>
+							<ol>
+								<li>
+									The governance mechanism is formally recognised by seniour leadership of the
+									care system.
+								</li>
+								<li>
+									The governance mechanism is represented on, or has access to, the care
+									system's board (or equivalent very senior mechanism).
+								</li>
+								<li>
+									Is the governance mechanism is regularly attended by each organisation that
+									has current or planned responsibility for data management or information
+									governance relating to PHM within the care system?
+								</li>
+								<li>
+									Is the governance mechanism attended by members with sufficient seniority,
+									authority and subject matter expertise in relation to information
+									governance and data managment? (e.g. Data Protection Officers or Chief
+									Information/Data Officers)?
+								</li>
+							</ol>
+							<div class="form-group">
+								<label class="radio-inline">
+										<input required type="radio" name="governance" value="yes">Yes
+									</label>
+									<label class="radio-inline">
+										<input required type="radio" name="governance" value="no">No
+									</label>
+									<label class="radio-inline">
+										<input required type="radio" name="governance" id="inlineRadio2" value="will_be">Will be
+									</label>
+							</div>
+						</div>
+					</div>
+					<div class="row content-offset-30">
+						<div class="text-center col-md-8 col-md-push-2">
+							<button class="btn btn-success">
+								Continue
+							</button>
+						</div>
+					</div>
+				</form>
+			</article>
+		</div>
+	</div>
+</div>
+{% endblock %}

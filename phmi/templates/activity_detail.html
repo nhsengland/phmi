@@ -25,21 +25,21 @@
                 </p>
             </div>
         </div>
-        {% for org in org_types %}
-        <h2>
-            {{ org.name }}
-        </h2>
-        {% for justification in org.justifications %}
-        <div class="row">
-            <div class="col-md-8">
-                <h4>{{ justification.name }}</h4>
-                <p>
-                    {{ justification.statute|markdownify }}
-                </p>
+        {% for org_type in org_types %}
+            <h2 id="{{ org_type.slug }}">
+                {{ org_type.name }}
+            </h2>
+            {% for justification in org_type.justifications %}
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>{{ justification.name }}</h4>
+                    <p>
+                        {{ justification.statute|markdownify }}
+                    </p>
+                </div>
             </div>
-        </div>
-        {% endfor %}
-        
+            {% endfor %}
+
         {% endfor %}
         
         <div class="row">

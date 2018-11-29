@@ -22,9 +22,10 @@ body {
   margin-top: 0;
   box-sizing: border-box;
   color: $text-colour;
-  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Frutiger W01", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-size: 18px;
+  font-size: 19px;
+  line-height: 28px;
   min-height: 100%;
   overflow-x: hidden;
 }
@@ -450,6 +451,32 @@ hr {
   font-weight: 400;
 }
 
+
+.btn {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+.btn.btn-sm{
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.btn-success {
+  background-color: #007f3b;
+  border-color: #007f3b;
+  border: 3px solid #fff;
+  box-shadow: none;
+
+  &:hover {
+    background-color: #005326;
+    border: 3px solid #ffb81c;
+}
+
 form {
 
   hr {
@@ -483,26 +510,6 @@ form {
     padding-top: 3px;
   }
 
-  .btn {
-    background-image: none;
-    border: none;
-    border-radius: 0;
-    font-size: 18px;
-    padding: 10px 20px;
-  }
-
-  .btn.btn-sm{
-    padding: 5px 10px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .btn-success {
-    background-color: #007f3b;
-
-    &:hover {
-      background-color: #005326;
-    }
   }
 
   label {

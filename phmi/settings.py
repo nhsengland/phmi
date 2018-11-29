@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'markdownify',
     "phmi",
+    "projects",
 ]
 
 if DEBUG:

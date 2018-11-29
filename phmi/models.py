@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import timedelta
 from django.utils.text import slugify
 from django.contrib.auth.models import (
@@ -7,11 +8,17 @@ from django.contrib.auth.models import (
     _user_has_module_perms,
     _user_has_perm,
 )
+from django.utils.functional import cached_property
 from django.urls import reverse
 from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
 from incuna_mail import send
+
+
+class JustificationCache(object):
+    def is_care_system_justified(self):
+        pass
 
 
 class CareSystem(models.Model):
@@ -120,6 +127,35 @@ class Activity(models.Model):
         return super().save(*args, **kwargs)
 
 
+class LegalJustificationQuerySet(models.QuerySet):
+    def by_org_type_and_activity(self, org_types, activities):
+        by_org_type = OrderedDict()
+
+        for org_type in org_types:
+            by_org_type[org_type] = OrderedDict()
+            for activity in activities:
+                by_org_type[org_type][activity] = self.filter(
+                    org_type_id=org_type.id
+                ).filter(
+                    activities=activity
+                )
+
+        return by_org_type
+
+    def by_org_and_activity(self, organisations, activities):
+        result = OrderedDict()
+        org_types = OrgType.objects.filter(orgs__in=organisations).distinct()
+        by_org_type_and_activity = self.by_org_type_and_activity(
+            org_types, activities
+        )
+
+        for organisation in organisations:
+            result[organisation] = by_org_type_and_activity[
+                organisation.type
+            ]
+        return result
+
+
 class LegalJustification(models.Model):
     name = models.TextField()
     org_type = models.ForeignKey(
@@ -132,6 +168,8 @@ class LegalJustification(models.Model):
         default=""
     )
     activities = models.ManyToManyField(Activity)
+
+    objects = LegalJustificationQuerySet.as_manager()
 
     def __str__(self):
         return "{}: {}".format(

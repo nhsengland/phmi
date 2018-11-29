@@ -3,9 +3,10 @@ body {
   margin-top: 0;
   box-sizing: border-box;
   color: #212b32;
-  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Frutiger W01", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-size: 18px;
+  font-size: 19px;
+  line-height: 28px;
   min-height: 100%;
   overflow-x: hidden;
 }
@@ -376,15 +377,39 @@ hr {
   font-weight: 400;
 }
 
-form hr {
+.btn {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+.btn.btn-sm {
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.btn-success {
+  background-color: #007f3b;
+  border-color: #007f3b;
+  border: 3px solid #fff;
+  box-shadow: none;
+}
+.btn-success:hover {
+  background-color: #005326;
+  border: 3px solid #ffb81c;
+}
+.btn-success form hr {
   border-color: #212b32;
   border-style: solid none;
   margin: 10px 0 25px;
 }
-form .form-group {
+.btn-success form .form-group {
   width: 100%;
 }
-form .form-control {
+.btn-success form .form-control {
   border: 2px solid #0b0c0c;
   border-radius: 0;
   font-size: 18px;
@@ -392,45 +417,27 @@ form .form-control {
   line-height: 38px;
   -webkit-appearance: none;
 }
-form .form-control:focus {
+.btn-success form .form-control:focus {
   border-color: #0b0c0c;
   outline: 3px solid #ffb81c;
   outline-offset: 0;
 }
-form select.form-control {
+.btn-success form select.form-control {
   line-height: 20px;
   padding-bottom: 3px;
   padding-top: 3px;
 }
-form .btn {
-  background-image: none;
-  border: none;
-  border-radius: 0;
-  font-size: 18px;
-  padding: 10px 20px;
-}
-form .btn.btn-sm {
-  padding: 5px 10px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-form .btn-success {
-  background-color: #007f3b;
-}
-form .btn-success:hover {
-  background-color: #005326;
-}
-form label {
+.btn-success label {
   margin-right: 10px;
 }
-form #org_list .search-icon {
+.btn-success #org_list .search-icon {
   color: #555;
   position: absolute;
   right: 12px;
   top: 6px;
   font-size: 22px;
 }
-form #org_list .search {
+.btn-success #org_list .search {
   border: 2px solid #0b0c0c;
   color: #555;
   display: block;
@@ -440,29 +447,29 @@ form #org_list .search {
   width: 100%;
   padding-right: 24px;
 }
-form #org_list .search:focus {
+.btn-success #org_list .search:focus {
   outline: 0;
 }
-form #org_list .search::-ms-clear {
+.btn-success #org_list .search::-ms-clear {
   display: none;
 }
-form #org_list ul {
+.btn-success #org_list ul {
   border: 1px solid #d8dde0;
   border-top: 0;
   height: 400px;
   overflow: scroll;
 }
-form #org_list ul li {
+.btn-success #org_list ul li {
   border-bottom: 1px solid #d8dde0;
   padding: 6px 12px;
 }
-form .org {
+.btn-success .org {
   cursor: pointer;
 }
-form table {
+.btn-success table {
   border: 1px solid #d8dde0;
 }
-form table thead {
+.btn-success table thead {
   background-color: #d8dde0;
 }
 

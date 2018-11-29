@@ -215,6 +215,7 @@ class ActivityDetail(IsStaffMixin, DetailView):
             data.append(
                 dict(
                     name=orgtype.name,
+                    slug=orgtype.slug,
                     justifications=models.LegalJustification.objects.filter(
                         org_type=orgtype
                     ).filter(activities=self.object)
@@ -255,9 +256,6 @@ class GroupList(ListView):
     model = models.CareSystem
     template_name = "group_list.html"
 
-
-class Home(TemplateView):
-    template_name = "home.html"
 
 
 class Logout(View):

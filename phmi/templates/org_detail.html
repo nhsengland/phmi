@@ -21,7 +21,7 @@
         {% for activity, d in view.get_activities.items %}
         <div class="row">
             <div class="col-md-8">
-                <h3 class="{% if d.allowed %}text-success{% else %}text-danger{% endif %}">
+                <h3 id="{{ activity.slug }}" class="{% if d.allowed %}text-success{% else %}text-danger{% endif %}">
                     {{ activity.name }}
                 </h3>
                 <div class="row">
