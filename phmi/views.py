@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import login, logout
 from django.db.models.functions import Lower
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.http import is_safe_url
 from django.views.generic import (
     TemplateView,
@@ -39,7 +39,16 @@ class IsStaffMixin(UserPassesTestMixin):
         return self.request.user.is_staff
 
 
+class AbstractPhmiView(object):
+    page_width = "col-md-8"
+
+    def get_breadcrumbs(self):
+        return getattr(self, "breadcrumbs", [])
+
+
 class GroupChangeMixin(object):
+    page_width = "col-md-12"
+
     def get_success_url(self):
         # add_org is added by the submit button to add a new
         # organisation, ie when an organisation is not found
@@ -52,10 +61,17 @@ class GroupChangeMixin(object):
             return super().get_success_url()
 
 
-class GroupAdd(IsStaffMixin, GroupChangeMixin, CreateView):
+class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
     form_class = CareSystemForm
     model = models.CareSystem
     template_name = "group_form.html"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Care systems", reverse("group-list")),
+            ("Add", "")
+        )
 
     def form_valid(self, form):
         # create the CareSystem
@@ -74,9 +90,16 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, CreateView):
         return kwargs
 
 
-class GroupDetail(DetailView):
+class GroupDetail(AbstractPhmiView, DetailView):
     model = models.CareSystem
     template_name = "group_detail.html"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Care systems", reverse("group-list")),
+            (self.object.name, "")
+        )
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
@@ -105,10 +128,18 @@ class GroupDetail(DetailView):
         return ctx
 
 
-class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
+class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
     form_class = CareSystemForm
     model = models.CareSystem
     template_name = "group_form.html"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Care systems", reverse("group-list")),
+            (self.object.name, self.object.get_absolute_url()),
+            ("Edit", "")
+        )
 
     def form_valid(self, form):
         # create the CareSystem
@@ -139,9 +170,23 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, UpdateView):
         return super().get_object(queryset=qs)
 
 
-class OrgDetail(DetailView):
+class OrgDetail(AbstractPhmiView, DetailView):
     model = models.Organisation
     template_name = "org_detail.html"
+    page_width = "col-md-10"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/",),
+            ("Care systems", reverse("group-list")),
+            (
+                self.object.care_system.first().name,
+                self.object.care_system.first().get_absolute_url()
+            ),
+            (
+                self.object.name, ""
+            )
+        )
 
     def get_activities(self):
         """
@@ -181,9 +226,15 @@ class OrgDetail(DetailView):
         return result
 
 
-class ActivityList(IsStaffMixin, ListView):
+class ActivityList(AbstractPhmiView, IsStaffMixin, ListView):
     model = models.Activity
     template_name = "activity_list.html"
+    page_width = "col-md-12"
+
+    breadcrumbs = (
+        ("Home", "/"),
+        ("Activities", "")
+    )
 
     def get_org_permissions(self):
         """
@@ -203,9 +254,17 @@ class ActivityList(IsStaffMixin, ListView):
         return ctx
 
 
-class ActivityDetail(IsStaffMixin, DetailView):
+class ActivityDetail(AbstractPhmiView, IsStaffMixin, DetailView):
     model = models.Activity
     template_name = "activity_detail.html"
+    page_width = "col-md-12"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Activities", reverse("activity-list")),
+            (self.object.name, self.object.get_absolute_url())
+        )
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
@@ -226,7 +285,7 @@ class ActivityDetail(IsStaffMixin, DetailView):
         return ctx
 
 
-class OrganisationAdd(IsStaffMixin, CreateView):
+class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
     form_class = OrganisationForm
     model = models.Organisation
     template_name = "organisation_form.html"
@@ -252,10 +311,13 @@ class OrganisationAdd(IsStaffMixin, CreateView):
         return super().form_valid(form)
 
 
-class GroupList(ListView):
+class GroupList(AbstractPhmiView, ListView):
+    breadcrumbs = (
+        ("Home", "/"),
+        ("Care systems", "")
+    )
     model = models.CareSystem
     template_name = "group_list.html"
-
 
 
 class Logout(View):

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<div class="card-list container main-content">
   <article>
 
     {% if request.user.is_authenticated and request.user.is_staff %}
@@ -20,10 +19,10 @@
               <h3>
                 <a href="{{ care_system.get_absolute_url }}">
                   {{ care_system.name }}
+                  <small>
+                      {{ care_system.type.get_display_name }}
+                  </small>
                 </a>
-                <small>
-                  {{ care_system.type.get_display_name }}
-                </small>
               </h3>
             </li>
           {% endfor %}
@@ -36,8 +35,5 @@
       <a id="add-care-system-another" href="{% url 'group-add' %}">Add</a>
     {% endif %}
   {% endif %}
-
-
   </article>
-</div>
 {% endblock contents %}

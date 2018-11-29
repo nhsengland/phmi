@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block contents %}
-<div class="container main-content">
     <div class="row content-offset">
         <div class="col-md-8">
             <p>
@@ -11,12 +10,9 @@
             </p>
         </div>
     </div>
-    <div class="row content-offset-30">
+    <div class="row content-offset content-offset-below">
         <div class="col-md-8">
             <a href="{% url 'project-location' %}" class="btn btn-success">Assess your project</a>
         </div>
     </div>
-
-</div>
-
 {% endblock %}

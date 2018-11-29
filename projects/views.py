@@ -15,9 +15,10 @@ from django.views.generic import (
     View,
 )
 from phmi import models
+from phmi import views as phmi_views
 
 
-class AbstractProjectView(TemplateView):
+class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
     def decode_location_sign(self):
         if "location_sign" not in self.kwargs:
             return {}
@@ -56,12 +57,16 @@ class AbstractProjectView(TemplateView):
         return ctx
 
 
-class Home(TemplateView):
+class Home(AbstractProjectView):
     template_name = "home.html"
 
 
 class ProjectLocationView(AbstractProjectView):
     template_name = "projects/location.html"
+    breadcrumbs = (
+        ("Home", "/"),
+        ("Project description", "")
+    )
 
     def post(self, *args, **kwargs):
         care_system = get_object_or_404(
@@ -85,6 +90,13 @@ class ProjectLocationView(AbstractProjectView):
 class ProjectActivityView(AbstractProjectView):
     template_name = "projects/activity.html"
 
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Project description", reverse('project-location')),
+            ("Project activities", "")
+        )
+
     def post(self, *args, **kwargs):
         activity_ids = [int(i) for i in self.request.POST.getlist("activities")]
         activities = models.Activity.objects.filter(id__in=activity_ids)
@@ -103,6 +115,21 @@ class ProjectActivityView(AbstractProjectView):
 
 class ProjectResultView(AbstractProjectView):
     template_name = "projects/result.html"
+
+    def get_breadcrumbs(self):
+        return (
+            ("Home", "/"),
+            ("Project description", reverse("project-location")),
+            (
+                "Project activity",
+                reverse(
+                    "project-activity", kwargs=dict(
+                        location_sign=self.kwargs["location_sign"]
+                    )
+                )
+            ),
+            ("Project results", "")
+        )
 
     def get_org_by_activity(self, care_system, project_activities):
         org_types = models.OrgType.objects.filter(

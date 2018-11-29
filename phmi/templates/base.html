@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Data Sharing Dashboard{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -83,7 +84,19 @@
     </div>
     {% endif %}
 
-    {% block contents %} {% endblock contents %}
+    <div class="container">
+      <div class="row">
+        <div class="{{ view.page_width }}">
+          {% block breadcrumbs %}
+            {% if view.get_breadcrumbs %}
+              {% breadcrumbs view.get_breadcrumbs %}
+            {% endif %}
+          {% endblock %}
+          {% block contents %}
+          {% endblock contents %}
+        </div>
+      </div>
+    </div>
 
     {% block footer %}
     <div class="row footer-cover">

@@ -1,22 +1,9 @@
 {% extends 'base.html' %}
 {% load markdownify %}
 {% block contents %}
-<div class="card-list container main-content">
-    <nav class="breadcrumbs">
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="{% url "activity-list" %}">
-                    Activities
-                </a>
-            </li>
-        </ul>
-    </nav>
     <article>
-        <h1 class="title">{{ object.name }}</h1>
-        
+        <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
+
         <div class="row">
             <div class="col-md-12">
                 <p>
@@ -26,7 +13,7 @@
             </div>
         </div>
         {% for org_type in org_types %}
-            <h2 id="{{ org_type.slug }}">
+            <h2 class="nhsuk-heading-l" id="{{ org_type.slug }}">
                 {{ org_type.name }}
             </h2>
             {% for justification in org_type.justifications %}
@@ -63,8 +50,6 @@
                 </p>
             </div>
         </div>
-        
     </article>
-</div>
 {% endblock contents %}
 

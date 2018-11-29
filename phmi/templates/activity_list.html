@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block contents %}
-<div class="card-list container main-content">
 	<article>
     <h1 class="title">Population health management activities</h1>
     <table class="table">
@@ -22,9 +21,9 @@
             {% for org_type, allowed_activities in org_permissions.items %}
             <td>
               {% if activity in allowed_activities %}
-                <i class="fa fa-check" aria-hidden="true"></i>
+                {% include "icons/tick.html" %}
               {% else %}
-                <i class="fa fa-times" aria-hidden="true"></i>
+                {% include "icons/cross.html" %}
               {% endif %}
             </td>
             {% endfor %}
@@ -32,10 +31,5 @@
         {% endfor %}
       </tbody>
     </table>
-
-
-
 	</article>
-</div>
-
 {% endblock %}

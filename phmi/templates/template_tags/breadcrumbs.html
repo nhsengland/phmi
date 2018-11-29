@@ -1,0 +1,14 @@
+<nav class="breadcrumbs content-offset-24">
+    <ul>
+      {% for name, link in breadcrumbs %}
+        <li>
+          {% if link %}
+            <a href="{{ link }}">{{ name }}</a>
+          {% else %}
+            {{ name }}
+          {% endif %}
+        </li>
+
+      {% endfor %}
+    </ul>
+  </nav>

@@ -1,16 +1,7 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<div class="container main-content">
-  <nav class="breadcrumbs">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li>{{ caresystem.name }}</li>
-    </ul>
-  </nav>
-
   <article>
-
     {% if request.user.is_authenticated and request.user.is_staff %}
     <a href="{% url 'group-edit' pk=caresystem.id %}" class="pull-right">Edit</a>
     {% endif %}
@@ -33,7 +24,5 @@
         </div>
       </div>
     {% endfor %}
-
   </article>
-</div>
 {% endblock contents %}
