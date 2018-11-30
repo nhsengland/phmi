@@ -16,11 +16,6 @@ from django.utils import timezone
 from incuna_mail import send
 
 
-class JustificationCache(object):
-    def is_care_system_justified(self):
-        pass
-
-
 class CareSystem(models.Model):
     type = models.ForeignKey(
         "GroupType", on_delete=models.CASCADE, related_name="care_systems"
