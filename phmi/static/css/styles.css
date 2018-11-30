@@ -547,9 +547,10 @@ p {
 a {
   color: #005eb8;
   cursor: pointer;
+  text-decoration: none;
 }
 a:visited {
-  color: #330072;
+  color: #005eb8;
 }
 a:hover {
   background: #ffcd60;
@@ -561,6 +562,7 @@ a:focus {
   background: #ffb81c;
   box-shadow: 0 0 0 4px #ffb81c;
   color: #212b32;
+  text-decoration: none;
   outline: 0;
 }
 
