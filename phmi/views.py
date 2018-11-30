@@ -173,16 +173,12 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
 class OrgDetail(AbstractPhmiView, DetailView):
     model = models.Organisation
     template_name = "org_detail.html"
-    page_width = "col-md-10"
+    page_width = "col-md-12"
 
     def get_breadcrumbs(self):
         return (
             ("Home", "/",),
-            ("Care systems", reverse("group-list")),
-            (
-                self.object.care_system.first().name,
-                self.object.care_system.first().get_absolute_url()
-            ),
+            ("Organizations", ""),
             (
                 self.object.name, ""
             )
@@ -226,7 +222,7 @@ class OrgDetail(AbstractPhmiView, DetailView):
         return result
 
 
-class ActivityList(AbstractPhmiView, IsStaffMixin, ListView):
+class ActivityList(AbstractPhmiView, ListView):
     model = models.Activity
     template_name = "activity_list.html"
     page_width = "col-md-12"
@@ -254,7 +250,7 @@ class ActivityList(AbstractPhmiView, IsStaffMixin, ListView):
         return ctx
 
 
-class ActivityDetail(AbstractPhmiView, IsStaffMixin, DetailView):
+class ActivityDetail(AbstractPhmiView, DetailView):
     model = models.Activity
     template_name = "activity_detail.html"
     page_width = "col-md-12"

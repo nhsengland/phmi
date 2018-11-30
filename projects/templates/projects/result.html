@@ -10,7 +10,7 @@
       <div class="col-md-12">
       <h2 class="nhsuk-heading-l">Population health management activities</h2>
         <p>
-          This project will perform the following activities
+          This project will include the following activities:
           <ol>
             {% for project_activity in project_activities %}
               <li>
@@ -27,8 +27,8 @@
         <h2 class="nhsuk-heading-l">Results</h2>
         {% if justified_orgs %}
           <p>
-            The following organisations have legal justification
-            to carry out these activities
+            The following organizations have a stautory legal basis
+            to carry out these activities.
           </p>
           <ul>
             {% for organisation in justified_orgs %}
@@ -41,8 +41,8 @@
           </ul>
         {% else %}
           <p>
-            No single organization within {{ project_name }} can conduct all these
-            activities
+            No single organization within {{ project_name }} has a legal basis to
+            conduct all of the activities included in this project.
           </p>
         {% endif %}
       </div>
@@ -51,12 +51,16 @@
       <div class="col-md-12">
         <hr />
         <h2 class="nhsuk-heading-l">Organization eligibility</h2>
-        <table class="table">
+        <table class="table content-offset-24">
           <thead>
             <tr>
               <th>Organization</th>
+              <th colspan="{{ project_activities | length }}">Activity number</th>
+            </tr>
+            <tr>
+              <th></th>
               {% for project_activity in project_activities %}
-                <th>{{ forloop.counter0 }}</th>
+                <th>{{ forloop.counter }}</th>
               {% endfor %}
             </tr>
           </thead>
