@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% block contents %}
 <article>
+	<h1 class="nhsuk-heading-xl">
+		Assess your project
+	</h1>
 	<form method="post">
 		{% csrf_token %}
 		<div class="row content-offset-24">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="form-group">
-					<label for="projectName">Project Name</label>
+					<label for="projectName">Project name</label>
 					<input required type="text" name="project_name" class="form-control" id="projectName">
 				</div>
 			</div>
-			<div class="col-md-6">
+		</div>
+		<div class="row">
+			<div class="col-md-8">
 					<div class="form-group">
-						<label for="careSystem">Care System</label>
+						<label for="careSystem">Care system</label>
 						<select required name="care_system" id="careSystem" class="form-control">
 							{% for care_system in view.care_systems %}
 								<option value="{{ care_system.id }}">{{ care_system.name }}</option>
@@ -63,7 +68,7 @@
 			</div>
 		</div>
 		<div class="row content-offset-40">
-			<div class="text-center col-md-8 col-md-push-2">
+			<div class="col-md-8">
 				<button class="btn btn-success">
 					Continue
 				</button>
