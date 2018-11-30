@@ -19,6 +19,7 @@
 					<div class="form-group">
 						<label for="careSystem">Care system</label>
 						<select required name="care_system" id="careSystem" class="form-control">
+								<option value="" selected disabled hidden>--------</option>
 							{% for care_system in view.care_systems %}
 								<option value="{{ care_system.id }}">{{ care_system.name }}</option>
 							{% endfor %}
