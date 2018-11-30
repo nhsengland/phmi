@@ -5,7 +5,32 @@
     <h1 class="title">{{ object.name }} <small>({{ object.type.name }})</small></h1>
     <h2 class="text-muted">
         Population health management activities
-    </h2>
+		</h2>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Activity</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for activity, d in view.get_activities.items %}
+					<tr>
+						<td><a href="#{{ activity.slug }}">{{ activity.name }}</a></td>
+						<td>
+							{% if d.allowed %}
+								{% include "icons/tick.html" %}
+							{% else %}
+								{% include "icons/cross.html" %}
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
     {% for activity, d in view.get_activities.items %}
     <div class="row">
         <div class="col-md-8">
