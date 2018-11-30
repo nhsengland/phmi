@@ -12,7 +12,8 @@ $tertiary-colour-text: #425563;
 $subheader-text-colour: #003087;
 
 $black: #0b0c0c;
-$yellow: #ffb81c;
+$warm-yellow: #ffb81c;
+$yellow: #ffcd60;
 
 $text-colour: #212b32;
 $text-colour-on-dark: #FFF;
@@ -177,7 +178,7 @@ header.masthead{
       box-shadow: inset 0 0 0 4px transparent;
 
       &:hover{
-        box-shadow: inset 0 0 0 4px $yellow;
+        box-shadow: inset 0 0 0 4px $warm-yellow;
       }
 
       &:hover, &.active{
@@ -505,7 +506,7 @@ hr {
 
   &:hover {
     background-color: #005326;
-    border: 3px solid $yellow;
+    border: 3px solid $warm-yellow;
   }
 }
 
@@ -531,7 +532,7 @@ form {
 
     &:focus {
       border-color: $black;
-      outline: 3px solid $yellow;
+      outline: 3px solid $warm-yellow;
       outline-offset: 0;
     }
   }
@@ -650,24 +651,26 @@ p{
 }
 
 a{
-  color: #005eb8;
+  color: $primary-colour;
   cursor: pointer;
+  text-decoration: none;
 
   &:visited{
-    color: #330072;
+    color: $primary-colour;
   }
 
   &:hover{
-    background: #ffcd60;
-    box-shadow: 0 0 0 4px #ffcd60;
+    background: $yellow;
+    box-shadow: 0 0 0 4px $yellow;
     color: #212b32;
     text-decoration: none;
   }
 
   &:focus{
-    background: $yellow;
-    box-shadow: 0 0 0 4px $yellow;
+    background: $warm-yellow;
+    box-shadow: 0 0 0 4px $warm-yellow;
     color: #212b32;
+    text-decoration: none;
     outline: 0;
   }
 }
