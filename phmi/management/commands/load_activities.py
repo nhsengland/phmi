@@ -215,7 +215,7 @@ class Command(BaseCommand):
         We can't just use the suffix as for some suffixes there is both
         a DUTY and a POWER
         """
-        file_name = "data/csvs/activities/{}.csv".format(
+        file_name = "data/csvs/statutes/{}.csv".format(
             org_type.name.lower().replace(" ", "-")
         )
         count = 0
