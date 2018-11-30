@@ -17,13 +17,16 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from phmi import views
+from projects import urls as project_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.Home.as_view(), name="home"),
+    path("activities", views.ActivityList.as_view(), name="activity-list"),
+    path("activities/<slug>", views.ActivityDetail.as_view(), name="activity-detail"),
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", views.Login.as_view(), name="login"),
     path("logout", views.Logout.as_view(), name="logout"),
+    path("group", views.GroupList.as_view(), name="group-list"),
     path("groups/add", views.GroupAdd.as_view(), name="group-add"),
     path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path(
@@ -41,6 +44,8 @@ urlpatterns = [
         name="organisation-add"
     ),
 ]
+
+urlpatterns += project_urls.urlpatterns
 
 
 if settings.DEBUG:

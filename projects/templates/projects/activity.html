@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block contents %}
+	<article>
+		<form method="post">
+			{% csrf_token %}
+			<h1 class="nhsuk-heading-xl">{{ project_name }}</h1>
+			<h3 class="text-muted subheader">
+					{{ care_system.name }}
+			</h3>
+
+			<h2 class="nhsuk-heading-l">Population health management activities</h2>
+			<p>
+				Select all activities that will be undertaken
+				during the course of this project.
+			</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Activity</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for activity in view.activities %}
+						<tr>
+							<td>
+								<input type="checkbox" name="activities" id="activities" value="{{ activity.id }}">
+							</td>
+							<td>
+								{{ activity.name }}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-md-12">
+					<button class="btn btn-success">
+						Continue
+					</button>
+				</div>
+			</div>
+		</form>
+	</article>
+{% endblock %}

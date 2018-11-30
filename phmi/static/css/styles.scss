@@ -2,6 +2,8 @@ $primary-colour: #005eb8;
 $primary-colour-light: #0072ce;
 $secondary-colour: #003893;
 
+$danger-color: darken(#da291c, 5%);
+
 // the grey used in the side bars
 $tertiary-colour: #e8edee;
 // the text colour used on that grey
@@ -10,10 +12,11 @@ $tertiary-colour-text: #425563;
 $subheader-text-colour: #003087;
 
 $black: #0b0c0c;
+$yellow: #ffb81c;
 
 $text-colour: #212b32;
 $text-colour-on-dark: #FFF;
-$footer-height: 300px;
+$footer-height: 350px;
 $main-content-margin: 20px;
 
 
@@ -22,9 +25,10 @@ body {
   margin-top: 0;
   box-sizing: border-box;
   color: $text-colour;
-  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Frutiger W01", 'Hind', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-size: 18px;
+  font-size: 19px;
+  line-height: 28px;
   min-height: 100%;
   overflow-x: hidden;
 }
@@ -32,6 +36,10 @@ body {
 .header-img{
   max-width: 100%;
   border: 5px solid #e8edee;
+}
+
+.text-danger{
+  color: $danger-color;
 }
 
 .breadcrumbs {
@@ -65,8 +73,20 @@ body {
   margin-top: 50px;
 }
 
-.content-offset-30{
-  margin-top: 30px;
+.content-offset-24{
+  margin-top: 24px;
+}
+
+.content-offset-below-24{
+  margin-top: 24px;
+}
+
+.content-offset-40{
+  margin-top: 40px;
+}
+
+.content-offset-80{
+  margin-top: 80px;
 }
 
 .content-offset-below{
@@ -86,8 +106,7 @@ body {
 }
 
 h3.subheader{
-  color: $subheader-text-colour;
-  margin-top: 30px;
+  margin-top: 5px;
   margin-bottom: 20px;
 }
 
@@ -121,10 +140,16 @@ header.masthead{
     overflow-y: hidden;
   }
 
-  .logo img{
-    display: inline-block;
-    height: 90px;
-    width: auto;
+  .logo{
+    &:hover{
+      background-color: transparent;
+      box-shadow: 0 0 0 4px transparent;
+    }
+    & img{
+      display: inline-block;
+      height: 90px;
+      width: auto;
+    }
   }
 
   .subtitle{
@@ -138,7 +163,7 @@ header.masthead{
   }
 
   .header-nav{
-    height: 35px;
+    height: 65px;
   }
   ul{
     padding-left: 0;
@@ -149,6 +174,11 @@ header.masthead{
     a{
       padding: 15px 30px;
       color: white;
+      box-shadow: inset 0 0 0 4px transparent;
+
+      &:hover{
+        box-shadow: inset 0 0 0 4px $yellow;
+      }
 
       &:hover, &.active{
         background-color: #0072ce;
@@ -253,10 +283,6 @@ footer{
 
 .coloured-header{
   color: $subheader-text-colour;
-}
-
-.main-content{
-  margin-top: $main-content-margin;
 }
 
 h1{
@@ -450,6 +476,39 @@ hr {
   font-weight: 400;
 }
 
+
+.btn {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  font-size: 18px;
+  padding: 10px 20px;
+  color: #FFF;
+
+  &:focus, &:hover, &:visited{
+    color: #FFF;
+  }
+}
+
+.btn.btn-sm{
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.btn-success {
+  background-color: #007f3b;
+  border-color: #007f3b;
+  border: 3px solid #fff;
+  box-shadow: none;
+  color: white;
+
+  &:hover {
+    background-color: #005326;
+    border: 3px solid $yellow;
+  }
+}
+
 form {
 
   hr {
@@ -472,7 +531,7 @@ form {
 
     &:focus {
       border-color: $black;
-      outline: 3px solid #ffb81c;
+      outline: 3px solid $yellow;
       outline-offset: 0;
     }
   }
@@ -483,90 +542,170 @@ form {
     padding-top: 3px;
   }
 
-  .btn {
-    background-image: none;
-    border: none;
-    border-radius: 0;
-    font-size: 18px;
-    padding: 10px 20px;
-  }
+}
 
-  .btn.btn-sm{
-    padding: 5px 10px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+.list-unstyled{
+  margin: 0;
+}
 
-  .btn-success {
-    background-color: #007f3b;
-
-    &:hover {
-      background-color: #005326;
-    }
-  }
-
-  label {
-    margin-right: 10px;
-  }
+label {
+  margin-right: 10px;
+}
 
   // List filter
-  #org_list {
-    .search-icon{
-      color: #555;
-      position: absolute;
-      right: 12px;
-      top: 6px;
-      font-size: 22px
+#org_list {
+  .search-icon{
+    color: #555;
+    position: absolute;
+    right: 12px;
+    top: 6px;
+    font-size: 22px;
+    // position: absolute;
+    // right: 10px;
+    // top: 4px;
+  }
+
+  .search {
+    border: 2px solid $black;
+    color: #555;
+    display: block;
+    font-size: 18px;
+    line-height: 38px;
+    padding-left: 12px;
+    width: 100%;
+    padding-right: 24px;
+
+    &:focus {
+      outline: 0;
     }
 
-    .search {
-      border: 2px solid $black;
-      color: #555;
-      display: block;
-      font-size: 18px;
-      line-height: 38px;
-      padding-left: 12px;
-      width: 100%;
-      padding-right: 24px;
-
-      &:focus {
-        outline: 0;
-      }
-
-      &::-ms-clear {
-        display: none;
-      }
-
-
-    }
-
-    ul {
-      border: 1px solid #d8dde0;
-      border-top: 0;
-      height: 400px;
-      overflow: scroll;
-
-      li {
-        border-bottom: 1px solid #d8dde0;
-        padding: 6px 12px;
-      }
+    &::-ms-clear {
+      display: none;
     }
   }
 
-  .org{
-    cursor: pointer;
-  }
-
-  table {
+  ul {
     border: 1px solid #d8dde0;
+    border-top: 0;
+    height: 400px;
+    overflow: scroll;
 
-    thead {
-      background-color: #d8dde0;
+    li {
+      border-bottom: 1px solid #d8dde0;
+      padding: 6px 12px;
     }
   }
+}
 
+.org{
+  cursor: pointer;
+}
+
+table {
+  border: 1px solid #d8dde0;
+
+  thead {
+    background-color: #d8dde0;
+  }
 }
 
 #no-items{
   display: none;
+}
+
+// NHS England typography classes
+.nhsuk-heading-xl{
+  font-size: 2em;
+  line-height: 36px;
+  margin: 56px 0 0;
+}
+
+.nhsuk-heading-l{
+  font-size: 1.5em;
+  line-height: 32px;
+  margin: 40px 0 0;
+}
+
+
+.nhsuk-heading-m{
+  font-size: 1.25em;
+  line-height: 28px;
+  margin: 32px 0 0;
+}
+
+.nhsuk-heading-s{
+  font-size: 1.125em;
+  line-height: 28px;
+  margin: 24px 0 0;
+}
+
+.nhsuk-heading-xs, h5 {
+  font-size: 1em;
+  line-height: 24px;
+  margin: 16px 0 0;
+}
+
+p{
+  margin-top: 24px;
+}
+
+a{
+  color: #005eb8;
+  cursor: pointer;
+
+  &:visited{
+    color: #330072;
+  }
+
+  &:hover{
+    background: #ffcd60;
+    box-shadow: 0 0 0 4px #ffcd60;
+    color: #212b32;
+    text-decoration: none;
+  }
+
+  &:focus{
+    background: $yellow;
+    box-shadow: 0 0 0 4px $yellow;
+    color: #212b32;
+    outline: 0;
+  }
+}
+
+ol li, ul li {
+  margin: 8px 0 0;
+}
+
+ol, ul {
+  font-weight: 400;
+  margin: 16px 0 0;
+  padding-left: 20px;
+}
+
+.nhsuk-icon__tick {
+  fill: none;
+  stroke: #007f3b;
+}
+
+.nhsuk-icon {
+  display: block;
+  height: 30px;
+  width: 30px;
+
+}
+
+.nhsuk-icon-container{
+  display: block;
+  height: 30px;
+  width: 30px;
+  margin-top: -2px;
+  margin-left: -10px;
+}
+
+svg:not(:root), symbol, image, marker, pattern, foreignObject {
+  overflow: hidden;
+}
+
+.nhsuk-icon__cross {
+  fill: #da291c;
 }

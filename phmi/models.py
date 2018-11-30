@@ -1,5 +1,6 @@
+from collections import OrderedDict
 from datetime import timedelta
-
+from django.utils.text import slugify
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -7,11 +8,11 @@ from django.contrib.auth.models import (
     _user_has_module_perms,
     _user_has_perm,
 )
+from django.utils.functional import cached_property
 from django.urls import reverse
 from django.core.signing import TimestampSigner
 from django.db import models
 from django.utils import timezone
-from django.utils.text import slugify
 from incuna_mail import send
 
 
@@ -55,16 +56,17 @@ class OrgType(models.Model):
         max_length=256, unique=True
     )
     slug = models.SlugField(unique=True, blank=True, null=True)
-    activities = models.ManyToManyField(
-        "Activity",
-        through="LegalMapping"
-    )
 
     class Meta:
         ordering = ["name"]
 
     def __str__(self):
         return self.name
+
+    def get_activities(self):
+        return Activity.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        )
 
     def save(self):
         if not self.slug:
@@ -76,19 +78,20 @@ class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
 
-    name = models.TextField(unique=True)
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
-            "Implied or explicit consent",
-            "Implied or explicit consent,"
+            "Implied consent/reasonable expectations",
+            "Implied consent/reasonable expectations",
         ),
         (
-            "Set aside as data will be de-identified",
-            "Set aside as data will be de-identified",
+            "Set aside as data will be de-identified for this purpose",
+            "Set aside as data will be de-identified for this purpose",
         ),
     )
 
     name = models.TextField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
     duty_of_confidence = models.CharField(
         max_length=256,
         default="",
@@ -96,18 +99,72 @@ class Activity(models.Model):
         choices=DUTY_OF_CONFIDENCE_CHOICES
     )
 
+    def get_org_types(self):
+        return OrgType.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        ).distinct()
+
     def __str__(self):
         return "{}: {}".format(
             self.__class__.__name__,
             self.name
         )
 
+    def get_absolute_url(self):
+        return reverse("activity-detail", kwargs=dict(slug=self.slug))
+
     class Meta:
         ordering = ["name"]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
+
+
+class LegalJustificationQuerySet(models.QuerySet):
+    def by_org_type_and_activity(self, org_types, activities):
+        by_org_type = OrderedDict()
+
+        for org_type in org_types:
+            by_org_type[org_type] = OrderedDict()
+            for activity in activities:
+                by_org_type[org_type][activity] = self.filter(
+                    org_type_id=org_type.id
+                ).filter(
+                    activities=activity
+                )
+
+        return by_org_type
+
+    def by_org_and_activity(self, organisations, activities):
+        result = OrderedDict()
+        org_types = OrgType.objects.filter(orgs__in=organisations).distinct()
+        by_org_type_and_activity = self.by_org_type_and_activity(
+            org_types, activities
+        )
+
+        for organisation in organisations:
+            result[organisation] = by_org_type_and_activity[
+                organisation.type
+            ]
+        return result
 
 
 class LegalJustification(models.Model):
-    name = models.TextField(unique=True)
+    name = models.TextField()
+    org_type = models.ForeignKey(
+        OrgType,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    statute = models.TextField(
+        default=""
+    )
+    activities = models.ManyToManyField(Activity)
+
+    objects = LegalJustificationQuerySet.as_manager()
 
     def __str__(self):
         return "{}: {}".format(
@@ -117,19 +174,7 @@ class LegalJustification(models.Model):
 
     class Meta:
         ordering = ["name"]
-
-
-class LegalMapping(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    org_type = models.ForeignKey(OrgType, on_delete=models.CASCADE)
-    justification = models.ManyToManyField(LegalJustification)
-
-    def __str__(self):
-        return "{}: {} - {}".format(
-            self.__class__.__name__,
-            self.activity.name,
-            self.organisation.name
-        )
+        unique_together = (("name", "org_type",),)
 
 
 class Organisation(models.Model):

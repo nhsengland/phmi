@@ -1,11 +1,13 @@
 {% load staticfiles %}
+{% load utils %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}IG Dashboard{% endblock %}</title>
+    <title>{% block title %}Data Sharing Dashboard{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -24,16 +26,16 @@
   <body data-spy="scroll" data-target="#navbar-example">
     {% block header %}
     <header class="masthead">
-      <div style="overflow-y: hidden" class="container-fluid">
+      <div style="overflow-y: hidden" class="container">
         <div class="row">
-          <div class="col-md-10 col-md-push-1">
+          <div class="col-md-12">
             <div class="row banner">
               <div class="col-md-12">
                 <div class="top-logo">
                   <hgroup class="header-strapline">
                     <a class="logo" href="/">
                       <img src="{% static "/img/logos/nhs-england-logo-rev.svg" %}" alt="NHS England Logo" title="NHS England" data-intro="Clicking on this logo will always take you back to the homepage (just in case you get lost).">
-                      <h2 class="subtitle">IG Dashboard</h2>
+                      <h2 class="subtitle">Data Sharing Dashboard</h2>
                     </a>
                   </hgroup>
                 </div>
@@ -41,6 +43,29 @@
             </div>
           </div>
         </div>
+        <div class="row header-nav">
+            <div class="col-md-12">
+              <nav>
+                <ul>
+                  <li>
+                    <a {% if request|url_name == 'home' %} class="active" {% endif %} href="{% url 'home' %}">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a {% if request|url_name == 'group-list' %} class="active" {% endif %} href="{% url 'group-list' %}">
+                      Care Systems
+                    </a>
+                  </li>
+                  <li>
+                      <a {% if request|url_name == 'activity-list' %} class="active" {% endif %} href="{% url 'activity-list' %}">
+                        Activities
+                      </a>
+                    </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
       </div>
     </header>
     {% endblock header %}
@@ -59,14 +84,26 @@
     </div>
     {% endif %}
 
-    {% block contents %} {% endblock contents %}
+    <div class="container">
+      <div class="row">
+        <div class="{{ view.page_width }}">
+          {% block breadcrumbs %}
+            {% if view.get_breadcrumbs %}
+              {% breadcrumbs view.get_breadcrumbs %}
+            {% endif %}
+          {% endblock %}
+          {% block contents %}
+          {% endblock contents %}
+        </div>
+      </div>
+    </div>
 
     {% block footer %}
     <div class="row footer-cover">
       <footer class="site-footer">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-10 col-md-push-1">
+            <div class="col-md-9 col-md-push-3">
               <div class="row">
                 <div class="col-md-9">
 

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block contents %}
+  <article>
+    <h1 class="nhsuk-heading-xl">{{ project_name }}</h1>
+    <h3 class="text-muted subheader">
+        {{ care_system.name }}
+    </h3>
+
+    <div class="row">
+      <div class="col-md-12">
+      <h2 class="nhsuk-heading-l">Population health management activities</h2>
+        <p>
+          This project will perform the following activities
+          <ol>
+            {% for project_activity in project_activities %}
+              <li>
+                {{ project_activity.name }}
+              </li>
+            {% endfor %}
+          </ol>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr />
+        <h2 class="nhsuk-heading-l">Results</h2>
+        {% if justified_orgs %}
+          <p>
+            The following organisations have legal justification
+            to carry out these activities
+          </p>
+          <ul>
+            {% for organisation in justified_orgs %}
+              <li>
+                <a href="{{ organisation.get_absolute_url }}">
+                  {{ organisation.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>
+            No single organization within {{ project_name }} can conduct all these
+            activities
+          </p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr />
+        <h2 class="nhsuk-heading-l">Organization eligibility</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Organization</th>
+              {% for project_activity in project_activities %}
+                <th>{{ forloop.counter0 }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for organisation, activities_to_justifications in by_org_and_activity.items %}
+              <tr>
+                <td>
+                  <a href="{{ organisation.get_absolute_url }}">
+                    {{ organisation.name }}
+                  </a>
+                </td>
+                {% for project_activity, justifications in activities_to_justifications.items %}
+                  <td >
+                    {% if justifications.exists %}
+                      <a class="nhsuk-icon-container" href="{{ organisation.get_absolute_url }}#{{ project_activity.slug }}">
+                        {% include "icons/tick.html" %}
+                      </a>
+                    {% else %}
+                      <div class="nhsuk-icon-container">
+                        {% include "icons/cross.html" %}
+                      </div>
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </article>
+{% endblock %}
