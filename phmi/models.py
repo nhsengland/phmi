@@ -122,6 +122,16 @@ class Activity(models.Model):
         return super().save(*args, **kwargs)
 
 
+class ActivityCategory(models.Model):
+    name = models.CharField(max_length=256)
+    activity = models.ForeignKey(
+        Activity,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
+
 class LegalJustificationQuerySet(models.QuerySet):
     def by_org_type_and_activity(self, org_types, activities):
         by_org_type = OrderedDict()
