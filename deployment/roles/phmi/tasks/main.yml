@@ -69,20 +69,14 @@
     chdir: "{{ PROJECT_PATH}}"
 
   command: "pipenv run python manage.py {{ item }}"
+  chdir: "{{ PROJECT_PATH}}"
   loop:
      - "add_org_types data/csvs/org-types.csv"
      - "add_group_types data/csvs/group-types.csv"
      - "add_orgs"
-
-- name: Run Django load care groups
-  args:
-    chdir: "{{ PROJECT_PATH}}"
-  command: "pipenv run python manage.py load_care_groups"
-
-- name: Run Django load activities
-  args:
-    chdir: "{{ PROJECT_PATH}}"
-  command: "pipenv run python manage.py load_activities"
+     - "load_care_groups"
+     - "load_activities_and_justifications"
+     - "load_statutes"
 
 - name: Remove old nginx default
   become: true

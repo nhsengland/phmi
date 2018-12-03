@@ -74,6 +74,10 @@ class OrgType(models.Model):
         super().save()
 
 
+class ActivityCategory(models.Model):
+    name = models.CharField(max_length=256)
+
+
 class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
@@ -91,6 +95,13 @@ class Activity(models.Model):
 
     name = models.TextField(unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
+
+    activity_category = models.ForeignKey(
+        ActivityCategory,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
     duty_of_confidence = models.CharField(
         max_length=256,
@@ -120,16 +131,6 @@ class Activity(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
         return super().save(*args, **kwargs)
-
-
-class ActivityCategory(models.Model):
-    name = models.CharField(max_length=256)
-    activity = models.ForeignKey(
-        Activity,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
-    )
 
 
 class LegalJustificationQuerySet(models.QuerySet):
