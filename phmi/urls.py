@@ -26,22 +26,15 @@ urlpatterns = [
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", views.Login.as_view(), name="login"),
     path("logout", views.Logout.as_view(), name="logout"),
-    path("group", views.GroupList.as_view(), name="group-list"),
-    path("groups/add", views.GroupAdd.as_view(), name="group-add"),
-    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path(
-        "groups/<int:pk>/edit", views.GroupEdit.as_view(), name="group-edit"
+        "org-types",
+        views.OrgTypeList.as_view(),
+        name="org-type-list"
     ),
     path(
-        "organisation/<int:pk>",
-        views.OrgDetail.as_view(),
-        name="organisation-detail"
-    ),
-    # organisations
-    path(
-        "organisation/add",
-        views.OrganisationAdd.as_view(),
-        name="organisation-add"
+        "org-types/<slug>",
+        views.OrgTypeDetail.as_view(),
+        name="org-type-detail"
     ),
 ]
 

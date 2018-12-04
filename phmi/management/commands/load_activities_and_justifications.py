@@ -32,6 +32,18 @@ class Command(BaseCommand):
         pre = pre.lower().capitalize()
         return f"{pre}:{suf}"
 
+    def parse_activiy_category_name(self, some_name):
+        """
+        These come in in the form
+
+        A. SOMETHING
+        B. SOMETHING ELSE
+
+        lets strip off the `A.` and title case it please
+        """
+        some_name = some_name.strip().split(" ", 1)[1]
+        return some_name.lower().capitalize()
+
     def clean_activity_name(self, some_name):
         """
         Changes for example "1. An Activitiy" to
@@ -52,7 +64,7 @@ class Command(BaseCommand):
             for row in reader:
                 if row[0]:
                     category, _ = models.ActivityCategory.objects.get_or_create(
-                        name=row[0]
+                        name=self.parse_activiy_category_name(row[0])
                     )
 
                 if row[1]:

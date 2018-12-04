@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<article>
+    <h1 class="title">{{ object.name }}</h1>
+    <h2 class="text-muted">
+        Population health management activities
+    </h2>
+
+    <table class="table">
+        {% for activity, d in view.get_activities.items %}
+            {% ifchanged activity.activity_category %}
+            <thead>
+                <tr>
+                    <th>{{ activity.activity_category.name }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+            {% endifchanged %}
+            <tr>
+                <td><a href="#{{ activity.slug }}">{{ activity.name }}</a></td>
+                <td>
+                    {% if d.allowed %}
+                        {% include "icons/tick.html" %}
+                    {% else %}
+                        {% include "icons/cross.html" %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</article>
+{% endblock contents %}

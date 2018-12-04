@@ -170,15 +170,25 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
         return super().get_object(queryset=qs)
 
 
-class OrgDetail(AbstractPhmiView, DetailView):
-    model = models.Organisation
-    template_name = "org_detail.html"
+class OrgTypeList(AbstractPhmiView, ListView):
+    model = models.OrgType
+    template_name = "orgtype_list.html"
+
+    breadcrumbs = (
+        ("Home", "/"),
+        ("Organizations", "")
+    )
+
+
+class OrgTypeDetail(AbstractPhmiView, DetailView):
+    model = models.OrgType
+    template_name = "orgtype_detail.html"
     page_width = "col-md-12"
 
     def get_breadcrumbs(self):
         return (
             ("Home", "/",),
-            ("Organizations", ""),
+            ("Organizations", reverse("org-type-list")),
             (
                 self.object.name, ""
             )
@@ -193,31 +203,21 @@ class OrgDetail(AbstractPhmiView, DetailView):
                               [legal_justifications]
             }
         """
-        org_type_activities_ids = set(self.object.type.get_activities().values_list(
+        org_type_activities_ids = set(self.object.get_activities().values_list(
             "id", flat=True
         ))
         result = OrderedDict()
         for i in models.Activity.objects.all():
             allowed = i.id in org_type_activities_ids
+            justifications = []
             if allowed:
-                allowed_orgs = []
                 justifications = i.legaljustification_set.filter(
-                    org_type=self.object.type
+                    org_type=self.object
                 ).values_list("name", flat=True).distinct()
-            else:
-                allowed_orgs = []
-                allowed_types = i.get_org_types()
-                for orgtype in allowed_types:
-                    for org in self.object.care_system.first().orgs.filter(
-                        type=orgtype
-                    ):
-                        allowed_orgs.append(org)
-                justifications = []
 
             result[i] = dict(
                 allowed=allowed,
                 justifications=justifications,
-                allowed_orgs=allowed_orgs
             )
         return result
 
