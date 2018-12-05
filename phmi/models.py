@@ -73,9 +73,21 @@ class OrgType(models.Model):
             self.slug = slugify(self.name)
         super().save()
 
+    def get_absolute_url(self):
+        return reverse(
+            "org-type-detail", kwargs=dict(
+                slug=self.slug
+            )
+        )
+
 
 class ActivityCategory(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(
+        max_length=256, unique=True
+    )
+
+    class Meta:
+        ordering = ["name"]
 
 
 class Activity(models.Model):
@@ -125,7 +137,7 @@ class Activity(models.Model):
         return reverse("activity-detail", kwargs=dict(slug=self.slug))
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["activity_category__name"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
