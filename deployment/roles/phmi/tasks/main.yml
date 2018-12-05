@@ -76,7 +76,7 @@
      - "add_orgs"
      - "load_care_groups"
      - "load_activities_and_justifications"
-     - "load_statutes"
+     - "load_justification_details"
 
 - name: Remove old nginx default
   become: true

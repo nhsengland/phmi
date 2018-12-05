@@ -38,7 +38,7 @@ class Command(BaseCommand):
             f"Unable to find {justification_activity} for {org_type_name}"
         )
 
-    def create_statutes(self, org_type_name):
+    def create_details(self, org_type_name):
         """
         Looks up for similar names in the statutes csvs.
 
@@ -63,7 +63,7 @@ class Command(BaseCommand):
             for i in reader:
                 justification = self.get_justification(i[1], org_type_name)
                 if justification:
-                    justification.statute = i[2]
+                    justification.details = i[2]
                     justification.save()
                     count += 1
 
@@ -75,7 +75,7 @@ class Command(BaseCommand):
         self.stdout.write("Legal justifications removed")
         models.LegalJustification.objects.all().update(statute="")
         for org_type in ORG_TYPES:
-            total += self.create_statutes(org_type)
+            total += self.create_details(org_type)
         self.stdout.write(f"Saving {total} legal justifications")
 
 

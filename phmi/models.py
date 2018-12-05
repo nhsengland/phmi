@@ -182,7 +182,7 @@ class LegalJustification(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-    statute = models.TextField(
+    details = models.TextField(
         default=""
     )
     activities = models.ManyToManyField(Activity)
@@ -200,6 +200,17 @@ class LegalJustification(models.Model):
         unique_together = (("name", "org_type",),)
 
 
+class Statute(models.Model):
+    name = models.CharField(max_length=256)
+    link = models.URLField()
+    justification = models.ManyToManyField(
+        LegalJustification
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Organisation(models.Model):
     care_system = models.ManyToManyField(
         "CareSystem", related_name="orgs", blank=True
@@ -210,13 +221,10 @@ class Organisation(models.Model):
     ods_code = models.TextField(unique=True, null=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["type__name", "name"]
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse("organisation-detail", args=[str(self.id)])
 
 
 class UserManager(BaseUserManager):
