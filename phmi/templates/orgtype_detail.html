@@ -18,7 +18,7 @@
                 </thead>
             {% endifchanged %}
             <tr>
-                <td><a href="#{{ activity.slug }}">{{ activity.name }}</a></td>
+                <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
                 <td>
                     {% if d.allowed %}
                         {% include "icons/tick.html" %}
