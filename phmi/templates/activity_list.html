@@ -4,18 +4,19 @@
 	<article>
     <h1 class="title">Population health management activities</h1>
     <table class="table">
-      <thead>
-        <tr>
-          <th>Activity</th>
-          {% for org_type in org_permissions.keys %}
-            <th>
-              {{ org_type.name }}
-            </th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
         {% for activity in object_list %}
+          {% ifchanged activity.activity_category.name %}
+          <thead>
+            <tr>
+              <th>{{ activity.activity_category.name }}</th>
+              {% for org_type in org_permissions.keys %}
+                <th>
+                  {{ org_type.name }}
+                </th>
+              {% endfor %}
+            </tr>
+          </thead>
+          {% endifchanged %}
           <tr>
             <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
             {% for org_type, allowed_activities in org_permissions.items %}
@@ -29,7 +30,6 @@
             {% endfor %}
           </tr>
         {% endfor %}
-      </tbody>
     </table>
 	</article>
 {% endblock %}
