@@ -90,6 +90,14 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
         return kwargs
 
 
+class Home(AbstractPhmiView, TemplateView):
+    template_name = "home.html"
+    page_width    = "col-md-12"
+
+    def activity_categories(self):
+        return models.ActivityCategory.objects.all()
+
+
 class GroupDetail(AbstractPhmiView, DetailView):
     model = models.CareSystem
     template_name = "group_detail.html"
@@ -271,6 +279,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
                 dict(
                     name=orgtype.name,
                     slug=orgtype.slug,
+                    url=orgtype.get_absolute_url,
                     justifications=models.LegalJustification.objects.filter(
                         org_type=orgtype
                     ).filter(activities=self.object)

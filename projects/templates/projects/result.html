@@ -5,86 +5,35 @@
     <h3 class="text-muted subheader">
         {{ care_system.name }}
     </h3>
-
     <div class="row">
       <div class="col-md-12">
-      <h2 class="nhsuk-heading-l">Population health management activities</h2>
-        <p>
-          This project will include the following activities:
-          <ol>
-            {% for project_activity in project_activities %}
-              <li>
-                {{ project_activity.name }}
-              </li>
-            {% endfor %}
-          </ol>
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <hr />
-        <h2 class="nhsuk-heading-l">Results</h2>
-        {% if justified_orgs %}
-          <p>
-            The following organizations have a stautory legal basis
-            to carry out these activities.
-          </p>
-          <ul>
-            {% for organisation in justified_orgs %}
-              <li>
-                <a href="{{ organisation.type.get_absolute_url }}">
-                  {{ organisation.name }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p>
-            No single organization within {{ project_name }} has a legal basis to
-            conduct all of the activities included in this project.
-          </p>
-        {% endif %}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <hr />
-        <h2 class="nhsuk-heading-l">Organization eligibility</h2>
-        <table class="table content-offset-24">
-            {% for organisation, activities_to_justifications in by_org_and_activity.items %}
-              {% ifchanged organisation.type.name %}
-                <thead>
-                    <tr>
-                      <th>{{ organisation.type.name }}</th>
-                      <th colspan="{{ project_activities | length }}">Activity number</th>
-                    </tr>
-                    <tr>
-                      <th></th>
-                      {% for project_activity in project_activities %}
-                        <th>{{ forloop.counter }}</th>
-                      {% endfor %}
-                    </tr>
-                  </thead>
-                {% endifchanged %}
+        <table class="table content-offset">
+            {% ifchanged activity.activity_category.name %}
+            <thead id="{{ activity.activity_category.slug }}">
               <tr>
-                <td>
-                  <a href="{{ organisation.type.get_absolute_url }}">
-                    {{ organisation.name }}
-                  </a>
+                <th>Activities</th>
+                {% for org_type in org_permissions.keys %}
+                  <th style="text-align: center">
+                    <div style="min-width: 90px">
+                      {{ org_type.name }}
+                    </div>
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            {% endifchanged %}
+            {% for activity in activities %}
+
+              <tr>
+                <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
+                {% for org_type, allowed_activities in org_permissions.items %}
+                <td style="text-align: center">
+                  {% if activity in allowed_activities %}
+                    {% include "icons/tick.html" %}
+                  {% else %}
+                    {% include "icons/cross.html" %}
+                  {% endif %}
                 </td>
-                {% for project_activity, justifications in activities_to_justifications.items %}
-                  <td >
-                    {% if justifications.exists %}
-                      <a class="nhsuk-icon-container" href="{{ organisation.type.get_absolute_url }}#{{ project_activity.slug }}">
-                        {% include "icons/tick.html" %}
-                      </a>
-                    {% else %}
-                      <div class="nhsuk-icon-container">
-                        {% include "icons/cross.html" %}
-                      </div>
-                    {% endif %}
-                  </td>
                 {% endfor %}
               </tr>
             {% endfor %}

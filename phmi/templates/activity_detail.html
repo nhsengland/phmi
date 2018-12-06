@@ -25,8 +25,10 @@
             <div class="col-md-3">
                 <h2 class="nhsuk-heading-l no-top-margin" id="{{ org_type.slug }}">
                     {{ org_type.name }}
+                    <div>
+                        <small><a href="{{ org_type.url }}">See all activities</a></small>
+                    </div>
                 </h2>
-
             </div>
             <div class="col-md-6">
             {% for justification in org_type.justifications %}

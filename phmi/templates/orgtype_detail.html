@@ -2,32 +2,39 @@
 
 {% block contents %}
 <article>
-    <h1 class="title">{{ object.name }}</h1>
-    <h2 class="text-muted">
-        Population health management activities
-    </h2>
+    <div class="content-offset content-offset-below-80">
+        <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
+        <h2 class="text-muted">
+            Secondary data use activities
+        </h2>
+    </div>
 
-    <table class="table">
-        {% for activity, d in view.get_activities.items %}
-            {% ifchanged activity.activity_category %}
-            <thead>
-                <tr>
-                    <th>{{ activity.activity_category.name }}</th>
-                    <th></th>
-                </tr>
-                </thead>
-            {% endifchanged %}
-            <tr>
-                <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
-                <td>
-                    {% if d.allowed %}
-                        {% include "icons/tick.html" %}
-                    {% else %}
-                        {% include "icons/cross.html" %}
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table">
+                {% for activity, d in view.get_activities.items %}
+                    {% ifchanged activity.activity_category %}
+                    <thead>
+                        <tr>
+                            <th>{{ activity.activity_category.name }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                    {% endifchanged %}
+                    <tr>
+                        <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
+                        <td>
+                            {% if d.allowed %}
+                                {% include "icons/tick.html" %}
+                            {% else %}
+                                {% include "icons/cross.html" %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
 </article>
 {% endblock contents %}

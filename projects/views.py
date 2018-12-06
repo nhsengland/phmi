@@ -24,10 +24,6 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
             return {}
 
         location_dict = signing.loads(self.kwargs["location_sign"])
-        location_dict["care_system"] = get_object_or_404(
-            models.CareSystem,
-            id=location_dict["care_system"]
-        )
         return location_dict
 
     def decode_activity_sign(self):
@@ -37,7 +33,7 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
             "activities"
         ]
         return dict(
-            project_activities=models.Activity.objects.filter(
+            activities=models.Activity.objects.filter(
                 id__in=activity_ids
             )
         )
@@ -57,10 +53,6 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
         return ctx
 
 
-class Home(AbstractProjectView):
-    template_name = "home.html"
-    page_width    = "col-md-12"
-
 
 class ProjectLocationView(AbstractProjectView):
     template_name = "projects/location.html"
@@ -70,14 +62,9 @@ class ProjectLocationView(AbstractProjectView):
     )
 
     def post(self, *args, **kwargs):
-        care_system = get_object_or_404(
-            models.CareSystem,
-            id=self.request.POST["care_system"]
-        )
         governance = self.request.POST["governance"]
         project_name = self.request.POST["project_name"]
         location_sign = signing.dumps(dict(
-            care_system=care_system.id,
             governance=governance,
             project_name=project_name
         ))
@@ -116,6 +103,7 @@ class ProjectActivityView(AbstractProjectView):
 
 class ProjectResultView(AbstractProjectView):
     template_name = "projects/result.html"
+    page_width = "col-md-12"
 
     def get_breadcrumbs(self):
         return (
@@ -132,20 +120,30 @@ class ProjectResultView(AbstractProjectView):
             ("Project results", "")
         )
 
-    def get_org_by_activity(self, care_system, project_activities):
-        org_types = models.OrgType.objects.filter(
-            orgs__care_system=care_system
-        ).distinct()
-        return models.LegalJustification.objects.by_org_and_activity(
-            care_system.orgs.all(), project_activities
-        )
+    def get_org_permissions(self):
+        """
+        Returns a dictionary of org_type:
+        to a set of activities it can do
+        """
+        org_types = models.OrgType.objects.all()
+        result = {}
+        for org_type in org_types:
+            result[org_type] = org_type.get_activities()
+
+        return result
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
-        ctx["by_org_and_activity"] = self.get_org_by_activity(
-            ctx["care_system"], ctx["project_activities"]
-        )
-        ctx["justified_orgs"] = [
-            i for i, v in ctx["by_org_and_activity"].items() if all(v.values())
-        ]
+        ctx["org_permissions"] = self.get_org_permissions()
+        return ctx
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        ctx["org_permissions"] = self.get_org_permissions()
+        # ctx["by_org_and_activity"] = self.get_org_by_activity(
+        #     ctx["care_system"], ctx["project_activities"]
+        # )
+        # ctx["justified_orgs"] = [
+        #     i for i, v in ctx["by_org_and_activity"].items() if all(v.values())
+        # ]
         return ctx

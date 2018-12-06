@@ -97,6 +97,14 @@ body {
   margin-top: 80px;
 }
 
+.content-offset-90{
+  margin-top: 90px;
+}
+
+.content-offset-below-90{
+  margin-bottom: 90px;
+}
+
 .content-offset-below-80{
   margin-bottom: 80px;
 }
@@ -149,10 +157,11 @@ header.masthead{
   }
 
   .logo{
-    &:hover{
+    &:hover, &:active, &:focus{
       background-color: transparent;
       box-shadow: 0 0 0 4px transparent;
     }
+
     & img{
       display: inline-block;
       height: 90px;
@@ -573,6 +582,20 @@ form {
     padding-top: 3px;
   }
 
+}
+
+
+.home-descriptor{
+   margin-top: 70px;
+}
+
+.home-lead{
+   font-size: 1.2em;
+   line-height: 1.6em;
+}
+
+.alpha-label{
+  font-weight: 800
 }
 
 .list-unstyled{

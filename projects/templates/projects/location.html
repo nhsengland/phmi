@@ -15,19 +15,6 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8">
-					<div class="form-group">
-						<label for="careSystem">Care system</label>
-						<select required name="care_system" id="careSystem" class="form-control">
-								<option value="" selected disabled hidden>--------</option>
-							{% for care_system in view.care_systems %}
-								<option value="{{ care_system.id }}">{{ care_system.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-				</div>
-		</div>
-		<div class="row">
 			<div class="col-md-12">
 				<h2 class="nhsuk-heading-l">Governance</h2>
 				<p>

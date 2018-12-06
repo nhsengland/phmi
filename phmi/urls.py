@@ -21,6 +21,7 @@ from projects import urls as project_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", views.Home.as_view(), name="home"),
     path("activities", views.ActivityList.as_view(), name="activity-list"),
     path("activities/<slug>", views.ActivityDetail.as_view(), name="activity-detail"),
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),

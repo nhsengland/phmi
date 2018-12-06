@@ -95,6 +95,10 @@ class ActivityCategory(models.Model):
             self.slug = slugify(self.name)[:50]
         super().save()
 
+    def get_absolute_url(self):
+        activity_list_url = reverse("activity-list")
+        return f"{activity_list_url}#{self.slug}"
+
     def __str__(self):
         return self.name
 
