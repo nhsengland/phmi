@@ -4,7 +4,7 @@ from django.urls import include, path
 from projects import views
 
 urlpatterns = [
-    path("", views.Home.as_view(), name="home"),
+
     path(
         "projects/",
         views.ProjectLocationView.as_view(),

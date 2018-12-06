@@ -1,19 +1,51 @@
 {% extends 'base.html' %}
 {% block contents %}
     <div class="row content-offset">
-        <div class="col-md-8">
-            <p>
+        <div class="col-md-6 home-descriptor">
+            <p class="home-lead">
                 This service will help you understand the legal justifications that
-                exist for data sharing between NHS organizations for population
-                health management.
+                exist for data sharing between NHS organizations for
+                secondary uses.
             </p>
-            <p>
-                It has been developed to help care systems share data for the
-                benefit of patients where a consistent and robust legal basis exists.
+            <p class="home-lead">
+                It has been developed to help NHS organizations to share data for the
+                benefit of patients where a consistent and robust legal basis
+                exists.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h2 class="nhsuk-heading-l">
+                View legal basis for &#8230;
+            </h2>
+            <ul class="nhsuk-c-page-contents__list">
+                {% for activity_category in view.activity_categories %}
+                    <li class="nhsuk-c-page-contents__item">
+                        <a href="{{ activity_category.get_absolute_url }}">
+                            {{ activity_category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <hr class="content-offset-90 nhs_thick" />
+    <div class="row content-offset ">
+        <div class="col-md-8">
+            <h2 class="nhsuk-heading-l">
+                Project assessment
+                <span class="btn btn-primary btn-sm alpha-label">
+                    ALPHA
+                </span>
+            </h2>
+            <p class="home-lead">
+                This service is being developed to help NHS organizations clearly articulate
+                their population health management activities and concisely convey to patients
+                and the public how their data is used to improve health and care services.
             </p>
         </div>
     </div>
-    <div class="row content-offset content-offset-below">
+    <div class="row content-offset-24 content-offset-below-90">
         <div class="col-md-8">
             <a href="{% url 'project-location' %}" class="btn btn-success">Assess your project</a>
         </div>

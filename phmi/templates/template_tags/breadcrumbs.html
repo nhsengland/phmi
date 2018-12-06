@@ -3,9 +3,9 @@
       {% for name, link in breadcrumbs %}
         <li>
           {% if link %}
-            <a href="{{ link }}">{{ name }}</a>
+            <a href="{{ link }}">{{ name|truncatechars:50 }}</a>
           {% else %}
-            {{ name }}
+            {{ name|truncatechars:50 }}
           {% endif %}
         </li>
 

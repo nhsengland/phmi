@@ -19,10 +19,11 @@ $text-colour: #212b32;
 $text-colour-on-dark: #FFF;
 $footer-height: 350px;
 $main-content-margin: 20px;
+$background-color: #f0f4f5;
 
 
 body {
-  background: #fff;
+  background: $background-color;
   margin-top: 0;
   box-sizing: border-box;
   color: $text-colour;
@@ -54,6 +55,7 @@ body {
     display: inline-block;
     padding-right: 16px;
     margin-right: 8px;
+    margin-top: 0;
     background: url("../img/icons/chevron.svg") no-repeat 100% 50%;
     background-size: 9px 12px;
   }
@@ -74,6 +76,11 @@ body {
   margin-top: 50px;
 }
 
+
+.content-offset-below{
+  margin-bottom: 50px;
+}
+
 .content-offset-24{
   margin-top: 24px;
 }
@@ -90,8 +97,16 @@ body {
   margin-top: 80px;
 }
 
-.content-offset-below{
-  margin-bottom: 50px;
+.content-offset-90{
+  margin-top: 90px;
+}
+
+.content-offset-below-90{
+  margin-bottom: 90px;
+}
+
+.content-offset-below-80{
+  margin-bottom: 80px;
 }
 
 .content-offset-below-10{
@@ -142,10 +157,11 @@ header.masthead{
   }
 
   .logo{
-    &:hover{
+    &:hover, &:active, &:focus{
       background-color: transparent;
       box-shadow: 0 0 0 4px transparent;
     }
+
     & img{
       display: inline-block;
       height: 90px;
@@ -160,7 +176,7 @@ header.masthead{
   }
 
   .banner{
-    height: 140px;
+    height: 120px;
   }
 
   .header-nav{
@@ -189,6 +205,7 @@ header.masthead{
   }
 
 }
+
 
 footer{
   &.site-footer{
@@ -229,9 +246,25 @@ footer{
       &:hover{
         text-decoration: none;
       }
+
+      &:hover{
+        background: inherit;
+        box-shadow: 0 0 0 4px transparent;
+        color: #212b32;
+        text-decoration: none;
+      }
+
+      &:focus{
+        background:inherit;
+        box-shadow: 0 0 0 4px transparent;
+        color: #212b32;
+        text-decoration: none;
+        outline: 0;
+      }
   }
 
-  .social-networks a:before {
+  .social-networks a{
+    &:before {
       content: '';
       width: 38px;
       height: 38px;
@@ -242,6 +275,13 @@ footer{
       z-index: 1000;
       padding: 5px;
       border: 2px solid #adbcc7;
+    }
+
+    &:hover:before{
+      background-color: $yellow;
+      border-color: $yellow;
+    }
+
   }
 
   .social-networks a[href^="http://feeds.feedburner.com/"]:before {
@@ -500,13 +540,12 @@ hr {
 .btn-success {
   background-color: #007f3b;
   border-color: #007f3b;
-  border: 3px solid #fff;
   box-shadow: none;
   color: white;
 
   &:hover {
     background-color: #005326;
-    border: 3px solid $warm-yellow;
+    box-shadow: 0 0 0 6px $yellow;
   }
 }
 
@@ -543,6 +582,20 @@ form {
     padding-top: 3px;
   }
 
+}
+
+
+.home-descriptor{
+   margin-top: 70px;
+}
+
+.home-lead{
+   font-size: 1.2em;
+   line-height: 1.6em;
+}
+
+.alpha-label{
+  font-weight: 800
 }
 
 .list-unstyled{
@@ -602,17 +655,98 @@ label {
   cursor: pointer;
 }
 
-table {
+.table {
   border: 1px solid #d8dde0;
 
-  thead {
+  .thead{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .th {
     background-color: #d8dde0;
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+    line-height: 1.42857143;
+    padding: 8px 15px;
+  }
+
+  .tbody{
+    padding-left: 15px;
+    padding-right: 15px;
+    display: block;
+
+  }
+  .td{
+    padding: 8px 15px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
   }
 }
 
 #no-items{
   display: none;
 }
+
+// an unordered list from nhs.uk/conditions
+.nhsuk-c-page-contents__list{
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+
+  li:first-child{
+    margin-top: 0;
+  }
+
+  .nhsuk-c-page-contents__item{
+    padding: 0 0 0 32px;
+    position: relative;
+    margin: 8px 0 0;
+  }
+
+  .nhsuk-c-page-contents__item:before {
+    color: #AEB7BD;
+    content: '\2014';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.nhs_markdown_ul{
+  ol, ul{
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 24px 0;
+  
+    li:first-child{
+      margin-top: 0;
+    }
+
+    li{
+      padding: 0 0 0 32px;
+      position: relative;
+      margin: 8px 0 0;
+    }
+  
+    li:before {
+      color: #AEB7BD;
+      content: '\2014';
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+}
+
+
+hr.nhs_thick{
+  border-top: 4px solid #005eb8;
+}
+
+
 
 // NHS England typography classes
 .nhsuk-heading-xl{
@@ -625,6 +759,7 @@ table {
   font-size: 1.5em;
   line-height: 32px;
   margin: 40px 0 0;
+  font-weight: 600;
 }
 
 
@@ -648,6 +783,10 @@ table {
 
 p{
   margin-top: 24px;
+}
+
+.no-top-margin{
+  margin-top: 0;
 }
 
 a{
@@ -691,7 +830,7 @@ ol, ul {
 }
 
 .nhsuk-icon {
-  display: block;
+  display: inline-block;
   height: 30px;
   width: 30px;
 
@@ -711,4 +850,8 @@ svg:not(:root), symbol, image, marker, pattern, foreignObject {
 
 .nhsuk-icon__cross {
   fill: #da291c;
+}
+
+table thead{
+  background-color: #d8dde0;
 }

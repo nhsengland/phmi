@@ -8,6 +8,8 @@ admin.site.register(models.CareSystem)
 admin.site.register(models.GroupType)
 admin.site.register(models.OrgType)
 admin.site.register(models.Organisation)
+admin.site.register(models.Statute)
+admin.site.register(models.ActivityCategory)
 
 
 class NameSearchAdmin(admin.ModelAdmin):
@@ -16,9 +18,48 @@ class NameSearchAdmin(admin.ModelAdmin):
 admin.site.register(models.Activity, NameSearchAdmin)
 
 
+class StatuteFilter(admin.SimpleListFilter):
+    title = 'details'
+    parameter_name = 'details'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('empty', _('Empty')),
+            ('populated',  _('Populated')),
+        )
+
+    def queryset(self, request, queryset):
+
+        if self.value() == 'empty':
+            return queryset.filter(details='')
+
+        if self.value() == 'populated':
+            return queryset.exclude(details='')
+
+
+class StatuteLinkFilter(admin.SimpleListFilter):
+    title = 'statute link'
+    parameter_name = 'statute_link'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('empty', _('Empty')),
+            ('populated',  _('Populated')),
+        )
+
+    def queryset(self, request, queryset):
+
+        if self.value() == 'empty':
+            return queryset.filter(statutes=None)
+
+        if self.value() == 'populated':
+            return queryset.exclude(statutes=None)
+
+
 @admin.register(models.LegalJustification)
 class LegalJustificationAdmin(admin.ModelAdmin):
-    search_fields = ['activity__name', 'organisation__name']
+    search_fields = ['name', 'details']
+    list_filter = (StatuteFilter, StatuteLinkFilter,)
 
 
 @admin.register(models.User)

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block contents %}
+  <article>
+    <h1 class="title">
+      Organizations
+    </h1>
+
+    <div class="row" style="margin-bottom:30px">
+      <div class="col-md-12">
+        <ul id="care-systems" class="list-unstyled">
+          {% for object in object_list %}
+            <li>
+              <h3>
+                <a href="{{ object.get_absolute_url }}">
+                  {{ object.name }}
+                </a>
+              </h3>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </article>
+{% endblock contents %}

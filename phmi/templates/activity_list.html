@@ -2,24 +2,41 @@
 
 {% block contents %}
 	<article>
-    <h1 class="title">Population health management activities</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Activity</th>
-          {% for org_type in org_permissions.keys %}
-            <th>
-              {{ org_type.name }}
-            </th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
+    <h1 class="nhsuk-heading-xl">Secondary data use activities</h1>
+    <div class="row content-offset content-offset-below-80">
+      <div class="col-md-12">
+          <ul class="nhsuk-c-page-contents__list ">
+              {% for activity in object_list %}
+                {% ifchanged activity.activity_category.name %}
+                <li class="nhsuk-c-page-contents__item">
+                  <a href="#{{ activity.activity_category.slug }}">{{ activity.activity_category.name }}</a>
+                </li>
+                {% endifchanged %}
+              {% endfor %}
+          </ul>
+      </div>
+    </div>
+
+    <table class="table content-offset">
         {% for activity in object_list %}
+          {% ifchanged activity.activity_category.name %}
+          <thead id="{{ activity.activity_category.slug }}">
+            <tr>
+              <th>{{ activity.activity_category.name }}</th>
+              {% for org_type in org_permissions.keys %}
+                <th style="text-align: center">
+                  <div style="min-width: 90px">
+                    {{ org_type.name }}
+                  </div>
+                </th>
+              {% endfor %}
+            </tr>
+          </thead>
+          {% endifchanged %}
           <tr>
             <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
             {% for org_type, allowed_activities in org_permissions.items %}
-            <td>
+            <td style="text-align: center">
               {% if activity in allowed_activities %}
                 {% include "icons/tick.html" %}
               {% else %}
@@ -29,7 +46,6 @@
             {% endfor %}
           </tr>
         {% endfor %}
-      </tbody>
     </table>
 	</article>
 {% endblock %}

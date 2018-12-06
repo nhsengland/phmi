@@ -56,9 +56,10 @@ class OrgType(models.Model):
         max_length=256, unique=True
     )
     slug = models.SlugField(unique=True, blank=True, null=True)
+    index = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["index"]
 
     def __str__(self):
         return self.name
@@ -73,12 +74,49 @@ class OrgType(models.Model):
             self.slug = slugify(self.name)
         super().save()
 
+    def get_absolute_url(self):
+        return reverse(
+            "org-type-detail", kwargs=dict(
+                slug=self.slug
+            )
+        )
+
+
+class ActivityCategory(models.Model):
+    name = models.CharField(
+        max_length=256, unique=True
+    )
+    index = models.IntegerField(default=0)
+
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    def save(self):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        super().save()
+
+    def get_absolute_url(self):
+        activity_list_url = reverse("activity-list")
+        return f"{activity_list_url}#{self.slug}"
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["index"]
+
 
 class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
 
     DUTY_OF_CONFIDENCE_CHOICES = (
+        (
+            "Implied consent/reasonable expectations or pseudo/anon data where \
+it doesn't apply",
+            "Implied consent/reasonable expectations or pseudo/anon data where \
+it doesn't apply",
+        ),
         (
             "Implied consent/reasonable expectations",
             "Implied consent/reasonable expectations",
@@ -91,6 +129,13 @@ class Activity(models.Model):
 
     name = models.TextField(unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
+
+    activity_category = models.ForeignKey(
+        ActivityCategory,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
     duty_of_confidence = models.CharField(
         max_length=256,
@@ -114,7 +159,7 @@ class Activity(models.Model):
         return reverse("activity-detail", kwargs=dict(slug=self.slug))
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["activity_category__index"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -151,6 +196,17 @@ class LegalJustificationQuerySet(models.QuerySet):
         return result
 
 
+class Statute(models.Model):
+    name = models.CharField(max_length=256)
+    link = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
 class LegalJustification(models.Model):
     name = models.TextField()
     org_type = models.ForeignKey(
@@ -159,10 +215,13 @@ class LegalJustification(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-    statute = models.TextField(
+    details = models.TextField(
         default=""
     )
     activities = models.ManyToManyField(Activity)
+    statutes = models.ManyToManyField(
+        Statute, blank=True
+    )
 
     objects = LegalJustificationQuerySet.as_manager()
 
@@ -187,13 +246,10 @@ class Organisation(models.Model):
     ods_code = models.TextField(unique=True, null=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["type__name", "name"]
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse("organisation-detail", args=[str(self.id)])
 
 
 class UserManager(BaseUserManager):

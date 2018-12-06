@@ -36,7 +36,7 @@
                   <hgroup class="header-strapline">
                     <a class="logo" href="/">
                       <img src="{% static "/img/logos/nhs-england-logo-rev.svg" %}" alt="NHS England Logo" title="NHS England" data-intro="Clicking on this logo will always take you back to the homepage (just in case you get lost).">
-                      <h2 class="subtitle">Data Sharing Dashboard</h2>
+                      <h2 class="subtitle">Secondary use data sharing guidance</h2>
                     </a>
                   </hgroup>
                 </div>
@@ -53,11 +53,7 @@
                       Home
                     </a>
                   </li>
-                  <li>
-                    <a {% if request|url_name == 'group-list' %} class="active" {% endif %} href="{% url 'group-list' %}">
-                      Care systems
-                    </a>
-                  </li>
+
                   <li>
                       <a {% if request|url_name == 'activity-list' %} class="active" {% endif %} href="{% url 'activity-list' %}">
                         Activities

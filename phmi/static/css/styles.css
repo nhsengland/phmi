@@ -1,5 +1,6 @@
+@charset "UTF-8";
 body {
-  background: #fff;
+  background: #f0f4f5;
   margin-top: 0;
   box-sizing: border-box;
   color: #212b32;
@@ -30,6 +31,7 @@ body {
   display: inline-block;
   padding-right: 16px;
   margin-right: 8px;
+  margin-top: 0;
   background: url("../img/icons/chevron.svg") no-repeat 100% 50%;
   background-size: 9px 12px;
 }
@@ -42,6 +44,10 @@ body {
 
 .content-offset {
   margin-top: 50px;
+}
+
+.content-offset-below {
+  margin-bottom: 50px;
 }
 
 .content-offset-24 {
@@ -60,8 +66,16 @@ body {
   margin-top: 80px;
 }
 
-.content-offset-below {
-  margin-bottom: 50px;
+.content-offset-90 {
+  margin-top: 90px;
+}
+
+.content-offset-below-90 {
+  margin-bottom: 90px;
+}
+
+.content-offset-below-80 {
+  margin-bottom: 80px;
 }
 
 .content-offset-below-10 {
@@ -108,7 +122,7 @@ header.masthead {
 header.masthead .container, header.masthead .container-fluid {
   overflow-y: hidden;
 }
-header.masthead .logo:hover {
+header.masthead .logo:hover, header.masthead .logo:active, header.masthead .logo:focus {
   background-color: transparent;
   box-shadow: 0 0 0 4px transparent;
 }
@@ -123,7 +137,7 @@ header.masthead .subtitle {
   color: #FFF;
 }
 header.masthead .banner {
-  height: 140px;
+  height: 120px;
 }
 header.masthead .header-nav {
   height: 65px;
@@ -183,6 +197,19 @@ footer .social-networks a {
 footer .social-networks a:hover {
   text-decoration: none;
 }
+footer .social-networks a:hover {
+  background: inherit;
+  box-shadow: 0 0 0 4px transparent;
+  color: #212b32;
+  text-decoration: none;
+}
+footer .social-networks a:focus {
+  background: inherit;
+  box-shadow: 0 0 0 4px transparent;
+  color: #212b32;
+  text-decoration: none;
+  outline: 0;
+}
 footer .social-networks a:before {
   content: "";
   width: 38px;
@@ -194,6 +221,10 @@ footer .social-networks a:before {
   z-index: 1000;
   padding: 5px;
   border: 2px solid #adbcc7;
+}
+footer .social-networks a:hover:before {
+  background-color: #ffcd60;
+  border-color: #ffcd60;
 }
 footer .social-networks a[href^="http://feeds.feedburner.com/"]:before {
   background-image: url(../img/icons/rss.svg);
@@ -417,13 +448,12 @@ hr {
 .btn-success {
   background-color: #007f3b;
   border-color: #007f3b;
-  border: 3px solid #fff;
   box-shadow: none;
   color: white;
 }
 .btn-success:hover {
   background-color: #005326;
-  border: 3px solid #ffb81c;
+  box-shadow: 0 0 0 6px #ffcd60;
 }
 
 form hr {
@@ -451,6 +481,19 @@ form select.form-control {
   line-height: 20px;
   padding-bottom: 3px;
   padding-top: 3px;
+}
+
+.home-descriptor {
+  margin-top: 70px;
+}
+
+.home-lead {
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+
+.alpha-label {
+  font-weight: 800;
 }
 
 .list-unstyled {
@@ -499,15 +542,80 @@ label {
   cursor: pointer;
 }
 
-table {
+.table {
   border: 1px solid #d8dde0;
 }
-table thead {
+.table .thead {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.table .th {
   background-color: #d8dde0;
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+  line-height: 1.42857143;
+  padding: 8px 15px;
+}
+.table .tbody {
+  padding-left: 15px;
+  padding-right: 15px;
+  display: block;
+}
+.table .td {
+  padding: 8px 15px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
 
 #no-items {
   display: none;
+}
+
+.nhsuk-c-page-contents__list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.nhsuk-c-page-contents__list li:first-child {
+  margin-top: 0;
+}
+.nhsuk-c-page-contents__list .nhsuk-c-page-contents__item {
+  padding: 0 0 0 32px;
+  position: relative;
+  margin: 8px 0 0;
+}
+.nhsuk-c-page-contents__list .nhsuk-c-page-contents__item:before {
+  color: #AEB7BD;
+  content: "—";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.nhs_markdown_ul ol, .nhs_markdown_ul ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 24px 0;
+}
+.nhs_markdown_ul ol li:first-child, .nhs_markdown_ul ul li:first-child {
+  margin-top: 0;
+}
+.nhs_markdown_ul ol li, .nhs_markdown_ul ul li {
+  padding: 0 0 0 32px;
+  position: relative;
+  margin: 8px 0 0;
+}
+.nhs_markdown_ul ol li:before, .nhs_markdown_ul ul li:before {
+  color: #AEB7BD;
+  content: "—";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+hr.nhs_thick {
+  border-top: 4px solid #005eb8;
 }
 
 .nhsuk-heading-xl {
@@ -520,6 +628,7 @@ table thead {
   font-size: 1.5em;
   line-height: 32px;
   margin: 40px 0 0;
+  font-weight: 600;
 }
 
 .nhsuk-heading-m {
@@ -542,6 +651,10 @@ table thead {
 
 p {
   margin-top: 24px;
+}
+
+.no-top-margin {
+  margin-top: 0;
 }
 
 a {
@@ -582,7 +695,7 @@ ol, ul {
 }
 
 .nhsuk-icon {
-  display: block;
+  display: inline-block;
   height: 30px;
   width: 30px;
 }
@@ -601,6 +714,10 @@ svg:not(:root), symbol, image, marker, pattern, foreignObject {
 
 .nhsuk-icon__cross {
   fill: #da291c;
+}
+
+table thead {
+  background-color: #d8dde0;
 }
 
 /*# sourceMappingURL=styles.css.map */
