@@ -1,21 +1,41 @@
 {% extends 'base.html' %}
 {% block contents %}
     <div class="row content-offset">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <p>
                 This service will help you understand the legal justifications that
-                exist for data sharing between NHS organizations for population
-                health management.
+                exist for data sharing between NHS organizations for
+                secondary uses.
             </p>
             <p>
-                It has been developed to help care systems share data for the
-                benefit of patients where a consistent and robust legal basis exists.
+                It has been developed to help NHS organizations to share data for the
+                benefit of patients where a consistent and robust legal basis
+                exists.
             </p>
+
+                    <a href="{% url 'activity-list' %}" class="btn btn-success">
+                            View activities
+                        </a>
+
+
         </div>
     </div>
+
+    <!-- <hr />
     <div class="row content-offset content-offset-below">
         <div class="col-md-8">
+            <h3>
+                Project assessment tool
+                <small>
+                    <span class="label label-default">
+                        ALPHA
+                    </span>
+                </small>
+            </h3>
+            <p>
+                  LOREM IPSEM LOREM
+                </p>
             <a href="{% url 'project-location' %}" class="btn btn-success">Assess your project</a>
         </div>
-    </div>
+    </div> -->
 {% endblock %}

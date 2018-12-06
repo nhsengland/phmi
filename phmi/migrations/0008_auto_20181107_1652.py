@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('phmi', '0007_nhs_england'),
+        ('phmi', '0006_activity_legaljustification_legalmapping'),
     ]
 
     operations = [

@@ -15,7 +15,7 @@ ORG_TYPES = [
 class Command(BaseCommand):
     help = "Load in some activities"
 
-    def get_justification(self, justification_activity, org_type_name):
+    def get_justifications(self, justification_activity, org_type_name):
         """
         There are some differences in terms of the prefix
         (e.g. commsissioner duties vs duties) so we
@@ -30,22 +30,25 @@ class Command(BaseCommand):
             name__endswith=justification_suffix
         )
 
+        result = []
         for i in legal_justification:
-            if i.name.split(":")[0] in prefix:
-                return i
+            if prefix.lower() in i.name.split(":")[0].lower():
+                result.append(i)
 
-        self.stdout.write(
-            f"Unable to find {justification_activity} for {org_type_name}"
-        )
+        if not result:
+            self.stdout.write(
+                f"Unable to find {justification_activity} for {org_type_name}"
+            )
+        return result
 
     def create_details(self, org_type_name):
         """
-        Looks up for similar names in the statutes csvs.
+        Looks up for similar names in the details csvs.
 
         Notably the names of duties/powers in the statute have more details
 
         for example they have things such as Comissioner duties rather than
-        just Duties as it would be called in the statutes.
+        just Duties as it would be called in the details.
 
         As a result we have to do some fiddling to make them
         match up.
@@ -61,8 +64,8 @@ class Command(BaseCommand):
         with open(file_name) as f:
             reader = csv.reader(f)
             for i in reader:
-                justification = self.get_justification(i[1], org_type_name)
-                if justification:
+                justifications = self.get_justifications(i[1], org_type_name)
+                for justification in justifications:
                     justification.details = i[2]
                     justification.save()
                     count += 1
@@ -73,7 +76,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         total = 0
         self.stdout.write("Legal justifications removed")
-        models.LegalJustification.objects.all().update(statute="")
+        models.LegalJustification.objects.all().update(details="")
         for org_type in ORG_TYPES:
             total += self.create_details(org_type)
         self.stdout.write(f"Saving {total} legal justifications")

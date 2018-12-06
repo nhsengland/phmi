@@ -58,6 +58,13 @@ class OrgType(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     class Meta:
+        # [
+        #    NHS England
+        #    CCG
+        #    NHS Trust
+        #    Local Authority
+        #    Non NHS Provider
+        # ]
         ordering = ["name"]
 
     def __str__(self):
@@ -174,6 +181,17 @@ class LegalJustificationQuerySet(models.QuerySet):
         return result
 
 
+class Statute(models.Model):
+    name = models.CharField(max_length=256)
+    link = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
 class LegalJustification(models.Model):
     name = models.TextField()
     org_type = models.ForeignKey(
@@ -186,6 +204,9 @@ class LegalJustification(models.Model):
         default=""
     )
     activities = models.ManyToManyField(Activity)
+    statutes = models.ManyToManyField(
+        Statute, blank=True
+    )
 
     objects = LegalJustificationQuerySet.as_manager()
 
@@ -198,17 +219,6 @@ class LegalJustification(models.Model):
     class Meta:
         ordering = ["name"]
         unique_together = (("name", "org_type",),)
-
-
-class Statute(models.Model):
-    name = models.CharField(max_length=256)
-    link = models.URLField()
-    justification = models.ManyToManyField(
-        LegalJustification
-    )
-
-    def __str__(self):
-        return self.name
 
 
 class Organisation(models.Model):

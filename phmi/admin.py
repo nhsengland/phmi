@@ -18,8 +18,8 @@ admin.site.register(models.Activity, NameSearchAdmin)
 
 
 class StatuteFilter(admin.SimpleListFilter):
-    title = 'statute'
-    parameter_name = 'statute'
+    title = 'details'
+    parameter_name = 'details'
 
     def lookups(self, request, model_admin):
         return (
@@ -49,15 +49,15 @@ class StatuteLinkFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
 
         if self.value() == 'empty':
-            return queryset.filter(statute=None)
+            return queryset.filter(statutes=None)
 
         if self.value() == 'populated':
-            return queryset.exclude(statute=None)
+            return queryset.exclude(statutes=None)
 
 
 @admin.register(models.LegalJustification)
 class LegalJustificationAdmin(admin.ModelAdmin):
-    search_fields = ['statute']
+    search_fields = ['name', 'details']
     list_filter = (StatuteFilter, StatuteLinkFilter,)
 
 

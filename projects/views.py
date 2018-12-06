@@ -59,6 +59,7 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
 
 class Home(AbstractProjectView):
     template_name = "home.html"
+    page_width    = "col-md-12"
 
 
 class ProjectLocationView(AbstractProjectView):

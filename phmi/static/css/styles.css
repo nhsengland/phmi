@@ -417,13 +417,12 @@ hr {
 .btn-success {
   background-color: #007f3b;
   border-color: #007f3b;
-  border: 3px solid #fff;
   box-shadow: none;
   color: white;
 }
 .btn-success:hover {
   background-color: #005326;
-  border: 3px solid #ffb81c;
+  box-shadow: 0 0 0 6px #ffcd60;
 }
 
 form hr {
@@ -499,11 +498,30 @@ label {
   cursor: pointer;
 }
 
-table {
+.table {
   border: 1px solid #d8dde0;
 }
-table thead {
+.table .thead {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.table .th {
   background-color: #d8dde0;
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+  line-height: 1.42857143;
+  padding: 8px 15px;
+}
+.table .tbody {
+  padding-left: 15px;
+  padding-right: 15px;
+  display: block;
+}
+.table .td {
+  padding: 8px 15px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
 
 #no-items {

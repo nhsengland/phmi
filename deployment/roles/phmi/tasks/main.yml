@@ -68,15 +68,8 @@
   args:
     chdir: "{{ PROJECT_PATH}}"
 
-  command: "pipenv run python manage.py {{ item }}"
+  command: "pipenv run python manage.py loaddata data/json/db.json"
   chdir: "{{ PROJECT_PATH}}"
-  loop:
-     - "add_org_types data/csvs/org-types.csv"
-     - "add_group_types data/csvs/group-types.csv"
-     - "add_orgs"
-     - "load_care_groups"
-     - "load_activities_and_justifications"
-     - "load_justification_details"
 
 - name: Remove old nginx default
   become: true

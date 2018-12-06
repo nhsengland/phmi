@@ -2,7 +2,16 @@
 
 {% block contents %}
 	<article>
-    <h1 class="title">Population health management activities</h1>
+    <h1 class="title">Secondary data use activities</h1>
+    <ul class="toc">
+      {% for activity in object_list %}
+      {% ifchanged activity.activity_category.name %}
+      <li>
+        {{ activity.activity_category.name }}
+      </li>
+      {% endifchanged %}
+      {% endfor %}
+    </ul>
     <table class="table">
         {% for activity in object_list %}
           {% ifchanged activity.activity_category.name %}

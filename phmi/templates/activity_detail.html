@@ -21,8 +21,17 @@
                 <div class="col-md-8">
                     <h4>{{ justification.name }}</h4>
                     <p>
-                        {{ justification.statute|markdownify }}
+                        {{ justification.details|markdownify }}
                     </p>
+                    {% if justification.statutes.exists %}
+                        <ul>
+                            {% for statute in justification.statutes.all %}
+                                <li>
+                                    <a href="{{ statute.link }}">{{ statute.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

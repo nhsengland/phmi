@@ -18,7 +18,8 @@ ROW_MAPPINGS = {
     # Note we are skipping Local Authority(Public Health)
     # and just doing Local Authority(Non-publich Health)
     7: "Local Authority",
-    8: "NHS Provider",
+    8: "NHS Trust",
+    9: "Independent Sector",
     # Note we are ignoring Non NHS-Provider for the time being
 }
 
@@ -76,12 +77,13 @@ class Command(BaseCommand):
 
                 category.activity_set.add(activity)
 
-                for i in range(4, max(ROW_MAPPINGS.keys())):
+                for i in range(4, max(ROW_MAPPINGS.keys())+1):
                     if i in ROW_MAPPINGS:
                         row_value = row[i].strip()
                         if not row_value:
                             continue
 
+                        print(f"{i} {ROW_MAPPINGS[i]}")
                         org_type = models.OrgType.objects.get(
                             name=ROW_MAPPINGS[i]
                         )

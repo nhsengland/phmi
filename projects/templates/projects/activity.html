@@ -14,24 +14,24 @@
 				project	is likely to involve.
 			</p>
 			<table class="table">
-				<thead>
-					<tr>
-						<th></th>
-						<th>Activity</th>
-					</tr>
-				</thead>
-				<tbody>
 					{% for activity in view.activities %}
-						<tr>
-							<td>
-								<input type="checkbox" name="activities" id="activities" value="{{ activity.id }}">
-							</td>
-							<td>
-								{{ activity.name }}
-							</td>
-						</tr>
+						{% ifchanged activity.activity_category.name %}
+						<thead>
+								<tr>
+									<th></th>
+									<th>{{ activity.activity_category.name }}</th>
+								</tr>
+						</thead>
+						{% endifchanged %}
+					<tr>
+						<td>
+							<input type="checkbox" name="activities" id="activities" value="{{ activity.id }}">
+						</td>
+						<td>
+							{{ activity.name }}
+						</td>
+					</tr>
 					{% endfor %}
-				</tbody>
 			</table>
 			<div class="row">
 				<div class="col-md-12">

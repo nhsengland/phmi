@@ -190,6 +190,7 @@ header.masthead{
 
 }
 
+
 footer{
   &.site-footer{
     background-color: #e8edee;
@@ -500,13 +501,12 @@ hr {
 .btn-success {
   background-color: #007f3b;
   border-color: #007f3b;
-  border: 3px solid #fff;
   box-shadow: none;
   color: white;
 
   &:hover {
     background-color: #005326;
-    border: 3px solid $warm-yellow;
+    box-shadow: 0 0 0 6px $yellow;
   }
 }
 
@@ -602,11 +602,33 @@ label {
   cursor: pointer;
 }
 
-table {
+.table {
   border: 1px solid #d8dde0;
 
-  thead {
+  .thead{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .th {
     background-color: #d8dde0;
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+    line-height: 1.42857143;
+    padding: 8px 15px;
+  }
+
+  .tbody{
+    padding-left: 15px;
+    padding-right: 15px;
+    display: block;
+
+  }
+  .td{
+    padding: 8px 15px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
   }
 }
 
