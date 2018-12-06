@@ -108,6 +108,12 @@ class Activity(models.Model):
 
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
+            "Implied consent/reasonable expectations or pseudo/anon data where \
+it doesn't apply",
+            "Implied consent/reasonable expectations or pseudo/anon data where \
+it doesn't apply",
+        ),
+        (
             "Implied consent/reasonable expectations",
             "Implied consent/reasonable expectations",
         ),

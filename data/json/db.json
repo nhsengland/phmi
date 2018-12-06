@@ -213,7 +213,7 @@
     "name": "General provision of population health management",
     "slug": "general-provision-of-population-health-management",
     "activity_category": 9,
-    "duty_of_confidence": "DUTY: To promote a comprehensive health service"
+    "duty_of_confidence": "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply"
   }
 },
 {
@@ -223,7 +223,7 @@
     "name": "Interacting with own personal health and care record",
     "slug": "interacting-with-own-personal-health-and-care-reco",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -233,7 +233,7 @@
     "name": "Updating individual health record from various data sources (including mobiles devices, wearables)",
     "slug": "updating-individual-health-record-from-various-dat",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -243,7 +243,7 @@
     "name": "Transferring information when service users and care providers are separated in time and/or space",
     "slug": "transferring-information-when-service-users-and-ca",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -263,7 +263,7 @@
     "name": "Enabling service users to manage and utilise a personal health budget",
     "slug": "enabling-service-users-to-manage-and-utilise-a-per",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -273,7 +273,7 @@
     "name": "Enabling service users to access tools (e.g. appointment booking and reminders, ordering prescriptions etc.)",
     "slug": "enabling-service-users-to-access-tools-eg-appointm",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -283,7 +283,7 @@
     "name": "Enabling service users to consume personalised health education information",
     "slug": "enabling-service-users-to-consume-personalised-hea",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -293,7 +293,7 @@
     "name": "Providing personalised health education materials for individual service users",
     "slug": "providing-personalised-health-education-materials-",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -303,7 +303,7 @@
     "name": "Enabling care professionals to interact (read/write) with organisational electronic care record system, as part of direct care delivery",
     "slug": "enabling-care-professionals-to-interact-readwrite-",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -313,7 +313,7 @@
     "name": "Enabling care professinals to interact (read) with Shared Care Record, as part of direct care delivery",
     "slug": "enabling-care-professinals-to-interact-read-with-s",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -323,7 +323,7 @@
     "name": "Enabling care professionals to utilise real-time clinical decision support tools to provide care to service users",
     "slug": "enabling-care-professionals-to-utilise-real-time-c",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -333,7 +333,7 @@
     "name": "Enabling transfer of information to care professionals in other providers as part of transfer of care",
     "slug": "enabling-transfer-of-information-to-care-professio",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -343,7 +343,7 @@
     "name": "Enrolling individuals into prevention and health coaching initiatives and providing feedback",
     "slug": "enrolling-individuals-into-prevention-and-health-c",
     "activity_category": 11,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -353,7 +353,7 @@
     "name": "Systematically selecting impactible individuals within risk-stratified population cohorts for early intervention or prevention",
     "slug": "systematically-selecting-impactible-individuals-wi",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -363,7 +363,7 @@
     "name": "Managing customised care plans for individuals",
     "slug": "managing-customised-care-plans-for-individuals",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -373,7 +373,7 @@
     "name": "Managing care professional caseload within and across provider organisations",
     "slug": "managing-care-professional-caseload-within-and-acr",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -383,7 +383,7 @@
     "name": "Modifying service user flow algorithms",
     "slug": "modifying-service-user-flow-algorithms",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -393,7 +393,7 @@
     "name": "Identifying risk strata within service user flows",
     "slug": "identifying-risk-strata-within-service-user-flows",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -403,7 +403,7 @@
     "name": "Optimising service user flow, managing , demand, risk strata and service capacity, within and across providers",
     "slug": "optimising-service-user-flow-managing-demand-risk-",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -413,7 +413,7 @@
     "name": "Tailoring personal care approaches based on genetic, environmental, and lifestyle factors",
     "slug": "tailoring-personal-care-approaches-based-on-geneti",
     "activity_category": 12,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -423,7 +423,7 @@
     "name": "Allocating risk scores and stratifying populations for specified future adverse events causing poor health outcomes to individuals",
     "slug": "allocating-risk-scores-and-stratifying-populations",
     "activity_category": 13,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -433,7 +433,7 @@
     "name": "Identifying individuals and groups within risk-stratified cohorts on which interventions will have the greatest impact",
     "slug": "identifying-individuals-and-groups-within-risk-str",
     "activity_category": 13,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -443,7 +443,7 @@
     "name": "Managing quality of health and care services (including clinical audit)",
     "slug": "managing-quality-of-health-and-care-services-inc-c",
     "activity_category": 14,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -453,7 +453,7 @@
     "name": "Monitoring and evaluating effectiveness of care co-ordination processes",
     "slug": "monitoring-and-evaluating-effectiveness-of-care-co",
     "activity_category": 14,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -463,7 +463,7 @@
     "name": "Monitoring and evaluating effectiveness of citizen-activation/empowerment processes",
     "slug": "monitoring-and-evaluating-effectiveness-of-citizen",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Public and patient involvement"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -473,7 +473,7 @@
     "name": "Monitoring service utilisation, pathway compliance, citizen experience and outcomes",
     "slug": "monitoring-service-utilisation-pathway-compliance-",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Public and patient involvement"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -483,7 +483,7 @@
     "name": "Supporting budget planning, management and reporting",
     "slug": "supporting-budget-planning-management-and-reportin",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: To pay CCGs to meet their expenditure"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -493,7 +493,7 @@
     "name": "Calculating and monitoring financial allocations",
     "slug": "calculating-and-monitoring-financial-allocations",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY:  To assess the performance of CCGs"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -503,7 +503,7 @@
     "name": "Monitoring activity and cost compliance against contract and agreed plans",
     "slug": "monitoring-activity-and-cost-compliance-against-co",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Enabling patient choice"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -513,7 +513,7 @@
     "name": "Comparing provider quality, demand, experience and service user outcomes against contract and agreed plans",
     "slug": "comparing-provider-quality-demand-experience-and-s",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Enabling patient choice"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -523,7 +523,7 @@
     "name": "Improving provider data quality ",
     "slug": "improving-provider-data-quality",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: To collect and analyse information relating to safety of services"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -533,7 +533,7 @@
     "name": "Comparing performance and managing variation across care professionals, services, providers, systems",
     "slug": "comparing-performance-and-managing-variation-acros",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Enabling patient choice"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -543,7 +543,7 @@
     "name": "Ensuring compliance with evidence and guidance",
     "slug": "ensuring-compliance-with-evidence-and-guidance",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: Enabling patient choice"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -553,7 +553,7 @@
     "name": "Maximising services and outcomes within financial envelopes within and across providers",
     "slug": "maximising-services-and-outcomes-within-financial-",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY:  To assess the performance of CCGs"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -563,7 +563,7 @@
     "name": "Supporting benchmarking, comparisons, regulation and assurance at all levels of the health and care system",
     "slug": "supporting-benchmarking-comparisons-regulation-and",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY: To consider the economic, social and environmental benefits to be achieved through commissioning"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -573,7 +573,7 @@
     "name": "Producing regulatory compliance reports",
     "slug": "producing-regulatory-compliance-reports",
     "activity_category": 14,
-    "duty_of_confidence": "DUTY:  To ensure that patients requiring an elective referral are offered a choice of provider"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -583,7 +583,7 @@
     "name": "Reviewing, evaluating and transforming current health and care service provision across and within populations",
     "slug": "reviewing-evaluating-and-transforming-current-heal",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: Public and patient involvement"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -593,7 +593,7 @@
     "name": "Understanding how health and care services impact on the health of populations",
     "slug": "understanding-how-health-and-care-services-impact-",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -603,7 +603,7 @@
     "name": "Understanding the impact of wider determinants of health on populations",
     "slug": "understanding-the-impact-of-wider-determinants-of-",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -613,7 +613,7 @@
     "name": "Defining and identifying relevant segments and cohorts within populations driving cost, utilisation and quality challenges including: health inequality groups, preventable and existing conditions and gaps in care",
     "slug": "defining-and-identifying-relevant-segments-and-coh",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -623,7 +623,7 @@
     "name": "Comparing population groups, peers, national and international best practice",
     "slug": "comparing-population-groups-peers-national-and-int",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -633,7 +633,7 @@
     "name": "Designing and evaluating effective risk stratification approaches",
     "slug": "designing-and-evaluating-effective-risk-stratifica",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To exercise relevant public health functions"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -643,7 +643,7 @@
     "name": "Identifying future population needs, spend, growth and drivers for change",
     "slug": "identifying-future-population-needs-spend-growth-a",
     "activity_category": 15,
-    "duty_of_confidence": "DUTY: To consider the economic, social and environmental benefits to be achieved through commissioning"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -653,7 +653,7 @@
     "name": "Identifying and managing research cohorts",
     "slug": "identifying-and-managing-research-cohorts",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -663,7 +663,7 @@
     "name": "Generating and disseminating research reports",
     "slug": "generating-and-disseminating-research-reports",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -673,7 +673,7 @@
     "name": "Targeting sites for research studies",
     "slug": "targeting-sites-for-research-studies",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -683,7 +683,7 @@
     "name": "Data-driven study planning",
     "slug": "data-driven-study-planning",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -693,7 +693,7 @@
     "name": "Conducting retrospective database studies",
     "slug": "conducting-retrospective-database-studies",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -703,7 +703,7 @@
     "name": "Combining primary and secondary data in research studies/clinical trials",
     "slug": "combining-primary-and-secondary-data-in-research-s",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -713,7 +713,7 @@
     "name": "Developing health care apps",
     "slug": "developing-health-care-apps",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -723,7 +723,7 @@
     "name": "Developing decision-support tools",
     "slug": "developing-decision-support-tools",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -733,7 +733,7 @@
     "name": "Conducting time-critical surveillance research",
     "slug": "conducting-time-critical-surveillance-research",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -743,7 +743,7 @@
     "name": "Integrating additional data sources",
     "slug": "integrating-additional-data-sources",
     "activity_category": 16,
-    "duty_of_confidence": "DUTY: To promote research"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -753,7 +753,7 @@
     "name": "Conducting commercial analytics",
     "slug": "conducting-commercial-analytics",
     "activity_category": 16,
-    "duty_of_confidence": "POWER:  To generate income"
+    "duty_of_confidence": "Set aside as data will be de-identified for this purpose"
   }
 },
 {
@@ -1471,8 +1471,8 @@
       723,
       724,
       725,
-      719,
-      720
+      720,
+      719
     ],
     "statutes": []
   }
@@ -2258,13 +2258,13 @@
       716,
       717,
       714,
-      720,
+      719,
       721,
       722,
       723,
       724,
       725,
-      719
+      720
     ],
     "statutes": [
       64
