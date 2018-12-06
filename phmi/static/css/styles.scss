@@ -230,9 +230,25 @@ footer{
       &:hover{
         text-decoration: none;
       }
+
+      &:hover{
+        background: inherit;
+        box-shadow: 0 0 0 4px transparent;
+        color: #212b32;
+        text-decoration: none;
+      }
+
+      &:focus{
+        background:inherit;
+        box-shadow: 0 0 0 4px transparent;
+        color: #212b32;
+        text-decoration: none;
+        outline: 0;
+      }
   }
 
-  .social-networks a:before {
+  .social-networks a{
+    &:before {
       content: '';
       width: 38px;
       height: 38px;
@@ -243,6 +259,13 @@ footer{
       z-index: 1000;
       padding: 5px;
       border: 2px solid #adbcc7;
+    }
+
+    &:hover:before{
+      background-color: $yellow;
+      border-color: $yellow;
+    }
+
   }
 
   .social-networks a[href^="http://feeds.feedburner.com/"]:before {

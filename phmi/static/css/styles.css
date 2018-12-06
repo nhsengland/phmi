@@ -183,6 +183,19 @@ footer .social-networks a {
 footer .social-networks a:hover {
   text-decoration: none;
 }
+footer .social-networks a:hover {
+  background: inherit;
+  box-shadow: 0 0 0 4px transparent;
+  color: #212b32;
+  text-decoration: none;
+}
+footer .social-networks a:focus {
+  background: inherit;
+  box-shadow: 0 0 0 4px transparent;
+  color: #212b32;
+  text-decoration: none;
+  outline: 0;
+}
 footer .social-networks a:before {
   content: "";
   width: 38px;
@@ -194,6 +207,10 @@ footer .social-networks a:before {
   z-index: 1000;
   padding: 5px;
   border: 2px solid #adbcc7;
+}
+footer .social-networks a:hover:before {
+  background-color: #ffcd60;
+  border-color: #ffcd60;
 }
 footer .social-networks a[href^="http://feeds.feedburner.com/"]:before {
   background-image: url(../img/icons/rss.svg);
