@@ -4,56 +4,78 @@
     <article>
         <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
 
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    The following types of institution have
-                    a legal basis to perform this activity:
-                </p>
+        <div class="row content-offset content-offset-below-80">
+            <div class="col-md-10 ">
+                <ul class="nhsuk-c-page-contents__list">
+                    {% for org_type in org_types %}
+                        <li class="nhsuk-c-page-contents__item">
+                            <a href="#{{ org_type.slug }}">{{ org_type.name }}</a>
+                        </li>
+                    {% endfor %}
+                    <li class="nhsuk-c-page-contents__item">
+                        <a href="#condition-for-processing">
+                            Conditions for processing
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         {% for org_type in org_types %}
-            <h2 class="nhsuk-heading-l" id="{{ org_type.slug }}">
-                {{ org_type.name }}
-            </h2>
+        <div class="row content-offset-24 ">
+            <div class="col-md-3">
+                <h2 class="nhsuk-heading-l no-top-margin" id="{{ org_type.slug }}">
+                    {{ org_type.name }}
+                </h2>
+
+            </div>
+            <div class="col-md-6">
             {% for justification in org_type.justifications %}
-            <div class="row content-offset-24">
-                <div class="col-md-8">
-                    <h4>{{ justification.name }}</h4>
+            <div class="row nhs_markdown_ul content-offset-below-80">
+                <div class="col-md-12">
+                    <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ justification.name }}</h4>
                     <p>
                         {{ justification.details|markdownify }}
                     </p>
                     {% if justification.statutes.exists %}
-                        <ul>
-                            {% for statute in justification.statutes.all %}
-                                <li>
+                        {% for statute in justification.statutes.all %}
+                            <div class="row">
+                                <div class="col-md-12">
                                     <a href="{{ statute.link }}">{{ statute.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
+            <hr class="nhs_thick" />
+        </div></div>
 
         {% endfor %}
 
-        <div class="row">
-            <div class="col-md-12">
-                <h2>GDPR condition for processing</h2>
-                <p>
-                    Article 6 (e): Official Authority - for
-                    NHS bodies and local authorities
-                </p>
-                <p>
-                    Article 6 (b): Legitimate Interests - for
-                    non-NHS providers and charities
-                </p>
-                <p>
-                    Article 9 (h): Management of a H
-                    ealth or Social Care System
-                </p>
-                <h2>Common law duty of confidence</h2>
+        <div class="row content-offset-24">
+            <div class="col-md-3" id="condition-for-processing">
+                <h2 class="nhsuk-heading-l no-top-margin" i>
+                        Conditions for processing
+                </h2>
+            </div>
+            <div class="col-md-6">
+                <div class="content-offset-below-80">
+                        <h4 class="nhsuk-heading-s no-top-margin">GDPR condition for processing</h4>
+                        <p>
+                            Article 6 (e): Official Authority - for
+                            NHS bodies and local authorities
+                        </p>
+                        <p>
+                            Article 6 (b): Legitimate Interests - for
+                            non-NHS providers and charities
+                        </p>
+                        <p>
+                            Article 9 (h): Management of a Health or Social Care System
+                        </p>
+                </div>
+
+                <h4 class="nhsuk-heading-s">Common law duty of confidence</h4>
                 <p>
                     {{ object.duty_of_confidence }}
                 </p>

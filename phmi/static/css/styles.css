@@ -31,6 +31,7 @@ body {
   display: inline-block;
   padding-right: 16px;
   margin-right: 8px;
+  margin-top: 0;
   background: url("../img/icons/chevron.svg") no-repeat 100% 50%;
   background-size: 9px 12px;
 }
@@ -43,6 +44,10 @@ body {
 
 .content-offset {
   margin-top: 50px;
+}
+
+.content-offset-below {
+  margin-bottom: 50px;
 }
 
 .content-offset-24 {
@@ -61,8 +66,8 @@ body {
   margin-top: 80px;
 }
 
-.content-offset-below {
-  margin-bottom: 50px;
+.content-offset-below-80 {
+  margin-bottom: 80px;
 }
 
 .content-offset-below-10 {
@@ -124,7 +129,7 @@ header.masthead .subtitle {
   color: #FFF;
 }
 header.masthead .banner {
-  height: 140px;
+  height: 120px;
 }
 header.masthead .header-nav {
   height: 65px;
@@ -551,7 +556,7 @@ label {
   padding: 0;
   margin: 24px 0 0;
 }
-.nhsuk-c-page-contents__list ol li:first-child {
+.nhsuk-c-page-contents__list li:first-child {
   margin-top: 0;
 }
 .nhsuk-c-page-contents__list .nhsuk-c-page-contents__item {
@@ -567,6 +572,31 @@ label {
   left: 0;
 }
 
+.nhs_markdown_ul ol, .nhs_markdown_ul ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 24px 0;
+}
+.nhs_markdown_ul ol li:first-child, .nhs_markdown_ul ul li:first-child {
+  margin-top: 0;
+}
+.nhs_markdown_ul ol li, .nhs_markdown_ul ul li {
+  padding: 0 0 0 32px;
+  position: relative;
+  margin: 8px 0 0;
+}
+.nhs_markdown_ul ol li:before, .nhs_markdown_ul ul li:before {
+  color: #AEB7BD;
+  content: "—";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+hr.nhs_thick {
+  border-top: 4px solid #005eb8;
+}
+
 .nhsuk-heading-xl {
   font-size: 2em;
   line-height: 36px;
@@ -577,6 +607,7 @@ label {
   font-size: 1.5em;
   line-height: 32px;
   margin: 40px 0 0;
+  font-weight: 600;
 }
 
 .nhsuk-heading-m {
@@ -599,6 +630,10 @@ label {
 
 p {
   margin-top: 24px;
+}
+
+.no-top-margin {
+  margin-top: 0;
 }
 
 a {
@@ -639,7 +674,7 @@ ol, ul {
 }
 
 .nhsuk-icon {
-  display: block;
+  display: inline-block;
   height: 30px;
   width: 30px;
 }
@@ -658,6 +693,10 @@ svg:not(:root), symbol, image, marker, pattern, foreignObject {
 
 .nhsuk-icon__cross {
   fill: #da291c;
+}
+
+table thead {
+  background-color: #d8dde0;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -94,23 +94,26 @@
   "pk": 32,
   "fields": {
     "name": "CCG",
-    "slug": "ccg"
+    "slug": "ccg",
+    "index": 2
   }
 },
 {
   "model": "phmi.orgtype",
   "pk": 35,
   "fields": {
-    "name": "NHS Trust",
-    "slug": "nhs-trust"
+    "name": "NHS Provider",
+    "slug": "nhs-provider",
+    "index": 3
   }
 },
 {
   "model": "phmi.orgtype",
   "pk": 37,
   "fields": {
-    "name": "Independent Sector",
-    "slug": "independent-sector"
+    "name": "Non-NHS Provider",
+    "slug": "non-nhs-provider",
+    "index": 5
   }
 },
 {
@@ -118,7 +121,8 @@
   "pk": 38,
   "fields": {
     "name": "Local Authority",
-    "slug": "local-authority"
+    "slug": "local-authority",
+    "index": 4
   }
 },
 {
@@ -126,14 +130,16 @@
   "pk": 39,
   "fields": {
     "name": "NHS England",
-    "slug": "nhs-england"
+    "slug": "nhs-england",
+    "index": 1
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 9,
   "fields": {
-    "name": "Provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
+    "name": "General provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
+    "index": 0,
     "slug": "provision-of-population-health-management-includin"
   }
 },
@@ -142,6 +148,7 @@
   "pk": 10,
   "fields": {
     "name": "Activating and empowering citizens",
+    "index": 1,
     "slug": "activating-and-empowering-citizens"
   }
 },
@@ -150,6 +157,7 @@
   "pk": 11,
   "fields": {
     "name": "Managing individual care",
+    "index": 2,
     "slug": "managing-individual-care"
   }
 },
@@ -158,6 +166,7 @@
   "pk": 12,
   "fields": {
     "name": "Co-ordinating and optimising service user flows",
+    "index": 3,
     "slug": "co-ordinating-and-optimising-service-user-flows"
   }
 },
@@ -166,6 +175,7 @@
   "pk": 13,
   "fields": {
     "name": "Risk stratification for early intervention and prevention",
+    "index": 4,
     "slug": "risk-stratification-for-early-intervention-and-pre"
   }
 },
@@ -174,6 +184,7 @@
   "pk": 14,
   "fields": {
     "name": "Managing finances, quality and outcomes",
+    "index": 5,
     "slug": "managing-finances-quality-and-outcomes"
   }
 },
@@ -182,6 +193,7 @@
   "pk": 15,
   "fields": {
     "name": "Planning, implementing and evaluating population health strategy",
+    "index": 6,
     "slug": "planning-implementing-and-evaluating-population-he"
   }
 },
@@ -190,6 +202,7 @@
   "pk": 16,
   "fields": {
     "name": "Undertaking research",
+    "index": 7,
     "slug": "undertaking-research"
   }
 },
@@ -217,7 +230,7 @@
   "model": "phmi.activity",
   "pk": 707,
   "fields": {
-    "name": "Updating individual health record from various data sources (inc. mobiles devices, wearables)",
+    "name": "Updating individual health record from various data sources (including mobiles devices, wearables)",
     "slug": "updating-individual-health-record-from-various-dat",
     "activity_category": 10,
     "duty_of_confidence": ""
@@ -240,7 +253,7 @@
     "name": "Enabling participation in prevention and health coaching initiatives, receiving feedback and peer-support",
     "slug": "enabling-participation-in-prevention-and-health-co",
     "activity_category": 10,
-    "duty_of_confidence": ""
+    "duty_of_confidence": "Implied consent/reasonable expectations"
   }
 },
 {
@@ -427,10 +440,10 @@
   "model": "phmi.activity",
   "pk": 728,
   "fields": {
-    "name": "Managing quality of health and care services (inc. clinical audit)",
+    "name": "Managing quality of health and care services (including clinical audit)",
     "slug": "managing-quality-of-health-and-care-services-inc-c",
     "activity_category": 14,
-    "duty_of_confidence": "POWER: To make payments to CCGs in respect of quality of services"
+    "duty_of_confidence": ""
   }
 },
 {
@@ -1386,7 +1399,7 @@
   "model": "phmi.legaljustification",
   "pk": 2497,
   "fields": {
-    "name": "Power:  To do anything that will facilitate the discharge of functions under the 2006 Act",
+    "name": "Power: To do anything that will facilitate the discharge of functions under the 2006 Act",
     "org_type": 32,
     "details": "Power for CCGs to do anything calculated to facilitate, or is conducive or incidental to the discharge of any function given to CCGs under the 2006 Act.",
     "activities": [
@@ -1401,7 +1414,7 @@
   "model": "phmi.legaljustification",
   "pk": 2498,
   "fields": {
-    "name": "Duty:  To promote individual wellbeing",
+    "name": "Duty: To promote individual wellbeing",
     "org_type": 38,
     "details": "When carrying out their functions under the Care Act 2014, local authorities must act in a way to promote an individual\u2019s well-being.  Well-being includes physical and mental health, as well as broader factors like participation in work or training.",
     "activities": [
@@ -1416,15 +1429,15 @@
   "model": "phmi.legaljustification",
   "pk": 2499,
   "fields": {
-    "name": "Duty (nhs trust only): Provision of NHS goods and services",
+    "name": "Duty : Provision of NHS goods and services",
     "org_type": 35,
     "details": "NHS Trusts provide goods and services for the purposes of the NHS.",
     "activities": [
+      705,
       706,
-      707,
       712,
-      719,
-      705
+      707,
+      719
     ],
     "statutes": [
       77
@@ -1439,27 +1452,27 @@
     "org_type": 37,
     "details": "",
     "activities": [
+      705,
+      706,
+      708,
       710,
       711,
       712,
-      706,
       707,
-      708,
       709,
-      719,
-      720,
+      715,
+      716,
+      717,
+      718,
+      713,
+      714,
       721,
       722,
       723,
       724,
       725,
-      715,
-      713,
-      714,
-      716,
-      717,
-      718,
-      705
+      719,
+      720
     ],
     "statutes": []
   }
@@ -1468,7 +1481,7 @@
   "model": "phmi.legaljustification",
   "pk": 2501,
   "fields": {
-    "name": "Power:  To do anything that will facilitate the discharge of functions under the 2006 Act",
+    "name": "Power: To do anything that will facilitate the discharge of functions under the 2006 Act",
     "org_type": 39,
     "details": "NHS England has the power to do anything calculated to facilitate, or is conducive or incidental to the discharge of any function given to NHS England under the 2006 Act.\r\n\r\nThis includes, for example, the carrying out of counter-fraud/ security measures.\r\n\r\n(NHS Act 2006, section 2, NHS Act 2006, section 195(2) regarding counter-fraud/ security measures)",
     "activities": [
@@ -1514,26 +1527,26 @@
   "model": "phmi.legaljustification",
   "pk": 2504,
   "fields": {
-    "name": "Duty (nhs trust only): Efficient delivery of functions",
+    "name": "Duty : Efficient delivery of functions",
     "org_type": 35,
     "details": "An NHS Trust must exercise its functions effectively, efficiently and economically.",
     "activities": [
-      711,
+      705,
       708,
-      709,
       710,
-      724,
-      720,
-      725,
+      711,
+      709,
+      714,
+      715,
+      716,
+      718,
+      713,
       721,
       722,
       723,
-      716,
-      713,
-      714,
-      715,
-      718,
-      705
+      724,
+      725,
+      720
     ],
     "statutes": [
       76
@@ -1559,7 +1572,7 @@
   "model": "phmi.legaljustification",
   "pk": 2506,
   "fields": {
-    "name": "Duty:  To exercise any functions delegated to the CCG by the Secretary of State",
+    "name": "Duty: To exercise any functions delegated to the CCG by the Secretary of State",
     "org_type": 32,
     "details": "The Secretary of State duties under the NHS Act 2006 can be delegated to CCGs.",
     "activities": [
@@ -1574,7 +1587,7 @@
   "model": "phmi.legaljustification",
   "pk": 2507,
   "fields": {
-    "name": "Duty:  To co-operate with NHS bodies when delivering care functions",
+    "name": "Duty: To co-operate with NHS bodies when delivering care functions",
     "org_type": 38,
     "details": "A local authority must co-operate with NHS bodies in its area, and vice versa, when providing care services to adults, support services to carers and other related services.",
     "activities": [
@@ -1620,7 +1633,7 @@
   "model": "phmi.legaljustification",
   "pk": 2510,
   "fields": {
-    "name": "Duty:  To meet the care and support needs of eligible adults",
+    "name": "Duty: To meet the care and support needs of eligible adults",
     "org_type": 38,
     "details": "In certain circumstances, a local authority must meet the care and support needs of individuals meeting the eligibility criteria.\r\n\r\nThis cannot include providing services that the NHS is required to deliver unless:\r\n\r\n* doing so is ancillary to other services that are being provided; and\r\n* the service of a nature that the local authority could be expected to provide.",
     "activities": [
@@ -1635,7 +1648,7 @@
   "model": "phmi.legaljustification",
   "pk": 2511,
   "fields": {
-    "name": "Duty:  To reduce health inequalities",
+    "name": "Duty: To reduce health inequalities",
     "org_type": 39,
     "details": "When carrying out its functions NHS England must have regard to the need to:\r\n\r\n* reduce inequalities in relation to accessing health services\r\n* reduce inequalities between patients that relate to the provision of healthcare services",
     "activities": [
@@ -1665,7 +1678,7 @@
   "model": "phmi.legaljustification",
   "pk": 2513,
   "fields": {
-    "name": "Power:  To meet the care and support needs of eligible adults",
+    "name": "Power: To meet the care and support needs of eligible adults",
     "org_type": 38,
     "details": "In certain circumstances, a local authority has discretion as to whether it meets the care and support needs of individuals meeting the eligibility criteria if the section 18 duty does not apply.\r\n\r\nThis cannot include providing services that the NHS is required to deliver unless:\r\n\r\n* doing so is ancillary to other services that are being provided; and\r\n* the service of a nature that the local authority could be expected to provide.",
     "activities": [
@@ -1710,7 +1723,7 @@
   "model": "phmi.legaljustification",
   "pk": 2516,
   "fields": {
-    "name": "Duty:  To meet the support needs of eligible carers",
+    "name": "Duty: To meet the support needs of eligible carers",
     "org_type": 38,
     "details": "In certain circumstances, a local authority must meet the support needs of carers meeting the eligibility criteria.\r\n\r\nThis cannot include providing services that the NHS is required to deliver unless:\r\n\r\n* doing so is ancillary to other services that are being provided; and\r\n* the service of a nature that the local authority could be expected to provide.",
     "activities": [
@@ -1744,8 +1757,8 @@
     "org_type": 32,
     "details": "CCGs must promote innovation in the provision of health services, including innovative approaches to commissioning.",
     "activities": [
-      738,
-      705
+      705,
+      738
     ],
     "statutes": [
       45
@@ -1756,7 +1769,7 @@
   "model": "phmi.legaljustification",
   "pk": 2519,
   "fields": {
-    "name": "Power:  To meet the support needs of eligible carers",
+    "name": "Power: To meet the support needs of eligible carers",
     "org_type": 38,
     "details": "In certain circumstances, a local authority has discretion as to whether it meets the support needs of individuals meeting the eligibility criteria if the section 20 duty does not apply.\r\n\r\nThis cannot include providing services that the NHS is required to deliver unless:\r\n\r\n* doing so is ancillary to other services that are being provided; and\r\n* the service of a nature that the local authority could be expected to provide.",
     "activities": [
@@ -1829,7 +1842,7 @@
   "model": "phmi.legaljustification",
   "pk": 2524,
   "fields": {
-    "name": "Power (nhs trust only): General power",
+    "name": "Power : General power",
     "org_type": 35,
     "details": "",
     "activities": [
@@ -1888,7 +1901,7 @@
   "model": "phmi.legaljustification",
   "pk": 2528,
   "fields": {
-    "name": "Power (nhs trust only): Joint exercise of functions",
+    "name": "Power : Joint exercise of functions",
     "org_type": 35,
     "details": "An NHS Trust can arrange to carry out its functions jointly with any other organisation. (NHS Act 2006, Schedule 4, paragraph 18)",
     "activities": [
@@ -1934,7 +1947,7 @@
   "model": "phmi.legaljustification",
   "pk": 2531,
   "fields": {
-    "name": "Duty:  To share information",
+    "name": "Duty: To share information",
     "org_type": 38,
     "details": "Local authorities must share information about patients for whom they are responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care.\r\n\r\n(Health and Social Care Act 2012, section 251B)",
     "activities": [
@@ -1965,7 +1978,7 @@
   "model": "phmi.legaljustification",
   "pk": 2533,
   "fields": {
-    "name": "Duty:  To share information",
+    "name": "Duty: To share information",
     "org_type": 39,
     "details": "NHS England must share information about patients for whom it is responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care.\r\n(Health and Social Care Act 2012, section 251B)",
     "activities": [
@@ -1995,7 +2008,7 @@
   "model": "phmi.legaljustification",
   "pk": 2535,
   "fields": {
-    "name": "Power:  General power",
+    "name": "Power: General power",
     "org_type": 38,
     "details": "",
     "activities": [
@@ -2012,8 +2025,8 @@
     "org_type": 35,
     "details": "NHS Trusts and Foundation Trusts must share information about patients for whom it is responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care\r\n\r\n(Health and Social Care Act 2012, s251B)",
     "activities": [
-      717,
-      705
+      705,
+      717
     ],
     "statutes": [
       19
@@ -2039,7 +2052,7 @@
   "model": "phmi.legaljustification",
   "pk": 2538,
   "fields": {
-    "name": "Duty:  To exercise any functions delegated to the local authority by the Secretary of State",
+    "name": "Duty: To exercise any functions delegated to the local authority by the Secretary of State",
     "org_type": 38,
     "details": "The Secretary of State duties under the NHS Act 2006 can in some circumstances be delegated to local authorities and combined authorities.\r\n\r\n(NHS Act 2006, section 13ZA)\r\nRegulations 2012",
     "activities": [
@@ -2082,7 +2095,7 @@
   "model": "phmi.legaljustification",
   "pk": 2541,
   "fields": {
-    "name": "Duty:  To make services available to NHS bodies",
+    "name": "Duty: To make services available to NHS bodies",
     "org_type": 38,
     "details": "Each local authority must make services available to NHS England and CCGs acting in its area to help them discharge their functions under the NHS Act 2006.  However, a local authority only has to do what is reasonable and practicable. (NHS Act 2006, section 74(3))",
     "activities": [
@@ -2157,7 +2170,7 @@
   "model": "phmi.legaljustification",
   "pk": 2546,
   "fields": {
-    "name": "Duty:  To co-operate with NHS bodies when delivering care functions",
+    "name": "Duty: To co-operate with NHS bodies when delivering care functions",
     "org_type": 32,
     "details": "A CCG must co-operate with local authorities in its area, and vice versa, when providing care services to adults, support services to carers and other related services",
     "activities": [
@@ -2188,7 +2201,7 @@
   "model": "phmi.legaljustification",
   "pk": 2548,
   "fields": {
-    "name": "Duty:  To share information",
+    "name": "Duty: To share information",
     "org_type": 32,
     "details": "CCGs must share information about patients for they are responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care. (Health and Social Care Act 2012, section 251B)",
     "activities": [
@@ -2218,7 +2231,7 @@
   "model": "phmi.legaljustification",
   "pk": 2550,
   "fields": {
-    "name": "Power:  To partner with local authorities",
+    "name": "Power: To partner with local authorities",
     "org_type": 32,
     "details": "CCGs have the power to be partnership organisations of local authorities and are able to receive the services of local authorities officers  (Local Government Act 1972, section 113(1A))",
     "activities": [
@@ -2238,20 +2251,20 @@
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
       706,
-      707,
       708,
       711,
-      725,
+      707,
+      715,
+      716,
+      717,
+      714,
+      720,
       721,
       722,
       723,
       724,
-      719,
-      720,
-      715,
-      716,
-      717,
-      714
+      725,
+      719
     ],
     "statutes": [
       64
@@ -2262,18 +2275,18 @@
   "model": "phmi.legaljustification",
   "pk": 2552,
   "fields": {
-    "name": "Provider duty:  To ensure the involvement of local people in decision-making",
+    "name": "Provider duty: To ensure the involvement of local people in decision-making",
     "org_type": 38,
     "details": "Local authorities must make contractual arrangements to:\r\n\r\n* enable the involvement of local people in the commissioning, provision and scrutiny of local health and social care services\r\n* obtain the views of local people about their need for and experience of local health and social care services.",
     "activities": [
-      706,
       707,
       708,
       710,
       711,
       712,
-      713,
-      718
+      706,
+      718,
+      713
     ],
     "statutes": [
       65
@@ -2286,12 +2299,12 @@
   "fields": {
     "name": "Provider power: To provide preventative services",
     "org_type": 38,
-    "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services/ resources already available in its area and consider whether these services/ resource can be used.  This will include any services offered by NHS England and/ or CCGs.",
+    "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services or resources already available in its area and consider whether these services or resources can be used.  This will include any services offered by NHS England and, or CCGs.",
     "activities": [
-      709,
       712,
-      719,
-      718
+      709,
+      718,
+      719
     ],
     "statutes": [
       63
@@ -2302,13 +2315,13 @@
   "model": "phmi.legaljustification",
   "pk": 2554,
   "fields": {
-    "name": "Provider duty:  To provide information and advice about care and support",
+    "name": "Provider duty: To provide information and advice about care and support",
     "org_type": 38,
     "details": "Local authorities must establish and maintain a service for providing people in its area with information and advice relating to care and support for adults and support for carers.",
     "activities": [
-      709,
       710,
       712,
+      709,
       713,
       718
     ],
@@ -2357,7 +2370,7 @@
   "model": "phmi.legaljustification",
   "pk": 2557,
   "fields": {
-    "name": "Provider duties:  To deliver education services (various)",
+    "name": "Provider duties: To deliver education services (various)",
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide education services.",
     "activities": [
@@ -2377,13 +2390,13 @@
     "org_type": 39,
     "details": "The Secretary of State for Health can require NHS England to carry out some of his public health tasks.  The Secretary of State\u2019s requirements are set out annually in the Public Health Functions Agreement.\r\n\r\nMore detail on what public health functions NHS England carries out under the agreement can be found here:\r\nhttps://www.england.nhs.uk/commissioning/pub-hlth-res/\r\n\r\n(NHS Act 2006 , section 7A)",
     "activities": [
-      744,
-      746,
-      747,
-      743,
-      745,
+      726,
       727,
-      726
+      743,
+      744,
+      745,
+      746,
+      747
     ],
     "statutes": [
       39
@@ -2398,11 +2411,11 @@
     "org_type": 38,
     "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services/ resources already available in its area and consider whether these services/ resource can be used.  This will include any services offered by NHS England and/ or CCGs.",
     "activities": [
+      726,
+      727,
       745,
       746,
-      747,
-      726,
-      727
+      747
     ],
     "statutes": [
       63
@@ -2417,13 +2430,13 @@
     "org_type": 39,
     "details": "SSection 12 empowers the Secretary of State to make arrangements with any person or body to provide, or assist in providing, anything that the Secretary of State has a duty or power to provide, or arrange for the provision of, under section 2A or 2B or Schedule 1 of the 2006 Act, as amended (the Secretary of State\u2019s duty as to the protection of public health and the improvement of public health respectively).",
     "activities": [
-      744,
-      746,
-      747,
-      743,
-      745,
+      726,
       727,
-      726
+      743,
+      744,
+      745,
+      746,
+      747
     ],
     "statutes": [
       57,
@@ -2439,15 +2452,15 @@
     "org_type": 32,
     "details": "Duty to support NHS England to deliver NHS England\u2019s duty secure continuous improvement in the quality of primary medical services.",
     "activities": [
-      737,
+      727,
       731,
       734,
       735,
-      747,
+      737,
       743,
       744,
       746,
-      727
+      747
     ],
     "statutes": [
       27,
@@ -2463,11 +2476,11 @@
     "org_type": 39,
     "details": "Under section 223K, the NHSCB has the ability, after the end of a financial year, to make a payment to a CCG in respect of quality. Section 223K(2) specifies that at least one of the prescribed factors must be taken into account by the NHSCB when determining whether to make a payment under section 223K. These factors include:\r\n\r\n* The quality of relevant services provided;\r\n* Any improvement in quality in comparison to the previous financial years;\r\n* Achievement of outcomes identified for the financial year.\r\n\r\nNHS England has the ability, after the end of a financial year, to make a payment to a CCG in respect of quality. At least one of the following factors must be taken into account by the NHS England:\r\n\r\n* The quality of relevant services provided\r\n* Any improvement in quality in comparison to the previous financial years\r\n* Outcomes for the financial year.\r\n\r\nNHS England may also take into account either or both of the following factors:\r\n\r\n* Relevant inequalities identified during the financial year\r\n* Any reduction in relevant inequalities identified during that year in comparison to those identified during the previous financial years.\r\n\r\n(NHS Act 2006, section 223K National Health Service (Clinical Commissioning Groups \u2013 Payments in Respect of Quality) Regulations 2013, SI 2013/474)",
     "activities": [
-      728,
       732,
       733,
       734,
-      739
+      739,
+      728
     ],
     "statutes": [
       62,
@@ -2479,13 +2492,13 @@
   "model": "phmi.legaljustification",
   "pk": 2563,
   "fields": {
-    "name": "Duty:  Arrangement of personal health budgets",
+    "name": "Duty: Arrangement of personal health budgets",
     "org_type": 32,
     "details": "CCGs must ensure that they are able to arrange personal health budgets for the delivery of NHS continuing healthcare",
     "activities": [
-      728,
       732,
-      733
+      733,
+      728
     ],
     "statutes": [
       2
@@ -2500,9 +2513,9 @@
     "org_type": 38,
     "details": "In some circumstances, local authorities must make direct payments to meet care needs.  Such needs can include after-care under the Mental Health Act 1983.  Detail is set out in regulations.",
     "activities": [
-      728,
       732,
-      733
+      733,
+      728
     ],
     "statutes": [
       66,
@@ -2517,7 +2530,7 @@
   "model": "phmi.legaljustification",
   "pk": 2565,
   "fields": {
-    "name": "Duty:   Co-operation with social services regarding the provision of NHS continuing healthcare",
+    "name": "Duty: Co-operation with social services regarding the provision of NHS continuing healthcare",
     "org_type": 39,
     "details": "NHS England must co-operate with the relevant local authority regarding continue healthcare services to patients.",
     "activities": [
@@ -2536,10 +2549,10 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
-      728,
       729,
       730,
-      731
+      731,
+      728
     ],
     "statutes": [
       64
@@ -2550,13 +2563,13 @@
   "model": "phmi.legaljustification",
   "pk": 2567,
   "fields": {
-    "name": "Duty:  Arrangement of personal health budgets",
+    "name": "Duty: Arrangement of personal health budgets",
     "org_type": 39,
     "details": "NHS England must ensure that it is able to arrange personal health budgets for the delivery of NHS continuing healthcare.",
     "activities": [
-      728,
       732,
-      733
+      733,
+      728
     ],
     "statutes": [
       2
@@ -2571,9 +2584,9 @@
     "org_type": 38,
     "details": "A local authority can secure the delivery of services to a patient by making direct payments to the patient/ their nominee for the services.  A local authority can work with other organisations to deliver direct payments, including voluntary organisations.\r\n\r\nFurther detail is set out in regulations.",
     "activities": [
-      728,
       732,
-      733
+      733,
+      728
     ],
     "statutes": [
       59,
@@ -2649,7 +2662,7 @@
   "model": "phmi.legaljustification",
   "pk": 2572,
   "fields": {
-    "name": "Commissioner duty:  To ensure the involvement of local people in decision-making",
+    "name": "Commissioner duty: To ensure the involvement of local people in decision-making",
     "org_type": 38,
     "details": "Local authorities must make contractual arrangements to:\r\n\r\n* enable the involvement of local people in the commissioning, provision and scrutiny of local health and social care services\r\n* obtain the views of local people about their need for and experience of local health and social care services.",
     "activities": [
@@ -2725,7 +2738,7 @@
   "model": "phmi.legaljustification",
   "pk": 2576,
   "fields": {
-    "name": "Duty:  To not go in to deficit",
+    "name": "Duty: To not go in to deficit",
     "org_type": 32,
     "details": "Each CCG has a duty to perform its functions for each financial year so as to ensure that its expenditure does not exceed its income for that year.",
     "activities": [
@@ -2784,7 +2797,7 @@
   "model": "phmi.legaljustification",
   "pk": 2579,
   "fields": {
-    "name": "Duty:  To assess the performance of CCGs",
+    "name": "Duty: To assess the performance of CCGs",
     "org_type": 39,
     "details": "Each year NHS England must assess the performance of each CCG.\r\n(NHS Act 2006, section 14Z16)",
     "activities": [
@@ -2836,7 +2849,7 @@
   "model": "phmi.legaljustification",
   "pk": 2582,
   "fields": {
-    "name": "Duty:  To ensure that patients requiring an elective referral are offered a choice of provider",
+    "name": "Duty: To ensure that patients requiring an elective referral are offered a choice of provider",
     "org_type": 32,
     "details": "A CCG must ensure that patients for whom it is responsible for commissioning care and who need an elective referral are given a choice of provider.  (There are some carve outs at regulation 40 and 41.)",
     "activities": [
@@ -2854,7 +2867,7 @@
   "model": "phmi.legaljustification",
   "pk": 2583,
   "fields": {
-    "name": "Duty:  To ensure that patients requiring an elective referral are offered a choice of provider",
+    "name": "Duty: To ensure that patients requiring an elective referral are offered a choice of provider",
     "org_type": 39,
     "details": "NHS England must ensure that patients for whom it is responsible for commissioning care and who need an elective referral are given a choice of provider.",
     "activities": [
@@ -2875,7 +2888,7 @@
   "model": "phmi.legaljustification",
   "pk": 2584,
   "fields": {
-    "name": "Duty:  To make arrangements to meet waiting times standards",
+    "name": "Duty: To make arrangements to meet waiting times standards",
     "org_type": 32,
     "details": "A CCG must make arrangements to meet the waiting times targets.",
     "activities": [
@@ -2896,7 +2909,7 @@
   "model": "phmi.legaljustification",
   "pk": 2585,
   "fields": {
-    "name": "Duty:  To make arrangements to meet waiting times standards",
+    "name": "Duty: To make arrangements to meet waiting times standards",
     "org_type": 39,
     "details": "NHS England must make arrangements to meet the waiting times targets.",
     "activities": [
@@ -2917,7 +2930,7 @@
   "model": "phmi.legaljustification",
   "pk": 2586,
   "fields": {
-    "name": "Duty:  To make arrangements to offer an alternative provider",
+    "name": "Duty: To make arrangements to offer an alternative provider",
     "org_type": 32,
     "details": "A CCG must offer an alternative provider in some circumstances.\r\n(NHS Commissioning Board and Clinical Commissioning Groups (Responsibilities and Standing Rules) Regulations 2012, regulation 48, 53 (suspected cancer))",
     "activities": [
@@ -2939,7 +2952,7 @@
   "model": "phmi.legaljustification",
   "pk": 2587,
   "fields": {
-    "name": "Duty:  To make arrangements to offer an alternative provider",
+    "name": "Duty: To make arrangements to offer an alternative provider",
     "org_type": 39,
     "details": "NHS England must offer an alternative provider in some circumstances",
     "activities": [
@@ -2961,7 +2974,7 @@
   "model": "phmi.legaljustification",
   "pk": 2588,
   "fields": {
-    "name": "Duty:  To make arrangements for urgent cancer appointments",
+    "name": "Duty: To make arrangements for urgent cancer appointments",
     "org_type": 32,
     "details": "A CCG must make arrangements to meet the waiting times targets for cancer treatment.",
     "activities": [
@@ -2979,7 +2992,7 @@
   "model": "phmi.legaljustification",
   "pk": 2589,
   "fields": {
-    "name": "Duty:  To make arrangements for urgent cancer appointments",
+    "name": "Duty: To make arrangements for urgent cancer appointments",
     "org_type": 39,
     "details": "NHS England must make arrangements to meet the waiting times targets for cancer treatment.",
     "activities": [
@@ -3054,7 +3067,7 @@
   "model": "phmi.legaljustification",
   "pk": 2592,
   "fields": {
-    "name": "Duty:  To comply with NICE technology appraisal recommendations",
+    "name": "Duty: To comply with NICE technology appraisal recommendations",
     "org_type": 32,
     "details": "CCGs must comply with a technology appraisal recommendation made by the National Institute for Health & Care Excellence",
     "activities": [
@@ -3103,7 +3116,7 @@
   "model": "phmi.legaljustification",
   "pk": 2595,
   "fields": {
-    "name": "Duty:  To prepare a joint strategic needs assessment",
+    "name": "Duty: To prepare a joint strategic needs assessment",
     "org_type": 32,
     "details": "CCGs must prepare a joint strategic needs assessment with the relevant local authority and a joint health and wellbeing strategy to meet those needs.\r\n(Local Government and Public Involvement in Health Act 2007, section 116 & 116A)",
     "activities": [
@@ -3308,7 +3321,7 @@
   "model": "phmi.legaljustification",
   "pk": 2605,
   "fields": {
-    "name": "Power:  To generate income",
+    "name": "Power: To generate income",
     "org_type": 39,
     "details": "NHS England has the power to raise additional income in some circumstances, provided this does not interfere to a significant extent with the performance by NHS England of its functions.\r\n\r\nNHS England can raise extra income through:\r\n\r\n* acquiring, producing, manufacturing or supplying goods\r\n* acquiring land by agreement and management of the land\r\n* providing instructions to any person\r\n* developing and exploiting with intellectual property\r\n* an appropriate action which will facilitate one of the above\r\n* making appropriate charges relating to any such power as listed above.\r\n\r\n(NHS Act 2006, s13W)",
     "activities": [
@@ -3323,7 +3336,7 @@
   "model": "phmi.legaljustification",
   "pk": 2606,
   "fields": {
-    "name": "Commissioner power:  General power",
+    "name": "Commissioner power: General power",
     "org_type": 38,
     "details": "",
     "activities": [
@@ -3336,7 +3349,7 @@
   "model": "phmi.legaljustification",
   "pk": 2607,
   "fields": {
-    "name": "Power:  To generate income",
+    "name": "Power: To generate income",
     "org_type": 32,
     "details": "A CCG has the power to raise additional income in some circumstances, provided this does not interfere to a significant extent with the performance by the group of its functions.\r\n\r\nCCGs can raise extra income through:\r\n\r\n* acquiring, producing, manufacturing or supplying goods\r\n* acquiring land by agreement and management of the land\r\n* providing instructions to any person\r\n* developing and exploiting with intellectual property\r\n* an appropriate action which will facilitate one of the above\r\n* making appropriate charges relating to any such power as listed above.\r\n\r\n(NHS Act 2006, s14Z5)",
     "activities": [

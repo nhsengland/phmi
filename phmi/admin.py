@@ -9,6 +9,7 @@ admin.site.register(models.GroupType)
 admin.site.register(models.OrgType)
 admin.site.register(models.Organisation)
 admin.site.register(models.Statute)
+admin.site.register(models.ActivityCategory)
 
 
 class NameSearchAdmin(admin.ModelAdmin):

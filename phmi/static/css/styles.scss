@@ -55,6 +55,7 @@ body {
     display: inline-block;
     padding-right: 16px;
     margin-right: 8px;
+    margin-top: 0;
     background: url("../img/icons/chevron.svg") no-repeat 100% 50%;
     background-size: 9px 12px;
   }
@@ -75,6 +76,11 @@ body {
   margin-top: 50px;
 }
 
+
+.content-offset-below{
+  margin-bottom: 50px;
+}
+
 .content-offset-24{
   margin-top: 24px;
 }
@@ -91,8 +97,8 @@ body {
   margin-top: 80px;
 }
 
-.content-offset-below{
-  margin-bottom: 50px;
+.content-offset-below-80{
+  margin-bottom: 80px;
 }
 
 .content-offset-below-10{
@@ -161,7 +167,7 @@ header.masthead{
   }
 
   .banner{
-    height: 140px;
+    height: 120px;
   }
 
   .header-nav{
@@ -666,7 +672,7 @@ label {
   padding: 0;
   margin: 24px 0 0;
 
-  ol li:first-child{
+  li:first-child{
     margin-top: 0;
   }
 
@@ -685,9 +691,37 @@ label {
   }
 }
 
+.nhs_markdown_ul{
+  ol, ul{
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 24px 0;
+  
+    li:first-child{
+      margin-top: 0;
+    }
+
+    li{
+      padding: 0 0 0 32px;
+      position: relative;
+      margin: 8px 0 0;
+    }
+  
+    li:before {
+      color: #AEB7BD;
+      content: '\2014';
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+}
 
 
-
+hr.nhs_thick{
+  border-top: 4px solid #005eb8;
+}
 
 
 
@@ -702,6 +736,7 @@ label {
   font-size: 1.5em;
   line-height: 32px;
   margin: 40px 0 0;
+  font-weight: 600;
 }
 
 
@@ -725,6 +760,10 @@ label {
 
 p{
   margin-top: 24px;
+}
+
+.no-top-margin{
+  margin-top: 0;
 }
 
 a{
@@ -768,7 +807,7 @@ ol, ul {
 }
 
 .nhsuk-icon {
-  display: block;
+  display: inline-block;
   height: 30px;
   width: 30px;
 
@@ -788,4 +827,8 @@ svg:not(:root), symbol, image, marker, pattern, foreignObject {
 
 .nhsuk-icon__cross {
   fill: #da291c;
+}
+
+table thead{
+  background-color: #d8dde0;
 }

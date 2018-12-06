@@ -56,16 +56,10 @@ class OrgType(models.Model):
         max_length=256, unique=True
     )
     slug = models.SlugField(unique=True, blank=True, null=True)
+    index = models.IntegerField(default=0)
 
     class Meta:
-        # [
-        #    NHS England
-        #    CCG
-        #    NHS Trust
-        #    Local Authority
-        #    Non NHS Provider
-        # ]
-        ordering = ["name"]
+        ordering = ["index"]
 
     def __str__(self):
         return self.name
@@ -92,6 +86,7 @@ class ActivityCategory(models.Model):
     name = models.CharField(
         max_length=256, unique=True
     )
+    index = models.IntegerField(default=0)
 
     slug = models.SlugField(unique=True, blank=True, null=True)
 
@@ -104,7 +99,7 @@ class ActivityCategory(models.Model):
         return self.name
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["index"]
 
 
 class Activity(models.Model):
@@ -154,7 +149,7 @@ class Activity(models.Model):
         return reverse("activity-detail", kwargs=dict(slug=self.slug))
 
     class Meta:
-        ordering = ["activity_category__name"]
+        ordering = ["activity_category__index"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -340,3 +335,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         unsigning.
         """
         return TimestampSigner(salt=self.LOGIN_SALT).sign(self.pk)
+
+for i in LegalJustification.objects.all():
+    b, y = i.name.split(":", 1)
+    b = b.replace("(nhs trust only)", "")
+    b = f"{b}: {y.strip()}"
+    i.name = b
+    i.save()
