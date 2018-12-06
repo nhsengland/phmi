@@ -1446,39 +1446,6 @@
 },
 {
   "model": "phmi.legaljustification",
-  "pk": 2500,
-  "fields": {
-    "name": "Power: Process data for legitmate interest",
-    "org_type": 37,
-    "details": "",
-    "activities": [
-      705,
-      706,
-      708,
-      710,
-      711,
-      712,
-      707,
-      709,
-      715,
-      716,
-      717,
-      718,
-      713,
-      714,
-      721,
-      722,
-      723,
-      724,
-      725,
-      720,
-      719
-    ],
-    "statutes": []
-  }
-},
-{
-  "model": "phmi.legaljustification",
   "pk": 2501,
   "fields": {
     "name": "Power: To do anything that will facilitate the discharge of functions under the 2006 Act",
@@ -3358,6 +3325,39 @@
     "statutes": [
       3
     ]
+  }
+},
+{
+  "model": "phmi.legaljustification",
+  "pk": 2608,
+  "fields": {
+    "name": "Power: Process data for legitmate interest",
+    "org_type": 37,
+    "details": "Processing shall be lawful for the purposes of the legitimate interests pursued by the controller, however, does not apply for public authorities, for the performance of their public tasks.  (GDPR, Article 6(1)(f))",
+    "activities": [
+      705,
+      706,
+      708,
+      710,
+      711,
+      712,
+      707,
+      709,
+      715,
+      716,
+      717,
+      718,
+      713,
+      714,
+      721,
+      722,
+      723,
+      724,
+      725,
+      720,
+      719
+    ],
+    "statutes": []
   }
 },
 {
