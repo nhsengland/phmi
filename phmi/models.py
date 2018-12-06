@@ -93,6 +93,16 @@ class ActivityCategory(models.Model):
         max_length=256, unique=True
     )
 
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    def save(self):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        super().save()
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         ordering = ["name"]
 

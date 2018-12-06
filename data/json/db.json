@@ -131,114 +131,66 @@
 },
 {
   "model": "phmi.activitycategory",
-  "pk": 1,
-  "fields": {
-    "name": "GENERAL PROVISION OF POPULATION HEALTH MANAGEMENT (INCLUDING DIRECT CARE, SECONDARY USES AND 'HYBRID' ACTIVITIES)"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 2,
-  "fields": {
-    "name": "A. ACTIVATING AND EMPOWERING CITIZENS"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 3,
-  "fields": {
-    "name": "B. MANAGING INDIVIDUAL CARE"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 4,
-  "fields": {
-    "name": "C. CO-ORDINATING AND OPTIMISING SERVICE USER FLOWS"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 5,
-  "fields": {
-    "name": "D. RISK STRATIFICATION FOR EARLY INTERVENTION AND PREVENTION"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 6,
-  "fields": {
-    "name": "E. MANAGING FINANCES, QUALITY AND OUTCOMES"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 7,
-  "fields": {
-    "name": "F. PLANNING, IMPLEMENTING AND EVALUATING POPULATION HEALTH STRATEGY"
-  }
-},
-{
-  "model": "phmi.activitycategory",
-  "pk": 8,
-  "fields": {
-    "name": "G. UNDERTAKING RESEARCH"
-  }
-},
-{
-  "model": "phmi.activitycategory",
   "pk": 9,
   "fields": {
-    "name": "Provision of population health management (including direct care, secondary uses and 'hybrid' activities)"
+    "name": "Provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
+    "slug": "provision-of-population-health-management-includin"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 10,
   "fields": {
-    "name": "Activating and empowering citizens"
+    "name": "Activating and empowering citizens",
+    "slug": "activating-and-empowering-citizens"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 11,
   "fields": {
-    "name": "Managing individual care"
+    "name": "Managing individual care",
+    "slug": "managing-individual-care"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 12,
   "fields": {
-    "name": "Co-ordinating and optimising service user flows"
+    "name": "Co-ordinating and optimising service user flows",
+    "slug": "co-ordinating-and-optimising-service-user-flows"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 13,
   "fields": {
-    "name": "Risk stratification for early intervention and prevention"
+    "name": "Risk stratification for early intervention and prevention",
+    "slug": "risk-stratification-for-early-intervention-and-pre"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 14,
   "fields": {
-    "name": "Managing finances, quality and outcomes"
+    "name": "Managing finances, quality and outcomes",
+    "slug": "managing-finances-quality-and-outcomes"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 15,
   "fields": {
-    "name": "Planning, implementing and evaluating population health strategy"
+    "name": "Planning, implementing and evaluating population health strategy",
+    "slug": "planning-implementing-and-evaluating-population-he"
   }
 },
 {
   "model": "phmi.activitycategory",
   "pk": 16,
   "fields": {
-    "name": "Undertaking research"
+    "name": "Undertaking research",
+    "slug": "undertaking-research"
   }
 },
 {
@@ -1468,9 +1420,9 @@
     "org_type": 35,
     "details": "NHS Trusts provide goods and services for the purposes of the NHS.",
     "activities": [
-      712,
       706,
       707,
+      712,
       719,
       705
     ],
@@ -1487,25 +1439,25 @@
     "org_type": 37,
     "details": "",
     "activities": [
-      707,
-      706,
-      712,
-      711,
       710,
-      709,
+      711,
+      712,
+      706,
+      707,
       708,
-      725,
-      724,
-      723,
-      722,
-      721,
-      720,
+      709,
       719,
+      720,
+      721,
+      722,
+      723,
+      724,
+      725,
       715,
-      717,
-      716,
-      714,
       713,
+      714,
+      716,
+      717,
       718,
       705
     ],
@@ -1566,20 +1518,20 @@
     "org_type": 35,
     "details": "An NHS Trust must exercise its functions effectively, efficiently and economically.",
     "activities": [
-      708,
       711,
-      710,
+      708,
       709,
-      721,
-      725,
-      720,
+      710,
       724,
-      723,
+      720,
+      725,
+      721,
       722,
-      713,
+      723,
       716,
-      715,
+      713,
       714,
+      715,
       718,
       705
     ],
@@ -2285,21 +2237,21 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
-      711,
-      708,
-      707,
       706,
-      719,
-      723,
-      722,
-      721,
-      720,
+      707,
+      708,
+      711,
       725,
+      721,
+      722,
+      723,
       724,
-      716,
+      719,
+      720,
       715,
-      714,
-      717
+      716,
+      717,
+      714
     ],
     "statutes": [
       64
@@ -2314,14 +2266,14 @@
     "org_type": 38,
     "details": "Local authorities must make contractual arrangements to:\r\n\r\n* enable the involvement of local people in the commissioning, provision and scrutiny of local health and social care services\r\n* obtain the views of local people about their need for and experience of local health and social care services.",
     "activities": [
-      711,
-      712,
       706,
       707,
       708,
       710,
-      718,
-      713
+      711,
+      712,
+      713,
+      718
     ],
     "statutes": [
       65
@@ -2336,8 +2288,8 @@
     "org_type": 38,
     "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services/ resources already available in its area and consider whether these services/ resource can be used.  This will include any services offered by NHS England and/ or CCGs.",
     "activities": [
-      712,
       709,
+      712,
       719,
       718
     ],
@@ -2354,11 +2306,11 @@
     "org_type": 38,
     "details": "Local authorities must establish and maintain a service for providing people in its area with information and advice relating to care and support for adults and support for carers.",
     "activities": [
-      712,
       709,
       710,
-      718,
-      713
+      712,
+      713,
+      718
     ],
     "statutes": [
       73
@@ -2513,8 +2465,8 @@
     "activities": [
       728,
       732,
-      734,
       733,
+      734,
       739
     ],
     "statutes": [
@@ -2584,9 +2536,9 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
-      730,
       728,
       729,
+      730,
       731
     ],
     "statutes": [
@@ -2743,8 +2695,8 @@
     "details": "Section 223G requires NHS England to make a contribution in each financial year to each CCG.\r\n(NHS Act 2006, S223G, HSCA 2012, S27)",
     "activities": [
       732,
-      734,
-      733
+      733,
+      734
     ],
     "statutes": [
       42,
@@ -2795,12 +2747,12 @@
     "details": "Decisions made by NHS England about the purchase of healthcare services (excluding pharmaceutical services) must be transparent and fair, and improve the quality and efficiency of healthcare services for patients. In particular NHS England must act with a view to:\r\n\r\n* (a) Securing the needs of the people who use the services\r\n* (b) Improving the quality of the services\r\n* (c) Improving efficiency in the provisions of the services.",
     "activities": [
       732,
-      734,
       733,
+      734,
       735,
       737,
-      740,
-      739
+      739,
+      740
     ],
     "statutes": [
       37
@@ -2816,12 +2768,12 @@
     "details": "Decisions made by CCGs about the purchase of healthcare services (excluding pharmaceutical services) must be transparent and fair, and improve the quality and efficiency of healthcare services for patients. In particular CCGs must act with a view to:\r\n\r\n* Securing the needs of the people who use the services; \r\n* Improving the quality of the services; and \r\n* Improving efficiency in the provisions of the services.",
     "activities": [
       732,
-      734,
       733,
+      734,
       735,
       737,
-      740,
-      739
+      739,
+      740
     ],
     "statutes": [
       37
@@ -2854,8 +2806,8 @@
     "activities": [
       734,
       735,
-      738,
-      737
+      737,
+      738
     ],
     "statutes": [
       24
@@ -2872,8 +2824,8 @@
     "activities": [
       734,
       735,
-      738,
-      737
+      737,
+      738
     ],
     "statutes": [
       23
@@ -2890,8 +2842,8 @@
     "activities": [
       734,
       735,
-      738,
-      737
+      737,
+      738
     ],
     "statutes": [
       6
@@ -2908,10 +2860,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -2929,10 +2881,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -2950,10 +2902,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -2971,10 +2923,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -2993,10 +2945,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -3015,8 +2967,8 @@
     "activities": [
       734,
       735,
-      738,
-      737
+      737,
+      738
     ],
     "statutes": [
       8
@@ -3033,10 +2985,10 @@
     "activities": [
       734,
       735,
-      738,
       737,
-      740,
+      738,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -3054,17 +3006,17 @@
     "activities": [
       738,
       746,
-      759,
-      755,
-      754,
-      753,
-      758,
-      752,
-      751,
-      750,
       749,
+      750,
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
       757,
-      756
+      758,
+      759
     ],
     "statutes": [
       47
@@ -3081,17 +3033,17 @@
     "activities": [
       738,
       746,
-      759,
-      755,
-      754,
-      753,
-      758,
-      752,
-      751,
-      750,
       749,
+      750,
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
       757,
-      756
+      758,
+      759
     ],
     "statutes": [
       30
@@ -3121,8 +3073,8 @@
     "org_type": 32,
     "details": "A CCG can secure the delivery of services to a patient by making direct payments to the patient/ their nominee for the services.  A CCG can work with other organisations to deliver direct payments, including voluntary organisations.\r\n\r\nFurther detail is set out in regulations.",
     "activities": [
-      740,
       739,
+      740,
       742
     ],
     "statutes": [
@@ -3155,13 +3107,13 @@
     "org_type": 32,
     "details": "CCGs must prepare a joint strategic needs assessment with the relevant local authority and a joint health and wellbeing strategy to meet those needs.\r\n(Local Government and Public Involvement in Health Act 2007, section 116 & 116A)",
     "activities": [
-      740,
       739,
+      740,
       741,
       743,
-      748,
       745,
-      746
+      746,
+      748
     ],
     "statutes": [
       16
@@ -3176,8 +3128,8 @@
     "org_type": 32,
     "details": "CCGs must, together with the local authority and relevant voluntary agencies, arrange for the provision of after care for people previously detained under the Mental Health Act, at the time that they cease to be detained. Such after care should be provided until the local social services authority is satisfied that such services are no longer required.",
     "activities": [
-      740,
       739,
+      740,
       741
     ],
     "statutes": [
@@ -3196,8 +3148,8 @@
       740,
       742,
       743,
-      748,
-      744
+      744,
+      748
     ],
     "statutes": [
       75
@@ -3231,8 +3183,8 @@
       740,
       742,
       743,
-      748,
-      744
+      744,
+      748
     ],
     "statutes": [
       75
@@ -3248,10 +3200,10 @@
     "details": "Local authorities must prepare a joint strategic needs assessment with the relevant local authority and a joint health and wellbeing strategy to meet those needs.",
     "activities": [
       742,
-      748,
       744,
       745,
-      746
+      746,
+      748
     ],
     "statutes": [
       16
@@ -3268,8 +3220,8 @@
     "activities": [
       742,
       743,
-      748,
-      744
+      744,
+      748
     ],
     "statutes": [
       75
@@ -3284,16 +3236,16 @@
     "org_type": 38,
     "details": "A local authority may conduct, commission or assist the conduct of research for any purpose connected with the exercise of its functions in relation to the health service. (Para 13 Sched 1 NHS Act 2006, s17(13) HSCA 2012)",
     "activities": [
-      756,
-      757,
       749,
       750,
       751,
       752,
-      758,
       753,
       754,
       755,
+      756,
+      757,
+      758,
       759
     ],
     "statutes": [
@@ -3310,16 +3262,16 @@
     "org_type": 39,
     "details": "NHS England may conduct, commission or assist the conduct of research into:\r\n\r\n* any matters relating to the causation, prevention, diagnosis or treatment of illness; and\r\n* any other matters connected with the health service that NHS England considers appropriate.\r\n\r\n(NHS Act 2006, Sched 1 p13)",
     "activities": [
-      756,
-      757,
       749,
       750,
       751,
       752,
-      758,
       753,
       754,
       755,
+      756,
+      757,
+      758,
       759
     ],
     "statutes": [
@@ -3335,16 +3287,16 @@
     "org_type": 32,
     "details": "A CCG may conduct, commission or assist the conduct of research into:\r\n\r\n* any matters relating to the causation, prevention, diagnosis or treatment of illness; and\r\n* any other matters connected with the health service that NHS England considers appropriate.\r\n\r\n(NHS Act 2006, Schedule 1, para 13)",
     "activities": [
-      756,
-      757,
       749,
       750,
       751,
       752,
-      758,
       753,
       754,
       755,
+      756,
+      757,
+      758,
       759
     ],
     "statutes": [

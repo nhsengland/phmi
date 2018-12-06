@@ -1,5 +1,6 @@
+@charset "UTF-8";
 body {
-  background: #fff;
+  background: #f0f4f5;
   margin-top: 0;
   box-sizing: border-box;
   color: #212b32;
@@ -543,6 +544,27 @@ label {
 
 #no-items {
   display: none;
+}
+
+.nhsuk-c-page-contents__list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.nhsuk-c-page-contents__list ol li:first-child {
+  margin-top: 0;
+}
+.nhsuk-c-page-contents__list .nhsuk-c-page-contents__item {
+  padding: 0 0 0 32px;
+  position: relative;
+  margin: 8px 0 0;
+}
+.nhsuk-c-page-contents__list .nhsuk-c-page-contents__item:before {
+  color: #AEB7BD;
+  content: "—";
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .nhsuk-heading-xl {

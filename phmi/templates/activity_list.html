@@ -3,19 +3,19 @@
 {% block contents %}
 	<article>
     <h1 class="title">Secondary data use activities</h1>
-    <ul class="toc">
+    <ul class="nhsuk-c-page-contents__list">
       {% for activity in object_list %}
       {% ifchanged activity.activity_category.name %}
-      <li>
-        {{ activity.activity_category.name }}
+      <li class="nhsuk-c-page-contents__item">
+        <a href="#{{ activity.activity_category.slug }}">{{ activity.activity_category.name }}</a>
       </li>
       {% endifchanged %}
       {% endfor %}
     </ul>
-    <table class="table">
+    <table class="table content-offset">
         {% for activity in object_list %}
           {% ifchanged activity.activity_category.name %}
-          <thead>
+          <thead id="{{ activity.activity_category.slug }}">
             <tr>
               <th>{{ activity.activity_category.name }}</th>
               {% for org_type in org_permissions.keys %}

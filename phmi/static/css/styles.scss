@@ -19,10 +19,11 @@ $text-colour: #212b32;
 $text-colour-on-dark: #FFF;
 $footer-height: 350px;
 $main-content-margin: 20px;
+$background-color: #f0f4f5;
 
 
 body {
-  background: #fff;
+  background: $background-color;
   margin-top: 0;
   box-sizing: border-box;
   color: $text-colour;
@@ -658,6 +659,37 @@ label {
 #no-items{
   display: none;
 }
+
+// an unordered list from nhs.uk/conditions
+.nhsuk-c-page-contents__list{
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+
+  ol li:first-child{
+    margin-top: 0;
+  }
+
+  .nhsuk-c-page-contents__item{
+    padding: 0 0 0 32px;
+    position: relative;
+    margin: 8px 0 0;
+  }
+
+  .nhsuk-c-page-contents__item:before {
+    color: #AEB7BD;
+    content: '\2014';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+
+
+
+
+
 
 // NHS England typography classes
 .nhsuk-heading-xl{
