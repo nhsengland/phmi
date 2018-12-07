@@ -358,10 +358,11 @@ class GenerateMagicLoginURL(FormView):
         """Email a login URL to the address specified by the user."""
         user, _ = models.User.objects.get_or_create(email=form.cleaned_data["email"])
 
-        # if the user's email ends in one of the STAFF_LOGIN_DOMAINS
-        # automatically set is_staff to be True
-        if not user.is_staff:
-            if user.email.endswith(tuple(settings.STAFF_LOGIN_DOMAINS)):
+        # if the user's email ends in one of the SUPERUSER_LOGIN_DOMAINS
+        # automatically set is_superuser to be True
+        if not user.is_superuser:
+            if user.email.endswith(tuple(settings.SUPERUSER_LOGIN_DOMAINS)):
+                user.is_superuser = True
                 user.is_staff = True
                 user.save()
 
