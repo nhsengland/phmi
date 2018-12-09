@@ -2376,7 +2376,7 @@
   "fields": {
     "name": "Commissioner power: To provide preventative services",
     "org_type": 38,
-    "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services/ resources already available in its area and consider whether these services/ resource can be used.  This will include any services offered by NHS England and/ or CCGs.",
+    "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services/resources already available in its area and consider whether these services/resource can be used.  This will include any services offered by NHS England and/ or CCGs.",
     "activities": [
       726,
       727,
@@ -2395,7 +2395,7 @@
   "fields": {
     "name": "Power: To assist SoS in providing health services and exercising public health functions",
     "org_type": 39,
-    "details": "SSection 12 empowers the Secretary of State to make arrangements with any person or body to provide, or assist in providing, anything that the Secretary of State has a duty or power to provide, or arrange for the provision of, under section 2A or 2B or Schedule 1 of the 2006 Act, as amended (the Secretary of State\u2019s duty as to the protection of public health and the improvement of public health respectively).",
+    "details": "Section 12 empowers the Secretary of State to make arrangements with any person or body to provide, or assist in providing, anything that the Secretary of State has a duty or power to provide, or arrange for the provision of, under section 2A or 2B or Schedule 1 of the 2006 Act, as amended (the Secretary of State\u2019s duty as to the protection of public health and the improvement of public health respectively).",
     "activities": [
       726,
       727,
