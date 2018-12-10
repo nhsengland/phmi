@@ -1381,6 +1381,70 @@
   }
 },
 {
+  "model": "phmi.statute",
+  "pk": 80,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z2",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z2"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 81,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z16",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z16"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 82,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z1",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z1"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 83,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z3",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z3"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 84,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z5",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z5"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 85,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z7",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z7"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 86,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z9",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z9"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 87,
+  "fields": {
+    "name": "NHS Act 2006, Section 14Z4",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z4"
+  }
+},
+{
   "model": "phmi.legaljustification",
   "pk": 2496,
   "fields": {
@@ -1435,8 +1499,8 @@
     "activities": [
       705,
       706,
-      712,
       707,
+      712,
       719
     ],
     "statutes": [
@@ -1499,20 +1563,20 @@
     "details": "An NHS Trust must exercise its functions effectively, efficiently and economically.",
     "activities": [
       705,
-      708,
-      710,
       711,
+      710,
       709,
-      714,
-      715,
-      716,
+      708,
       718,
+      716,
+      715,
+      714,
       713,
-      721,
-      722,
-      723,
-      724,
       725,
+      724,
+      723,
+      722,
+      721,
       720
     ],
     "statutes": [
@@ -1786,7 +1850,7 @@
       705
     ],
     "statutes": [
-      3
+      82
     ]
   }
 },
@@ -1901,12 +1965,12 @@
   "fields": {
     "name": "Power: For a CCG to deliver services jointly with another CCG",
     "org_type": 32,
-    "details": "CCGs can exercise their functions jointly, or on behalf of one another.  This means that one CCG can take on the functions of another. (NHS Act 2006, section 14Z3)",
+    "details": "CCGs can exercise their functions jointly, or on behalf of one another.  This means that one CCG can take on the functions of another.",
     "activities": [
       705
     ],
     "statutes": [
-      3
+      83
     ]
   }
 },
@@ -1967,7 +2031,7 @@
       705
     ],
     "statutes": [
-      3
+      83
     ]
   }
 },
@@ -2006,12 +2070,12 @@
   "fields": {
     "name": "Power: For NHS England to deliver CCG services instead of or jointly with a CCG",
     "org_type": 32,
-    "details": "CCGs can deliver their functions jointly with NHS England, or NHS England can deliver the functions on behalf of the CCG (NHS Act 2006, s14Z9)",
+    "details": "CCGs can deliver their functions jointly with NHS England, or NHS England can deliver the functions on behalf of the CCG",
     "activities": [
       705
     ],
     "statutes": [
-      3
+      86
     ]
   }
 },
@@ -2217,21 +2281,21 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
-      706,
-      708,
       711,
+      708,
       707,
-      715,
-      716,
+      706,
       717,
+      716,
+      715,
       714,
-      719,
-      721,
-      722,
-      723,
-      724,
       725,
-      720
+      724,
+      723,
+      722,
+      721,
+      720,
+      719
     ],
     "statutes": [
       64
@@ -2246,14 +2310,14 @@
     "org_type": 38,
     "details": "Local authorities must make contractual arrangements to:\r\n\r\n* enable the involvement of local people in the commissioning, provision and scrutiny of local health and social care services\r\n* obtain the views of local people about their need for and experience of local health and social care services.",
     "activities": [
+      706,
       707,
       708,
       710,
       711,
       712,
-      706,
-      718,
-      713
+      713,
+      718
     ],
     "statutes": [
       65
@@ -2268,8 +2332,8 @@
     "org_type": 38,
     "details": "A local authority must provide services that:\r\n\r\n* Help prevent or delay the need of adults for care and support\r\n* Help prevent or delay the need of carers for support\r\n* Reduce the need of adults for care and support\r\n* Reduce the needs of carers for support\r\n\r\nWhen doing this, a local authority must have regard to services or resources already available in its area and consider whether these services or resources can be used.  This will include any services offered by NHS England and, or CCGs.",
     "activities": [
-      712,
       709,
+      712,
       718,
       719
     ],
@@ -2286,9 +2350,9 @@
     "org_type": 38,
     "details": "Local authorities must establish and maintain a service for providing people in its area with information and advice relating to care and support for adults and support for carers.",
     "activities": [
+      709,
       710,
       712,
-      709,
       713,
       718
     ],
@@ -2443,11 +2507,11 @@
     "org_type": 39,
     "details": "Under section 223K, the NHSCB has the ability, after the end of a financial year, to make a payment to a CCG in respect of quality. Section 223K(2) specifies that at least one of the prescribed factors must be taken into account by the NHSCB when determining whether to make a payment under section 223K. These factors include:\r\n\r\n* The quality of relevant services provided;\r\n* Any improvement in quality in comparison to the previous financial years;\r\n* Achievement of outcomes identified for the financial year.\r\n\r\nNHS England has the ability, after the end of a financial year, to make a payment to a CCG in respect of quality. At least one of the following factors must be taken into account by the NHS England:\r\n\r\n* The quality of relevant services provided\r\n* Any improvement in quality in comparison to the previous financial years\r\n* Outcomes for the financial year.\r\n\r\nNHS England may also take into account either or both of the following factors:\r\n\r\n* Relevant inequalities identified during the financial year\r\n* Any reduction in relevant inequalities identified during that year in comparison to those identified during the previous financial years.\r\n\r\n(NHS Act 2006, section 223K National Health Service (Clinical Commissioning Groups \u2013 Payments in Respect of Quality) Regulations 2013, SI 2013/474)",
     "activities": [
+      728,
       732,
       733,
       734,
-      739,
-      728
+      739
     ],
     "statutes": [
       62,
@@ -2463,9 +2527,9 @@
     "org_type": 32,
     "details": "CCGs must ensure that they are able to arrange personal health budgets for the delivery of NHS continuing healthcare",
     "activities": [
+      728,
       732,
-      733,
-      728
+      733
     ],
     "statutes": [
       2
@@ -2480,9 +2544,9 @@
     "org_type": 38,
     "details": "In some circumstances, local authorities must make direct payments to meet care needs.  Such needs can include after-care under the Mental Health Act 1983.  Detail is set out in regulations.",
     "activities": [
+      728,
       732,
-      733,
-      728
+      733
     ],
     "statutes": [
       66,
@@ -2516,10 +2580,10 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
+      728,
       729,
       730,
-      731,
-      728
+      731
     ],
     "statutes": [
       64
@@ -2534,9 +2598,9 @@
     "org_type": 39,
     "details": "NHS England must ensure that it is able to arrange personal health budgets for the delivery of NHS continuing healthcare.",
     "activities": [
+      728,
       732,
-      733,
-      728
+      733
     ],
     "statutes": [
       2
@@ -2551,9 +2615,9 @@
     "org_type": 38,
     "details": "A local authority can secure the delivery of services to a patient by making direct payments to the patient/ their nominee for the services.  A local authority can work with other organisations to deliver direct payments, including voluntary organisations.\r\n\r\nFurther detail is set out in regulations.",
     "activities": [
+      728,
       732,
-      733,
-      728
+      733
     ],
     "statutes": [
       59,
@@ -2621,7 +2685,7 @@
       755
     ],
     "statutes": [
-      3
+      80
     ]
   }
 },
@@ -2690,14 +2754,14 @@
   "fields": {
     "name": "Duty: Payments to providers to NHS England specification",
     "org_type": 32,
-    "details": "Duty to be adhere to any NHS England document published under section 14Z7 (payments to providers). (NHS Act 2006 s14Z7, HSCA s26)",
+    "details": "Duty to be adhere to any NHS England document published under section 14Z7 (payments to providers).",
     "activities": [
       732,
       733
     ],
     "statutes": [
       27,
-      3
+      85
     ]
   }
 },
@@ -2772,7 +2836,7 @@
       739
     ],
     "statutes": [
-      3
+      81
     ]
   }
 },
@@ -2986,17 +3050,17 @@
     "activities": [
       738,
       746,
-      749,
-      750,
-      751,
-      752,
-      753,
-      754,
-      755,
-      756,
-      757,
+      759,
       758,
-      759
+      757,
+      756,
+      755,
+      754,
+      753,
+      752,
+      751,
+      750,
+      749
     ],
     "statutes": [
       47
@@ -3013,17 +3077,17 @@
     "activities": [
       738,
       746,
-      749,
-      750,
-      751,
-      752,
-      753,
-      754,
-      755,
-      756,
-      757,
+      759,
       758,
-      759
+      757,
+      756,
+      755,
+      754,
+      753,
+      752,
+      751,
+      750,
+      749
     ],
     "statutes": [
       30
@@ -3070,12 +3134,12 @@
   "fields": {
     "name": "Power: For a CCG to deliver services jointly with a Local Health Board",
     "org_type": 32,
-    "details": "CCGs can exercise their functions jointly with Local Health Boards.  (A Local Health Board is a public sector organisation in Wales that commissions healthcare services.) (NHS Act 2006, section 14Z4)",
+    "details": "CCGs can exercise their functions jointly with Local Health Boards.  (A Local Health Board is a public sector organisation in Wales that commissions healthcare services.)",
     "activities": [
       739
     ],
     "statutes": [
-      3
+      87
     ]
   }
 },
@@ -3323,7 +3387,7 @@
       759
     ],
     "statutes": [
-      3
+      84
     ]
   }
 },
@@ -3336,24 +3400,24 @@
     "details": "Processing shall be lawful for the purposes of the legitimate interests pursued by the controller, however, does not apply for public authorities, for the performance of their public tasks.  (GDPR, Article 6(1)(f))",
     "activities": [
       705,
-      706,
-      708,
-      710,
-      711,
       712,
-      707,
+      711,
+      710,
       709,
-      715,
-      716,
-      717,
+      708,
+      707,
+      706,
       718,
-      713,
+      717,
+      716,
+      715,
       714,
-      721,
-      722,
-      723,
-      724,
+      713,
       725,
+      724,
+      723,
+      722,
+      721,
       720,
       719
     ],
