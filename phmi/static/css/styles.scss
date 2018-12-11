@@ -93,6 +93,10 @@ body {
   margin-top: 40px;
 }
 
+.content-offset-below-40{
+  margin-bottom: 40px;
+}
+
 .content-offset-80{
   margin-top: 80px;
 }
@@ -177,6 +181,10 @@ header.masthead{
 
   .banner{
     height: 120px;
+
+    @media screen and (max-width: 480px){
+      height: 200px;
+    }
   }
 
   .header-nav{
@@ -206,6 +214,12 @@ header.masthead{
 
 }
 
+.xs-scrollable{
+  @media screen and (max-width: 480px){
+    display: block;
+    overflow-x: scroll;
+  }
+}
 
 footer{
   &.site-footer{
@@ -218,6 +232,8 @@ footer{
     bottom: 0;
     position: absolute;
   }
+
+
 
   .footer-logo {
       height: 70px;

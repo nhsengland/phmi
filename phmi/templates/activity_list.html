@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <table class="table content-offset">
+    <table class="xs-scrollable table content-offset">
         {% for activity in object_list %}
           {% ifchanged activity.activity_category.name %}
           <thead id="{{ activity.activity_category.slug }}">

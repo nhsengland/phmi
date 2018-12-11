@@ -13,7 +13,7 @@
 				Select all the population health management activities that this
 				project	is likely to involve.
 			</p>
-			<table class="table">
+			<table class="table xs-scrollable">
 					{% for activity in view.activities %}
 						{% ifchanged activity.activity_category.name %}
 						<thead>
@@ -33,7 +33,7 @@
 					</tr>
 					{% endfor %}
 			</table>
-			<div class="row">
+			<div class="row content-offset-below-40">
 				<div class="col-md-12">
 					<button class="btn btn-success">
 						Continue
