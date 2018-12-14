@@ -904,8 +904,8 @@
   "model": "phmi.statute",
   "pk": 19,
   "fields": {
-    "name": "Health and Social Care Act 2012, Section 251",
-    "link": "http://www.legislation.gov.uk/ukpga/2012/7/section/251"
+    "name": "Health and Social Care Act 2012, Section 251B",
+    "link": "http://www.legislation.gov.uk/ukpga/2015/28/section/3/enacted"
   }
 },
 {
@@ -928,8 +928,8 @@
   "model": "phmi.statute",
   "pk": 22,
   "fields": {
-    "name": "Equalities Act 2010 Section 19",
-    "link": "https://www.legislation.gov.uk/ukpga/2010/15/section/19"
+    "name": "Equalities Act 2010 Schedule 19 part 1",
+    "link": "https://www.legislation.gov.uk/ukpga/2010/15/schedule/19/part/1"
   }
 },
 {
@@ -1161,7 +1161,7 @@
   "pk": 51,
   "fields": {
     "name": "NHS Act 2006, Section 2",
-    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/2"
+    "link": "http://www.legislation.gov.uk/ukpga/2012/7/schedule/4/part/1"
   }
 },
 {
@@ -1217,7 +1217,7 @@
   "pk": 58,
   "fields": {
     "name": "NHS Act 2006, Schedule 1",
-    "link": "https://www.legislation.gov.uk/ukpga/2006/41/schedule/1"
+    "link": "http://www.legislation.gov.uk/ukpga/2012/7/section/17/enacted"
   }
 },
 {
@@ -1304,7 +1304,7 @@
   "model": "phmi.statute",
   "pk": 69,
   "fields": {
-    "name": "Care Act 2014, schedule 4",
+    "name": "Care Act 2014, Schedule 4",
     "link": "http://www.legislation.gov.uk/ukpga/2014/23/schedule/4/enacted"
   }
 },
@@ -1368,8 +1368,8 @@
   "model": "phmi.statute",
   "pk": 78,
   "fields": {
-    "name": "NHS Act 2006, Schedule 4",
-    "link": "https://www.legislation.gov.uk/ukpga/2006/41/schedule/4"
+    "name": "NHS Act 2006, Schedule 4 Paragraph 18",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/schedule/4/paragraph/18"
   }
 },
 {
@@ -1442,6 +1442,38 @@
   "fields": {
     "name": "NHS Act 2006, Section 14Z4",
     "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/14Z4"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 88,
+  "fields": {
+    "name": "NHS Act 2006, Section 80",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/80"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 89,
+  "fields": {
+    "name": "NHS Act 2006, Section 7A",
+    "link": "https://www.legislation.gov.uk/ukpga/2012/7/section/22"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 90,
+  "fields": {
+    "name": "NHS Act 2006, Section 72",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/section/72"
+  }
+},
+{
+  "model": "phmi.statute",
+  "pk": 91,
+  "fields": {
+    "name": "NHS Act 2006, Schedule 4 Paragraph 14",
+    "link": "https://www.legislation.gov.uk/ukpga/2006/41/schedule/4/paragraph/14"
   }
 },
 {
@@ -1530,12 +1562,12 @@
   "fields": {
     "name": "Power: To assist Secretary of State in providing health services and exercising public health functions",
     "org_type": 32,
-    "details": "The Secretary of State for Health can require a CCG to carry out some of his public health tasks.  \r\n\r\n(NHS Act 2006, section 7A)",
+    "details": "The Secretary of State for Health can require a CCG to carry out some of his public health tasks.",
     "activities": [
       705
     ],
     "statutes": [
-      39
+      89
     ]
   }
 },
@@ -1817,11 +1849,13 @@
   "fields": {
     "name": "Duty: NHS bodies to co-operate",
     "org_type": 35,
-    "details": "",
+    "details": "Duty for NHS bodies to co-operate with each other in exercising their functions",
     "activities": [
       705
     ],
-    "statutes": []
+    "statutes": [
+      90
+    ]
   }
 },
 {
@@ -1875,11 +1909,13 @@
   "fields": {
     "name": "Power : General power",
     "org_type": 35,
-    "details": "",
+    "details": "An NHS Trust can do anything that appears to it to be necessary or expedient for the purpose of or in connection with its functions.",
     "activities": [
       705
     ],
-    "statutes": []
+    "statutes": [
+      91
+    ]
   }
 },
 {
@@ -1908,7 +1944,7 @@
       705
     ],
     "statutes": [
-      3
+      82
     ]
   }
 },
@@ -2011,7 +2047,7 @@
   "fields": {
     "name": "Duty: To share information",
     "org_type": 39,
-    "details": "NHS England must share information about patients for whom it is responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care.\r\n(Health and Social Care Act 2012, section 251B)",
+    "details": "NHS England must share information about patients for whom it is responsible with other health and social care organisations involved in their care.  (There are various carve outs.)  Note that this provision does not enable the sharing of data that breaches the Data Protection Act 1998, the common law duty of confidence or the common law duty of care.",
     "activities": [
       705
     ],
@@ -2030,9 +2066,7 @@
     "activities": [
       705
     ],
-    "statutes": [
-      83
-    ]
+    "statutes": []
   }
 },
 {
@@ -2115,11 +2149,13 @@
   "fields": {
     "name": "Duty: To make CCG facilities available to local authorities",
     "org_type": 32,
-    "details": "",
+    "details": "CCGs must make available to local authorities any services or facilities the provision of which is arranged by the CCG, the services of persons employed by the CCG, and any facilities of the CCG, so far as is reasonably necessary to enable local authorities to discharge their functions relating to social services, education and public health.\r\n\r\n(NHS Act 2006, section 80(6A))",
     "activities": [
       705
     ],
-    "statutes": []
+    "statutes": [
+      88
+    ]
   }
 },
 {
@@ -2372,10 +2408,10 @@
       710
     ],
     "statutes": [
+      69,
       66,
       67,
       68,
-      69,
       70
     ]
   }
@@ -2549,10 +2585,10 @@
       733
     ],
     "statutes": [
+      69,
       66,
       67,
       68,
-      69,
       70
     ]
   }
