@@ -94,6 +94,11 @@ body {
   position: relative;
 }
 
+.align-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 h3.subheader {
   margin-top: 5px;
   margin-bottom: 20px;
