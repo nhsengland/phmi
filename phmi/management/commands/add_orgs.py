@@ -5,7 +5,6 @@ from django.core.management.base import BaseCommand, CommandError
 
 from ...models import Organisation, OrgType
 
-
 ORG_CSVS = [
     "ccg", "csu", "dscro", "independent-sector",
     "local-authority", "nhs-trust"

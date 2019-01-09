@@ -15,6 +15,7 @@ pip = "*"
 django-ses = "*"
 django-markdownify = "*"
 structlog = "*"
+isort = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

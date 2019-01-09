@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.db.models import TextField
 from django.forms import TextInput
 from django.utils.translation import gettext_lazy as _
-from phmi import models
+
+from . import models
 
 admin.site.register(models.CareSystem)
 admin.site.register(models.GroupType)

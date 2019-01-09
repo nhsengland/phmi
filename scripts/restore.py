@@ -1,7 +1,8 @@
-import sys
-import subprocess
-import boto3
 import os
+import subprocess
+import sys
+
+import boto3
 
 
 def get_bucket(bucket_name, file_name):
