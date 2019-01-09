@@ -32,7 +32,9 @@
 
 - name: Restart postgres
   sudo: yes
-  command: "service postgresql restart"
+  service:
+    name: postgresql
+    state: restarted
 
 - name: add a database user
   become: true
