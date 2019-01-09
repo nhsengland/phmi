@@ -1,6 +1,6 @@
 from collections import defaultdict, OrderedDict
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core import signing
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -57,7 +57,7 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
 class ProjectLocationView(AbstractProjectView):
     template_name = "projects/location.html"
     breadcrumbs = (
-        ("Home", "/"),
+        ("Home", reverse_lazy("home")),
         ("Project description", "")
     )
 
@@ -80,7 +80,7 @@ class ProjectActivityView(AbstractProjectView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Project description", reverse('project-location')),
             ("Project activities", "")
         )
@@ -107,7 +107,7 @@ class ProjectResultView(AbstractProjectView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Project description", reverse("project-location")),
             (
                 "Project activity",

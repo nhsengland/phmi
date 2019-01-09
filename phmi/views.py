@@ -68,7 +68,7 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
             ("Add", "")
         )
@@ -104,7 +104,7 @@ class GroupDetail(AbstractPhmiView, DetailView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
             (self.object.name, "")
         )
@@ -143,7 +143,7 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
             (self.object.name, self.object.get_absolute_url()),
             ("Edit", "")
@@ -183,7 +183,7 @@ class OrgTypeList(AbstractPhmiView, ListView):
     template_name = "orgtype_list.html"
 
     breadcrumbs = (
-        ("Home", "/"),
+        ("Home", reverse_lazy("home")),
         ("Organizations", "")
     )
 
@@ -195,7 +195,7 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/",),
+            ("Home", reverse_lazy("home")),
             ("Organizations", reverse("org-type-list")),
             (
                 self.object.name, ""
@@ -236,7 +236,7 @@ class ActivityList(AbstractPhmiView, ListView):
     page_width = "col-md-12"
 
     breadcrumbs = (
-        ("Home", "/"),
+        ("Home", reverse_lazy("home")),
         ("Activities", "")
     )
 
@@ -265,7 +265,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
 
     def get_breadcrumbs(self):
         return (
-            ("Home", "/"),
+            ("Home", reverse_lazy("home")),
             ("Activities", reverse("activity-list")),
             (self.object.name, self.object.get_absolute_url())
         )
@@ -318,7 +318,7 @@ class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
 
 class GroupList(AbstractPhmiView, ListView):
     breadcrumbs = (
-        ("Home", "/"),
+        ("Home", reverse_lazy("home")),
         ("Care systems", "")
     )
     model = models.CareSystem
@@ -346,7 +346,7 @@ class Login(View):
         # a password and we aren't setting those on our custom User model.
         login(request, user)
 
-        url = user.care_system.get_absolute_url() if user.care_system else "/"
+        url = user.care_system.get_absolute_url() if user.care_system else reverse_lazy("home")
         return redirect(url)
 
 
