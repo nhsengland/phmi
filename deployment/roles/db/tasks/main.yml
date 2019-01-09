@@ -6,7 +6,7 @@
 - name: install Postgres, its headers, and psycopg2
   apt:
     name: "{{ packages }}"
-    state: installed
+    state: present
   vars:
     packages:
     - postgresql
