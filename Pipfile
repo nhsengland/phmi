@@ -14,6 +14,7 @@ whitenoise = "*"
 pip = "*"
 django-ses = "*"
 django-markdownify = "*"
+structlog = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
