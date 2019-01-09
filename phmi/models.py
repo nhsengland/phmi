@@ -69,10 +69,10 @@ class OrgType(models.Model):
             legaljustification__in=self.legaljustification_set.all()
         )
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save()
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse(
@@ -90,10 +90,10 @@ class ActivityCategory(models.Model):
 
     slug = models.SlugField(unique=True, blank=True, null=True)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
-        super().save()
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         activity_list_url = reverse("activity-list")
