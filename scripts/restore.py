@@ -1,5 +1,4 @@
 import sys
-import datetime
 import subprocess
 import boto3
 import os
@@ -19,7 +18,7 @@ def load_file(db_name, db_user, file_name):
 
 
 def main(db_name, db_user, bucket_name, file_name):
-    bucket = get_bucket(bucket_name, file_name)
+    get_bucket(bucket_name, file_name)
     load_file(db_name, db_user, file_name)
     os.remove(file_name)
 

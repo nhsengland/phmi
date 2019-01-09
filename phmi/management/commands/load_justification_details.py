@@ -1,8 +1,9 @@
 import csv
-from phmi import models
-from django.db import transaction
-from django.core.management.base import BaseCommand, CommandError
 
+from django.core.management.base import BaseCommand
+from django.db import transaction
+
+from phmi import models
 
 ORG_TYPES = [
     "CCG",
@@ -80,6 +81,3 @@ class Command(BaseCommand):
         for org_type in ORG_TYPES:
             total += self.create_details(org_type)
         self.stdout.write(f"Saving {total} legal justifications")
-
-
-

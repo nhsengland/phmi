@@ -1,25 +1,24 @@
 from collections import OrderedDict
-from django.utils.safestring import mark_safe
-from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin
+
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.db.models.functions import Lower
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.utils.http import is_safe_url
+from django.utils.safestring import mark_safe
 from django.views.generic import (
-    TemplateView,
     CreateView,
     DetailView,
     FormView,
     ListView,
+    TemplateView,
     UpdateView,
     View,
 )
 
-from phmi.forms import CareSystemForm, LoginForm, OrganisationForm
-from phmi import models
+from . import models
+from .forms import CareSystemForm, LoginForm, OrganisationForm
 
 
 def get_orgs_by_type():
@@ -92,7 +91,7 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
 
 class Home(AbstractPhmiView, TemplateView):
     template_name = "home.html"
-    page_width    = "col-md-12"
+    page_width = "col-md-12"
 
     def activity_categories(self):
         return models.ActivityCategory.objects.all()

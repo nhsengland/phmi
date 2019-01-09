@@ -1,19 +1,9 @@
-from collections import defaultdict, OrderedDict
-from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
 from django.core import signing
-from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
-from django.views.generic import (
-    TemplateView,
-    CreateView,
-    DetailView,
-    FormView,
-    ListView,
-    UpdateView,
-    View,
-)
+from django.views.generic import TemplateView
+
 from phmi import models
 from phmi import views as phmi_views
 
@@ -51,7 +41,6 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
         ctx.update(self.decode_location_sign())
         ctx.update(self.decode_activity_sign())
         return ctx
-
 
 
 class ProjectLocationView(AbstractProjectView):
@@ -135,15 +124,4 @@ class ProjectResultView(AbstractProjectView):
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
         ctx["org_permissions"] = self.get_org_permissions()
-        return ctx
-
-    def get_context_data(self, *args, **kwargs):
-        ctx = super().get_context_data(*args, **kwargs)
-        ctx["org_permissions"] = self.get_org_permissions()
-        # ctx["by_org_and_activity"] = self.get_org_by_activity(
-        #     ctx["care_system"], ctx["project_activities"]
-        # )
-        # ctx["justified_orgs"] = [
-        #     i for i, v in ctx["by_org_and_activity"].items() if all(v.values())
-        # ]
         return ctx

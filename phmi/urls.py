@@ -16,8 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from phmi import views
-from projects import urls as project_urls
+from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -37,9 +36,9 @@ urlpatterns = [
         views.OrgTypeDetail.as_view(),
         name="org-type-detail"
     ),
-]
 
-urlpatterns += project_urls.urlpatterns
+    path("", include("projects.urls"))
+]
 
 
 if settings.DEBUG:

@@ -1,23 +1,22 @@
-from django.conf import settings
-from django.contrib import admin
-from django.urls import include, path
-from projects import views
+from django.urls import path
+
+from .views import ProjectActivityView, ProjectLocationView, ProjectResultView
 
 urlpatterns = [
 
     path(
         "projects/",
-        views.ProjectLocationView.as_view(),
+        ProjectLocationView.as_view(),
         name="project-location"
     ),
     path(
         "projects/<str:location_sign>",
-        views.ProjectActivityView.as_view(),
+        ProjectActivityView.as_view(),
         name="project-activity"
     ),
     path(
         "projects/<str:location_sign>/<str:activity_sign>",
-        views.ProjectResultView.as_view(),
+        ProjectResultView.as_view(),
         name="project-result"
     ),
 ]

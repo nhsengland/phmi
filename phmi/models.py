@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from datetime import timedelta
-from django.utils.text import slugify
+
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -8,11 +8,11 @@ from django.contrib.auth.models import (
     _user_has_module_perms,
     _user_has_perm,
 )
-from django.utils.functional import cached_property
-from django.urls import reverse
 from django.core.signing import TimestampSigner
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
 from incuna_mail import send
 
 
@@ -109,6 +109,7 @@ class ActivityCategory(models.Model):
 class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
+        ordering = ["activity_category__index"]
 
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
@@ -157,9 +158,6 @@ it doesn't apply",
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs=dict(slug=self.slug))
-
-    class Meta:
-        ordering = ["activity_category__index"]
 
     def save(self, *args, **kwargs):
         if not self.slug:

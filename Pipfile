@@ -19,6 +19,7 @@ structlog = "*"
 [dev-packages]
 django-debug-toolbar = "*"
 ipdb = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.7"

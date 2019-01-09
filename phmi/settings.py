@@ -208,6 +208,6 @@ EMAIL_LOGIN = True
 
 if 'test' not in sys.argv:
     try:
-        from phmi.local_settings import *
+        from phmi.local_settings import *  # noqa: F401,F403
     except ImportError:
         pass

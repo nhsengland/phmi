@@ -1,10 +1,9 @@
 import csv
 import re
-from collections import defaultdict
-from phmi import models
-from django.db import transaction
-from django.core.management.base import BaseCommand, CommandError
 
+from django.core.management.base import BaseCommand
+
+from phmi import models
 
 FILE_NAME = "data/csvs/activities.csv"
 
@@ -28,7 +27,7 @@ class Command(BaseCommand):
     def parse_justification_name(self, some_name):
         if "(NHS FT Only)" in some_name:
             return
-        result = some_name.replace("(NHS Trust Only)", "")
+
         pre, suf = some_name.split(":", 1)
         pre = pre.lower().capitalize()
         return f"{pre}:{suf}"
@@ -49,7 +48,7 @@ class Command(BaseCommand):
         """
         Changes for example "1. An Activitiy" to
         """
-        pattern = "^\d+\.\s*"
+        pattern = r"^\d+\.\s*"
         return re.sub(pattern, "", some_name)
 
     def handle(self, *args, **options):
@@ -59,7 +58,7 @@ class Command(BaseCommand):
             reader = csv.reader(f)
             # skip the first line, its just the headlines
             next(reader)
-            result = defaultdict(list)
+
             activity = None
 
             for row in reader:
@@ -77,7 +76,7 @@ class Command(BaseCommand):
 
                 category.activity_set.add(activity)
 
-                for i in range(4, max(ROW_MAPPINGS.keys())+1):
+                for i in range(4, max(ROW_MAPPINGS.keys()) + 1):
                     if i in ROW_MAPPINGS:
                         row_value = row[i].strip()
                         if not row_value:
@@ -101,5 +100,3 @@ class Command(BaseCommand):
                         legal_justification.activities.add(
                             activity
                         )
-
-

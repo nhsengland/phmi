@@ -12,10 +12,9 @@ admin.site.register(models.Statute)
 admin.site.register(models.ActivityCategory)
 
 
+@admin.register(models.Activity)
 class NameSearchAdmin(admin.ModelAdmin):
     search_fields = ['name']
-
-admin.site.register(models.Activity, NameSearchAdmin)
 
 
 class StatuteFilter(admin.SimpleListFilter):
@@ -25,7 +24,7 @@ class StatuteFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return (
             ('empty', _('Empty')),
-            ('populated',  _('Populated')),
+            ('populated', _('Populated')),
         )
 
     def queryset(self, request, queryset):
@@ -44,7 +43,7 @@ class StatuteLinkFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return (
             ('empty', _('Empty')),
-            ('populated',  _('Populated')),
+            ('populated', _('Populated')),
         )
 
     def queryset(self, request, queryset):

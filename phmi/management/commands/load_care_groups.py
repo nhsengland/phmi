@@ -1,6 +1,7 @@
-from phmi import models
+from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.core.management.base import BaseCommand, CommandError
+
+from phmi import models
 
 data = {
     ("Cheshire and Merseyside Health and Care Partnership", "Susta",): [
@@ -134,4 +135,3 @@ class Command(BaseCommand):
                     name=organisation_name
                 )
                 care_system.orgs.add(organisation)
-
