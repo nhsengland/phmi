@@ -135,6 +135,31 @@ MESSAGE_TAGS = {message_constants.ERROR: "danger"}
 AUTH_USER_MODEL = "phmi.User"
 
 
+# Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        }
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "datastore": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
+
+
 # THIRD PARTY SETTINGS
 # Django Debug Toolbar
 INTERNAL_IPS = ["127.0.0.1"]
