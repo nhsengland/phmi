@@ -125,3 +125,5 @@ dmypy.json
 *.retry
 deployment/group_vars/*
 deployment/ansible.cfg
+deployment/.vault.txt
+.vault.txt
