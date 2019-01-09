@@ -1,0 +1,18 @@
+dist: xenial
+
+addons:
+  postgresql: "10"
+
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install pipenv
+  - make setup
+
+script:
+  - make lint
+  - make sort
+  - make test
