@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import sys
-import urllib
 
 import environ
 import structlog
 from django.contrib.messages import constants as message_constants
-from django.urls import get_script_prefix, reverse_lazy
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -117,11 +116,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = 'static'
-
-# Respect SCRIPT_NAME from the WSGI env/web server when building STATIC_URL.
-# This lets the {% static %} tag build correct URLs when hosting the site under
-# a URL prefix.
-STATIC_URL = urllib.parse.urljoin(get_script_prefix(), "static/")
+STATIC_URL = 'static'
 
 
 # Emails
