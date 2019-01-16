@@ -230,9 +230,11 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
 
 
 class ActivityList(AbstractPhmiView, ListView):
-    model = models.Activity
     template_name = "activity_list.html"
     page_width = "col-md-12"
+    queryset = models.Activity.objects.exclude(
+        activity_category__name="Undertaking research",
+    )
 
     breadcrumbs = (
         ("Home", reverse_lazy("home")),
