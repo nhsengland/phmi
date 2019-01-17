@@ -18,7 +18,7 @@
                 View legal basis for &#8230;
             </h2>
             <ul class="nhsuk-c-page-contents__list">
-                {% for activity_category in view.activity_categories %}
+                {% for activity_category in object_list %}
                     <li class="nhsuk-c-page-contents__item">
                         <a href="{{ activity_category.get_absolute_url }}">
                             {{ activity_category.name }}
