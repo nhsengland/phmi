@@ -152,7 +152,7 @@ it doesn't apply",
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     activity_category = models.ForeignKey(
-        ActivityCategory,
+        "ActivityCategory",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
@@ -229,7 +229,7 @@ class Statute(models.Model):
 class LegalJustification(models.Model):
     name = models.TextField()
     org_type = models.ForeignKey(
-        OrgType,
+        "OrgType",
         blank=True,
         null=True,
         on_delete=models.CASCADE
