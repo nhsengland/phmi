@@ -67,6 +67,7 @@ if DEBUG:
 
 ROOT_URLCONF = "phmi.urls"
 LOGIN_URL = reverse_lazy("request-login")
+LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
 TEMPLATES = [
     {

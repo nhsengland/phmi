@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import include, path
 
 from . import views
@@ -26,7 +27,7 @@ urlpatterns = [
     path("activities/<slug>", views.ActivityDetail.as_view(), name="activity-detail"),
     path("login", views.GenerateMagicLoginURL.as_view(), name="request-login"),
     path("login/<signed_pk>", views.Login.as_view(), name="login"),
-    path("logout", views.Logout.as_view(), name="logout"),
+    path("logout", LogoutView.as_view(), name="logout"),
     path(
         "org-types",
         views.OrgTypeList.as_view(),

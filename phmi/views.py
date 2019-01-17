@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
@@ -313,13 +313,6 @@ class GroupList(AbstractPhmiView, ListView):
     )
     model = models.CareSystem
     template_name = "group_list.html"
-
-
-class Logout(View):
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        url = reverse("home")
-        return redirect(url)
 
 
 class Login(View):
