@@ -39,6 +39,8 @@
                         {{ justification.details|markdownify }}
                     </p>
                     {% if justification.statutes.exists %}
+                        {% comment %}
+                        Uncomment once a lawyer has checked the data
                         {% for statute in justification.statutes.all %}
                             <div class="row">
                                 <div class="col-md-12">
@@ -46,6 +48,7 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        {% endcomment %}
                     {% endif %}
                 </div>
             </div>

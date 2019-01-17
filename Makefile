@@ -10,6 +10,10 @@ help:
 lint:
 	@echo "Running flake8" && pipenv run flake8 --show-source || exit 1
 
+.PHONY: load-data
+load-data:
+	@pipenv run python manage.py loaddata data/json/db.json
+
 .PHONY: setup
 setup:
 	pipenv install --dev
