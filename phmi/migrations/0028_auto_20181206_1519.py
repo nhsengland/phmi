@@ -5,14 +5,30 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0027_auto_20181206_1512'),
-    ]
+    dependencies = [("phmi", "0027_auto_20181206_1512")]
 
     operations = [
         migrations.AlterField(
-            model_name='activity',
-            name='duty_of_confidence',
-            field=models.CharField(blank=True, choices=[("Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply", "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply"), ('Implied consent/reasonable expectations', 'Implied consent/reasonable expectations'), ('Set aside as data will be de-identified for this purpose', 'Set aside as data will be de-identified for this purpose')], default='', max_length=256),
-        ),
+            model_name="activity",
+            name="duty_of_confidence",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    (
+                        "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
+                        "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
+                    ),
+                    (
+                        "Implied consent/reasonable expectations",
+                        "Implied consent/reasonable expectations",
+                    ),
+                    (
+                        "Set aside as data will be de-identified for this purpose",
+                        "Set aside as data will be de-identified for this purpose",
+                    ),
+                ],
+                default="",
+                max_length=256,
+            ),
+        )
     ]

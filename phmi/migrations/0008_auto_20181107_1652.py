@@ -5,27 +5,23 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0006_activity_legaljustification_legalmapping'),
-    ]
+    dependencies = [("phmi", "0006_activity_legaljustification_legalmapping")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='activity',
-            options={'verbose_name_plural': 'Activities'},
+            name="activity", options={"verbose_name_plural": "Activities"}
         ),
         migrations.AlterModelOptions(
-            name='legaljustification',
-            options={'ordering': ['name']},
+            name="legaljustification", options={"ordering": ["name"]}
         ),
         migrations.AddField(
-            model_name='orgtype',
-            name='slug',
+            model_name="orgtype",
+            name="slug",
             field=models.SlugField(blank=True, null=True, unique=True),
         ),
         migrations.AlterField(
-            model_name='orgtype',
-            name='name',
+            model_name="orgtype",
+            name="name",
             field=models.CharField(max_length=256, unique=True),
         ),
     ]

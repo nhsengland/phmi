@@ -5,12 +5,7 @@ from django.db import transaction
 
 from phmi import models
 
-ORG_TYPES = [
-    "CCG",
-    "NHS Trust",
-    "Local Authority",
-    "NHS England",
-]
+ORG_TYPES = ["CCG", "NHS Trust", "Local Authority", "NHS England"]
 
 
 class Command(BaseCommand):

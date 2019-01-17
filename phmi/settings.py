@@ -26,7 +26,9 @@ env = environ.Env()
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY", default=")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%")
+SECRET_KEY = env.str(
+    "SECRET_KEY", default=")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'markdownify',
+    "markdownify",
     "phmi",
     "projects",
 ]
@@ -52,7 +54,7 @@ if DEBUG:
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -115,8 +117,8 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATIC_ROOT = 'static'
-STATIC_URL = env.str("STATIC_URL", default='/static/')
+STATIC_ROOT = "static"
+STATIC_URL = env.str("STATIC_URL", default="/static/")
 WHITENOISE_STATIC_PREFIX = "/static/"
 
 
@@ -125,7 +127,7 @@ WHITENOISE_STATIC_PREFIX = "/static/"
 EMAIL_BACKEND = env.str(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
-DEFAULT_FROM_EMAIL = 'support@openhealthcare.org.uk'
+DEFAULT_FROM_EMAIL = "support@openhealthcare.org.uk"
 AWS_ACCESS_KEY_ID = env.str("SES_ACCESS_KEY_ID", default="")
 AWS_SECRET_ACCESS_KEY = env.str("SES_SECRET_ACCESS_KEY", default="")
 AWS_SES_REGION_ENDPOINT = "email.eu-west-1.amazonaws.com"
@@ -172,16 +174,8 @@ LOGGING = {
         }
     },
     "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "datastore": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
+        "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "datastore": {"handlers": ["console"], "level": "INFO", "propagate": False},
     },
 }
 

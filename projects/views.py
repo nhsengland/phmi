@@ -19,14 +19,8 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
     def decode_activity_sign(self):
         if "activity_sign" not in self.kwargs:
             return {}
-        activity_ids = signing.loads(self.kwargs["activity_sign"])[
-            "activities"
-        ]
-        return dict(
-            activities=models.Activity.objects.filter(
-                id__in=activity_ids
-            )
-        )
+        activity_ids = signing.loads(self.kwargs["activity_sign"])["activities"]
+        return dict(activities=models.Activity.objects.filter(id__in=activity_ids))
 
     @cached_property
     def activities(self):
@@ -45,22 +39,16 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
 
 class ProjectLocationView(AbstractProjectView):
     template_name = "projects/location.html"
-    breadcrumbs = (
-        ("Home", reverse_lazy("home")),
-        ("Project description", "")
-    )
+    breadcrumbs = (("Home", reverse_lazy("home")), ("Project description", ""))
 
     def post(self, *args, **kwargs):
         governance = self.request.POST["governance"]
         project_name = self.request.POST["project_name"]
-        location_sign = signing.dumps(dict(
-            governance=governance,
-            project_name=project_name
-        ))
+        location_sign = signing.dumps(
+            dict(governance=governance, project_name=project_name)
+        )
         return HttpResponseRedirect(
-            reverse("project-activity", kwargs=dict(
-                location_sign=location_sign
-            ))
+            reverse("project-activity", kwargs=dict(location_sign=location_sign))
         )
 
 
@@ -70,8 +58,8 @@ class ProjectActivityView(AbstractProjectView):
     def get_breadcrumbs(self):
         return (
             ("Home", reverse_lazy("home")),
-            ("Project description", reverse('project-location')),
-            ("Project activities", "")
+            ("Project description", reverse("project-location")),
+            ("Project activities", ""),
         )
 
     def post(self, *args, **kwargs):
@@ -79,14 +67,15 @@ class ProjectActivityView(AbstractProjectView):
         activities = models.Activity.objects.filter(id__in=activity_ids)
         if activities.count() < len(activities):
             raise Http404("Unable to find all the activities")
-        activity_sign = signing.dumps(dict(
-            activities=activity_ids
-        ))
+        activity_sign = signing.dumps(dict(activities=activity_ids))
         return HttpResponseRedirect(
-            reverse("project-result", kwargs=dict(
-                location_sign=self.kwargs["location_sign"],
-                activity_sign=activity_sign
-            ))
+            reverse(
+                "project-result",
+                kwargs=dict(
+                    location_sign=self.kwargs["location_sign"],
+                    activity_sign=activity_sign,
+                ),
+            )
         )
 
 
@@ -101,12 +90,11 @@ class ProjectResultView(AbstractProjectView):
             (
                 "Project activity",
                 reverse(
-                    "project-activity", kwargs=dict(
-                        location_sign=self.kwargs["location_sign"]
-                    )
-                )
+                    "project-activity",
+                    kwargs=dict(location_sign=self.kwargs["location_sign"]),
+                ),
             ),
-            ("Project results", "")
+            ("Project results", ""),
         )
 
     def get_org_permissions(self):

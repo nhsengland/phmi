@@ -6,57 +6,57 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0011_auto_20181108_1432'),
-    ]
+    dependencies = [("phmi", "0011_auto_20181108_1432")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='legalmapping',
-            name='activity',
-        ),
-        migrations.RemoveField(
-            model_name='legalmapping',
-            name='justification',
-        ),
-        migrations.RemoveField(
-            model_name='legalmapping',
-            name='org_type',
-        ),
-        migrations.RemoveField(
-            model_name='orgtype',
-            name='activities',
+        migrations.RemoveField(model_name="legalmapping", name="activity"),
+        migrations.RemoveField(model_name="legalmapping", name="justification"),
+        migrations.RemoveField(model_name="legalmapping", name="org_type"),
+        migrations.RemoveField(model_name="orgtype", name="activities"),
+        migrations.AddField(
+            model_name="legaljustification",
+            name="activites",
+            field=models.ManyToManyField(to="phmi.Activity"),
         ),
         migrations.AddField(
-            model_name='legaljustification',
-            name='activites',
-            field=models.ManyToManyField(to='phmi.Activity'),
+            model_name="legaljustification",
+            name="org_type",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="phmi.OrgType",
+            ),
         ),
         migrations.AddField(
-            model_name='legaljustification',
-            name='org_type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='phmi.OrgType'),
-        ),
-        migrations.AddField(
-            model_name='legaljustification',
-            name='statute',
-            field=models.TextField(default=''),
+            model_name="legaljustification",
+            name="statute",
+            field=models.TextField(default=""),
         ),
         migrations.AlterField(
-            model_name='activity',
-            name='duty_of_confidence',
-            field=models.CharField(blank=True, choices=[('Implied consent/reasonable expectations', 'Implied consent/reasonable expectations'), ('Set aside as data will be de-identified for this purpose', 'Set aside as data will be de-identified for this purpose')], default='', max_length=256),
+            model_name="activity",
+            name="duty_of_confidence",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    (
+                        "Implied consent/reasonable expectations",
+                        "Implied consent/reasonable expectations",
+                    ),
+                    (
+                        "Set aside as data will be de-identified for this purpose",
+                        "Set aside as data will be de-identified for this purpose",
+                    ),
+                ],
+                default="",
+                max_length=256,
+            ),
         ),
         migrations.AlterField(
-            model_name='legaljustification',
-            name='name',
-            field=models.TextField(),
+            model_name="legaljustification", name="name", field=models.TextField()
         ),
         migrations.AlterUniqueTogether(
-            name='legaljustification',
-            unique_together={('name', 'org_type')},
+            name="legaljustification", unique_together={("name", "org_type")}
         ),
-        migrations.DeleteModel(
-            name='LegalMapping',
-        ),
+        migrations.DeleteModel(name="LegalMapping"),
     ]

@@ -21,51 +21,45 @@ class ActivityCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Activity)
 class NameSearchAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ["name"]
 
 
 class StatuteFilter(admin.SimpleListFilter):
-    title = 'details'
-    parameter_name = 'details'
+    title = "details"
+    parameter_name = "details"
 
     def lookups(self, request, model_admin):
-        return (
-            ('empty', _('Empty')),
-            ('populated', _('Populated')),
-        )
+        return (("empty", _("Empty")), ("populated", _("Populated")))
 
     def queryset(self, request, queryset):
 
-        if self.value() == 'empty':
-            return queryset.filter(details='')
+        if self.value() == "empty":
+            return queryset.filter(details="")
 
-        if self.value() == 'populated':
-            return queryset.exclude(details='')
+        if self.value() == "populated":
+            return queryset.exclude(details="")
 
 
 class StatuteLinkFilter(admin.SimpleListFilter):
-    title = 'statute link'
-    parameter_name = 'statute_link'
+    title = "statute link"
+    parameter_name = "statute_link"
 
     def lookups(self, request, model_admin):
-        return (
-            ('empty', _('Empty')),
-            ('populated', _('Populated')),
-        )
+        return (("empty", _("Empty")), ("populated", _("Populated")))
 
     def queryset(self, request, queryset):
 
-        if self.value() == 'empty':
+        if self.value() == "empty":
             return queryset.filter(statutes=None)
 
-        if self.value() == 'populated':
+        if self.value() == "populated":
             return queryset.exclude(statutes=None)
 
 
 @admin.register(models.LegalJustification)
 class LegalJustificationAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'details']
-    list_filter = (StatuteFilter, StatuteLinkFilter,)
+    search_fields = ["name", "details"]
+    list_filter = (StatuteFilter, StatuteLinkFilter)
 
 
 @admin.register(models.User)

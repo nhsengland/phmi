@@ -1,10 +1,16 @@
 help:
 	@echo "Usage:"
 	@echo "    make help             prints this help."
+	@echo "    make format           run the auto-format check."
 	@echo "    make lint             run the import sorter check."
+	@echo "    make load-data        load the main database fixture."
 	@echo "    make setup            set up local env for dev."
 	@echo "    make sort             run the linter."
 	@echo "    make test             run the tests."
+
+.PHONY: format
+format:
+	@echo "Running black" && pipenv run black --check phmi projects || exit 1
 
 .PHONY: lint
 lint:

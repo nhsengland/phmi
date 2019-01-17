@@ -5,38 +5,34 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0020_auto_20181205_1129'),
-    ]
+    dependencies = [("phmi", "0020_auto_20181205_1129")]
 
     operations = [
         migrations.CreateModel(
-            name='Statute',
+            name="Statute",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('link', models.URLField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                ("link", models.URLField()),
             ],
         ),
-        migrations.RemoveField(
-            model_name='statutelink',
-            name='justification',
-        ),
+        migrations.RemoveField(model_name="statutelink", name="justification"),
         migrations.RenameField(
-            model_name='legaljustification',
-            old_name='statute',
-            new_name='details',
+            model_name="legaljustification", old_name="statute", new_name="details"
         ),
-        migrations.RemoveField(
-            model_name='legaljustification',
-            name='statute_link',
-        ),
-        migrations.DeleteModel(
-            name='StatuteLink',
-        ),
+        migrations.RemoveField(model_name="legaljustification", name="statute_link"),
+        migrations.DeleteModel(name="StatuteLink"),
         migrations.AddField(
-            model_name='statute',
-            name='justification',
-            field=models.ManyToManyField(to='phmi.LegalJustification'),
+            model_name="statute",
+            name="justification",
+            field=models.ManyToManyField(to="phmi.LegalJustification"),
         ),
     ]

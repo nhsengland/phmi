@@ -27,9 +27,7 @@ def get_orgs_by_type():
     Used to build the Organisation filter part of the CareSystem form page.
     """
     for org_type in models.OrgType.objects.prefetch_related("orgs"):
-        yield org_type.name, [
-            o for o in org_type.orgs.order_by("name")
-        ]
+        yield org_type.name, [o for o in org_type.orgs.order_by("name")]
 
 
 class IsStaffMixin(UserPassesTestMixin):
@@ -68,7 +66,7 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
         return (
             ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
-            ("Add", "")
+            ("Add", ""),
         )
 
     def form_valid(self, form):
@@ -102,7 +100,7 @@ class GroupDetail(AbstractPhmiView, DetailView):
         return (
             ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
-            (self.object.name, "")
+            (self.object.name, ""),
         )
 
     def get_context_data(self, *args, **kwargs):
@@ -115,15 +113,11 @@ class GroupDetail(AbstractPhmiView, DetailView):
         for organisation in ctx["object"].orgs.all():
             if organisation.type not in orgs_by_type:
                 orgs_by_type[organisation.type] = []
-            orgs_by_type[organisation.type].append(
-                organisation
-            )
+            orgs_by_type[organisation.type].append(organisation)
 
         # resort keys alphabetically
         ctx["orgs_by_type"] = OrderedDict()
-        alphabetical_org_types = sorted(
-            orgs_by_type.keys(), key=lambda x: x.name
-        )
+        alphabetical_org_types = sorted(orgs_by_type.keys(), key=lambda x: x.name)
         for alphabetical_org_type in alphabetical_org_types:
             ctx["orgs_by_type"][alphabetical_org_type] = orgs_by_type[
                 alphabetical_org_type
@@ -142,7 +136,7 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
             ("Home", reverse_lazy("home")),
             ("Care systems", reverse("group-list")),
             (self.object.name, self.object.get_absolute_url()),
-            ("Edit", "")
+            ("Edit", ""),
         )
 
     def form_valid(self, form):
@@ -178,10 +172,7 @@ class OrgTypeList(AbstractPhmiView, ListView):
     model = models.OrgType
     template_name = "orgtype_list.html"
 
-    breadcrumbs = (
-        ("Home", reverse_lazy("home")),
-        ("Organizations", "")
-    )
+    breadcrumbs = (("Home", reverse_lazy("home")), ("Organizations", ""))
 
 
 class OrgTypeDetail(AbstractPhmiView, DetailView):
@@ -193,9 +184,7 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
         return (
             ("Home", reverse_lazy("home")),
             ("Organizations", reverse("org-type-list")),
-            (
-                self.object.name, ""
-            )
+            (self.object.name, ""),
         )
 
     def get_activities(self):
@@ -207,22 +196,21 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
                               [legal_justifications]
             }
         """
-        org_type_activities_ids = set(self.object.get_activities().values_list(
-            "id", flat=True
-        ))
+        org_type_activities_ids = set(
+            self.object.get_activities().values_list("id", flat=True)
+        )
         result = OrderedDict()
         for i in models.Activity.objects.all():
             allowed = i.id in org_type_activities_ids
             justifications = []
             if allowed:
-                justifications = i.legaljustification_set.filter(
-                    org_type=self.object
-                ).values_list("name", flat=True).distinct()
+                justifications = (
+                    i.legaljustification_set.filter(org_type=self.object)
+                    .values_list("name", flat=True)
+                    .distinct()
+                )
 
-            result[i] = dict(
-                allowed=allowed,
-                justifications=justifications,
-            )
+            result[i] = dict(allowed=allowed, justifications=justifications)
         return result
 
 
@@ -230,18 +218,16 @@ class ActivityList(AbstractPhmiView, ListView):
     template_name = "activity_list.html"
     page_width = "col-md-12"
     queryset = models.ActivityCategoryGroup.objects.prefetch_related(
-        'categories',
-        'categories__activities',
+        "categories", "categories__activities"
     )
 
-    breadcrumbs = (
-        ("Home", reverse_lazy("home")),
-        ("Activities", "")
-    )
+    breadcrumbs = (("Home", reverse_lazy("home")), ("Activities", ""))
 
     def get_context_data(self, *args, **kwargs):
         org_types = models.OrgType.objects.all()
-        org_permissions = {org_type: org_type.get_activities() for org_type in org_types}
+        org_permissions = {
+            org_type: org_type.get_activities() for org_type in org_types
+        }
 
         ctx = super().get_context_data(*args, **kwargs)
         ctx["org_permissions"] = org_permissions
@@ -257,7 +243,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
         return (
             ("Home", reverse_lazy("home")),
             ("Activities", reverse("activity-list")),
-            (self.object.name, self.object.get_absolute_url())
+            (self.object.name, self.object.get_absolute_url()),
         )
 
     def get_context_data(self, *args, **kwargs):
@@ -272,7 +258,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
                     url=orgtype.get_absolute_url,
                     justifications=models.LegalJustification.objects.filter(
                         org_type=orgtype
-                    ).filter(activities=self.object)
+                    ).filter(activities=self.object),
                 )
             )
 
@@ -299,18 +285,13 @@ class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.type = models.OrgType.objects.get(name="Other")
         self.object.save()
-        care_system = models.CareSystem.objects.get(
-            id=self.request.GET["care_system"]
-        )
+        care_system = models.CareSystem.objects.get(id=self.request.GET["care_system"])
         self.object.care_system.add(care_system)
         return super().form_valid(form)
 
 
 class GroupList(AbstractPhmiView, ListView):
-    breadcrumbs = (
-        ("Home", reverse_lazy("home")),
-        ("Care systems", "")
-    )
+    breadcrumbs = (("Home", reverse_lazy("home")), ("Care systems", ""))
     model = models.CareSystem
     template_name = "group_list.html"
 
@@ -329,7 +310,11 @@ class Login(View):
         # a password and we aren't setting those on our custom User model.
         login(request, user)
 
-        url = user.care_system.get_absolute_url() if user.care_system else reverse_lazy("home")
+        url = (
+            user.care_system.get_absolute_url()
+            if user.care_system
+            else reverse_lazy("home")
+        )
         return redirect(url)
 
 
@@ -354,19 +339,17 @@ class GenerateMagicLoginURL(FormView):
         if settings.EMAIL_LOGIN:
             user.email_login_url(absolute_url)
             messages.success(
-                self.request,
-                "A login URL has been sent tor your email address"
+                self.request, "A login URL has been sent tor your email address"
             )
         else:
             msg = [
                 "<div class='text-center'>",
                 "In production an email would have been sent to you,",
                 "for devlopment purposes, login by clicking <a href='{}'>here</a>",
-                "</div>"
+                "</div>",
             ]
             messages.success(
-                self.request,
-                mark_safe(" ".join(msg).format(absolute_url))
+                self.request, mark_safe(" ".join(msg).format(absolute_url))
             )
 
         return redirect(reverse("request-login"))

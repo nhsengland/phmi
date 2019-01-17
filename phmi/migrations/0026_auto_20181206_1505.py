@@ -5,18 +5,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0025_auto_20181206_1405'),
-    ]
+    dependencies = [("phmi", "0025_auto_20181206_1405")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='activitycategory',
-            options={'ordering': ['index']},
+            name="activitycategory", options={"ordering": ["index"]}
         ),
         migrations.AddField(
-            model_name='activitycategory',
-            name='index',
+            model_name="activitycategory",
+            name="index",
             field=models.IntegerField(default=0),
         ),
     ]

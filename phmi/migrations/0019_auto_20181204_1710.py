@@ -5,22 +5,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0018_auto_20181204_1604'),
-    ]
+    dependencies = [("phmi", "0018_auto_20181204_1604")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='activity',
-            options={'ordering': ['activity_category__name']},
+            name="activity", options={"ordering": ["activity_category__name"]}
         ),
         migrations.AlterModelOptions(
-            name='activitycategory',
-            options={'ordering': ['name']},
+            name="activitycategory", options={"ordering": ["name"]}
         ),
         migrations.AlterField(
-            model_name='activitycategory',
-            name='name',
+            model_name="activitycategory",
+            name="name",
             field=models.CharField(max_length=256, unique=True),
         ),
     ]

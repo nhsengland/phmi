@@ -83,20 +83,14 @@ class Command(BaseCommand):
                             continue
 
                         print(f"{i} {ROW_MAPPINGS[i]}")
-                        org_type = models.OrgType.objects.get(
-                            name=ROW_MAPPINGS[i]
-                        )
+                        org_type = models.OrgType.objects.get(name=ROW_MAPPINGS[i])
 
-                        parsed_justificaiton = self.parse_justification_name(
-                            row_value
-                        )
+                        parsed_justificaiton = self.parse_justification_name(row_value)
                         if not parsed_justificaiton:
                             continue
 
                         legal_justification, _ = models.LegalJustification.objects.get_or_create(
                             name=self.parse_justification_name(row_value),
-                            org_type=org_type
+                            org_type=org_type,
                         )
-                        legal_justification.activities.add(
-                            activity
-                        )
+                        legal_justification.activities.add(activity)

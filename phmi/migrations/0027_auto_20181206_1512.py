@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0026_auto_20181206_1505'),
-    ]
+    dependencies = [("phmi", "0026_auto_20181206_1505")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='activity',
-            options={'ordering': ['activity_category__index']},
-        ),
+            name="activity", options={"ordering": ["activity_category__index"]}
+        )
     ]

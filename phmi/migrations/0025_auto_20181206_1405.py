@@ -5,18 +5,11 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0024_activitycategory_slug'),
-    ]
+    dependencies = [("phmi", "0024_activitycategory_slug")]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='orgtype',
-            options={'ordering': ['index']},
-        ),
+        migrations.AlterModelOptions(name="orgtype", options={"ordering": ["index"]}),
         migrations.AddField(
-            model_name='orgtype',
-            name='index',
-            field=models.IntegerField(default=0),
+            model_name="orgtype", name="index", field=models.IntegerField(default=0)
         ),
     ]

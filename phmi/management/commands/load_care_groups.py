@@ -4,7 +4,7 @@ from django.db import transaction
 from phmi import models
 
 data = {
-    ("Cheshire and Merseyside Health and Care Partnership", "Susta",): [
+    ("Cheshire and Merseyside Health and Care Partnership", "Susta"): [
         "Aintree University Hospital NHS Foundation Trust",
         "Alder Hey Children's NHS Foundation Trust",
         "Bridgewater Community Healthcare NHS Foundation Trust",
@@ -73,7 +73,7 @@ data = {
         "YORKSHIRE HEALTHCARE PARTNERS LTD",
         "York Teaching Hospital NHS Foundation Trust",
     ],
-    ("Nottinghamshire", "Integrated care system",): [
+    ("Nottinghamshire", "Integrated care system"): [
         "Mansfield And Ashfield CCG",
         "Newark And Sherwood CCG",
         "Nottingham City CCG",
@@ -109,7 +109,7 @@ data = {
         "South West Yorkshire Partnership NHS Foundation Trust",
         "The Rotherham NHS Foundation Trust",
         "Yorkshire Ambulance Service NHS Trust",
-    ]
+    ],
 }
 
 
@@ -126,8 +126,7 @@ class Command(BaseCommand):
             )
 
             care_system, _ = models.CareSystem.objects.get_or_create(
-                name=care_system_name,
-                type=group_type
+                name=care_system_name, type=group_type
             )
 
             for organisation_name in organisations:

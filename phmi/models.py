@@ -52,9 +52,7 @@ class GroupType(models.Model):
 
 
 class OrgType(models.Model):
-    name = models.CharField(
-        max_length=256, unique=True
-    )
+    name = models.CharField(max_length=256, unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     index = models.IntegerField(default=0)
 
@@ -75,17 +73,11 @@ class OrgType(models.Model):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse(
-            "org-type-detail", kwargs=dict(
-                slug=self.slug
-            )
-        )
+        return reverse("org-type-detail", kwargs=dict(slug=self.slug))
 
 
 class ActivityCategory(models.Model):
-    name = models.CharField(
-        max_length=256, unique=True
-    )
+    name = models.CharField(max_length=256, unique=True)
     index = models.IntegerField(default=0)
 
     slug = models.SlugField(unique=True, blank=True, null=True)
@@ -160,10 +152,7 @@ it doesn't apply",
     )
 
     duty_of_confidence = models.CharField(
-        max_length=256,
-        default="",
-        blank=True,
-        choices=DUTY_OF_CONFIDENCE_CHOICES
+        max_length=256, default="", blank=True, choices=DUTY_OF_CONFIDENCE_CHOICES
     )
 
     def get_org_types(self):
@@ -172,10 +161,7 @@ it doesn't apply",
         ).distinct()
 
     def __str__(self):
-        return "{}: {}".format(
-            self.__class__.__name__,
-            self.name
-        )
+        return "{}: {}".format(self.__class__.__name__, self.name)
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs=dict(slug=self.slug))
@@ -195,23 +181,17 @@ class LegalJustificationQuerySet(models.QuerySet):
             for activity in activities:
                 by_org_type[org_type][activity] = self.filter(
                     org_type_id=org_type.id
-                ).filter(
-                    activities=activity
-                )
+                ).filter(activities=activity)
 
         return by_org_type
 
     def by_org_and_activity(self, organisations, activities):
         result = OrderedDict()
         org_types = OrgType.objects.filter(orgs__in=organisations).distinct()
-        by_org_type_and_activity = self.by_org_type_and_activity(
-            org_types, activities
-        )
+        by_org_type_and_activity = self.by_org_type_and_activity(org_types, activities)
 
         for organisation in organisations:
-            result[organisation] = by_org_type_and_activity[
-                organisation.type
-            ]
+            result[organisation] = by_org_type_and_activity[organisation.type]
         return result
 
 
@@ -229,36 +209,24 @@ class Statute(models.Model):
 class LegalJustification(models.Model):
     name = models.TextField()
     org_type = models.ForeignKey(
-        "OrgType",
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE
+        "OrgType", blank=True, null=True, on_delete=models.CASCADE
     )
-    details = models.TextField(
-        default=""
-    )
+    details = models.TextField(default="")
     activities = models.ManyToManyField(Activity)
-    statutes = models.ManyToManyField(
-        Statute, blank=True
-    )
+    statutes = models.ManyToManyField(Statute, blank=True)
 
     objects = LegalJustificationQuerySet.as_manager()
 
     def __str__(self):
-        return "{}: {}".format(
-            self.__class__.__name__,
-            self.name
-        )
+        return "{}: {}".format(self.__class__.__name__, self.name)
 
     class Meta:
         ordering = ["name"]
-        unique_together = (("name", "org_type",),)
+        unique_together = (("name", "org_type"),)
 
 
 class Organisation(models.Model):
-    care_system = models.ManyToManyField(
-        "CareSystem", related_name="orgs", blank=True
-    )
+    care_system = models.ManyToManyField("CareSystem", related_name="orgs", blank=True)
     type = models.ForeignKey("OrgType", on_delete=models.CASCADE, related_name="orgs")
 
     name = models.TextField()
@@ -308,7 +276,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="users"
+        related_name="users",
     )
 
     email = models.TextField(null=False, unique=True)
