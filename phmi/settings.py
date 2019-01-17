@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import sys
 
 import environ
 import structlog
@@ -27,12 +26,12 @@ env = environ.Env()
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%"
+SECRET_KEY = env.str("SECRET_KEY", default=")p8)t4ey^c0o5lefrvk-d=dny6xq^-49z=5d$nc7td_ngulzv%")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 
 # Application definition
@@ -117,7 +116,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = 'static'
-STATIC_URL = '/static/'
+STATIC_URL = env.str("STATIC_URL", default='/static/')
+WHITENOISE_STATIC_PREFIX = "/static/"
 
 
 # Emails
@@ -125,6 +125,13 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = env.str(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
+DEFAULT_FROM_EMAIL = 'support@openhealthcare.org.uk'
+AWS_ACCESS_KEY_ID = env.str("SES_ACCESS_KEY_ID", default="")
+AWS_SECRET_ACCESS_KEY = env.str("SES_SECRET_ACCESS_KEY", default="")
+AWS_SES_REGION_ENDPOINT = "email.eu-west-1.amazonaws.com"
+
+# turn on to true and set up send mail facilities to send the users login details
+EMAIL_LOGIN = True
 
 
 # Messages
@@ -202,13 +209,3 @@ INTERNAL_IPS = ["127.0.0.1"]
 # Allowed Email Domains for Auth
 STAFF_LOGIN_DOMAINS = ["openhealthcare.org.uk"]
 ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"] + STAFF_LOGIN_DOMAINS
-
-# turn on to true and set up send mail facilities to send the users login details
-EMAIL_LOGIN = True
-
-
-if 'test' not in sys.argv:
-    try:
-        from phmi.local_settings import *  # noqa: F401,F403
-    except ImportError:
-        pass
