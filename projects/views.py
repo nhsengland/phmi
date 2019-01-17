@@ -53,14 +53,12 @@ class ProjectLocationView(AbstractProjectView):
 
 
 class ProjectActivityView(AbstractProjectView):
+    breadcrumbs = [
+        ("Home", reverse_lazy("home")),
+        ("Project description", reverse_lazy("project-location")),
+        ("Project activities", ""),
+    ]
     template_name = "projects/activity.html"
-
-    def get_breadcrumbs(self):
-        return (
-            ("Home", reverse_lazy("home")),
-            ("Project description", reverse("project-location")),
-            ("Project activities", ""),
-        )
 
     def post(self, *args, **kwargs):
         activity_ids = [int(i) for i in self.request.POST.getlist("activities")]
@@ -83,19 +81,21 @@ class ProjectResultView(AbstractProjectView):
     template_name = "projects/result.html"
     page_width = "col-md-12"
 
-    def get_breadcrumbs(self):
-        return (
+    @property
+    def breadcrumbs(self):
+        project_activity_url = (
+            reverse(
+                "project-activity",
+                kwargs={"location_sign": self.kwargs["location_sign"]},
+            ),
+        )
+
+        return [
             ("Home", reverse_lazy("home")),
             ("Project description", reverse("project-location")),
-            (
-                "Project activity",
-                reverse(
-                    "project-activity",
-                    kwargs=dict(location_sign=self.kwargs["location_sign"]),
-                ),
-            ),
+            ("Project activity", project_activity_url),
             ("Project results", ""),
-        )
+        ]
 
     def get_org_permissions(self):
         """
