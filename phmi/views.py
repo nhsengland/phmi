@@ -229,8 +229,9 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
 class ActivityList(AbstractPhmiView, ListView):
     template_name = "activity_list.html"
     page_width = "col-md-12"
-    queryset = models.Activity.objects.exclude(
-        activity_category__name="Undertaking research",
+    queryset = models.ActivityCategoryGroup.objects.prefetch_related(
+        'categories',
+        'categories__activities',
     )
 
     breadcrumbs = (
