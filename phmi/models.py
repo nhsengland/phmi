@@ -155,7 +155,8 @@ it doesn't apply",
         ActivityCategory,
         on_delete=models.SET_NULL,
         blank=True,
-        null=True
+        null=True,
+        related_name="activities",
     )
 
     duty_of_confidence = models.CharField(
