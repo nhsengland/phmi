@@ -74,7 +74,7 @@ class Command(BaseCommand):
                     activity.duty_of_confidence = row[4]
                     activity.save()
 
-                category.activity_set.add(activity)
+                category.activities.add(activity)
 
                 for i in range(4, max(ROW_MAPPINGS.keys()) + 1):
                     if i in ROW_MAPPINGS:

@@ -12,7 +12,6 @@ from django.views.generic import (
     DetailView,
     FormView,
     ListView,
-    TemplateView,
     UpdateView,
     View,
 )
@@ -89,12 +88,10 @@ class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
         return kwargs
 
 
-class Home(AbstractPhmiView, TemplateView):
+class Home(AbstractPhmiView, ListView):
+    model = models.ActivityCategory
     template_name = "home.html"
     page_width = "col-md-12"
-
-    def activity_categories(self):
-        return models.ActivityCategory.objects.all()
 
 
 class GroupDetail(AbstractPhmiView, DetailView):
@@ -232,8 +229,9 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
 class ActivityList(AbstractPhmiView, ListView):
     template_name = "activity_list.html"
     page_width = "col-md-12"
-    queryset = models.Activity.objects.exclude(
-        activity_category__name="Undertaking research",
+    queryset = models.ActivityCategoryGroup.objects.prefetch_related(
+        'categories',
+        'categories__activities',
     )
 
     breadcrumbs = (
