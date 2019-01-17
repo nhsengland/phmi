@@ -90,6 +90,14 @@ class ActivityCategory(models.Model):
 
     slug = models.SlugField(unique=True, blank=True, null=True)
 
+    group = models.ForeignKey(
+        "ActivityCategoryGroup",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="categories",
+    )
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
@@ -104,6 +112,18 @@ class ActivityCategory(models.Model):
 
     class Meta:
         ordering = ["index"]
+
+
+class ActivityCategoryGroup(models.Model):
+    name = models.TextField()
+    description = models.TextField()
+    index = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ["index"]
+
+    def __str__(self):
+        return self.name
 
 
 class Activity(models.Model):
