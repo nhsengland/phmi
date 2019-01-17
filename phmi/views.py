@@ -239,21 +239,12 @@ class ActivityList(AbstractPhmiView, ListView):
         ("Activities", "")
     )
 
-    def get_org_permissions(self):
-        """
-        Returns a dictionary of org_type:
-        to a set of activities it can do
-        """
-        org_types = models.OrgType.objects.all()
-        result = {}
-        for org_type in org_types:
-            result[org_type] = org_type.get_activities()
-
-        return result
-
     def get_context_data(self, *args, **kwargs):
+        org_types = models.OrgType.objects.all()
+        org_permissions = {org_type: org_type.get_activities() for org_type in org_types}
+
         ctx = super().get_context_data(*args, **kwargs)
-        ctx["org_permissions"] = self.get_org_permissions()
+        ctx["org_permissions"] = org_permissions
         return ctx
 
 
