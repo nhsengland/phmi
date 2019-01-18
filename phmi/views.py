@@ -86,6 +86,7 @@ class Home(AbstractPhmiView, ListView):
     model = models.ActivityCategory
     template_name = "home.html"
     page_width = "col-md-12"
+    queryset = models.ActivityCategory.objects.exclude(group=None)
 
 
 class GroupDetail(AbstractPhmiView, DetailView):
