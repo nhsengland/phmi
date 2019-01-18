@@ -127,6 +127,23 @@ class CareSystem(models.Model):
         return reverse("group-detail", args=[str(self.id)])
 
 
+class DataCategory(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class DataType(models.Model):
+    category = models.ForeignKey("DataCategory", on_delete=models.CASCADE)
+
+    name = models.TextField()
+    example_data_sets = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class GroupType(models.Model):
     name = models.TextField(unique=True)
 
