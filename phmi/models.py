@@ -210,8 +210,8 @@ class LegalJustification(models.Model):
         "OrgType", blank=True, null=True, on_delete=models.CASCADE
     )
     details = models.TextField(default="")
-    activities = models.ManyToManyField(Activity)
-    statutes = models.ManyToManyField(Statute, blank=True)
+    activities = models.ManyToManyField("Activity")
+    statutes = models.ManyToManyField("Statute", blank=True)
 
     objects = LegalJustificationQuerySet.as_manager()
 
