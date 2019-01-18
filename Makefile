@@ -1,12 +1,17 @@
 help:
 	@echo "Usage:"
 	@echo "    make help             prints this help."
+	@echo "    make dump-data        dump the current database to a JSON fixture."
 	@echo "    make format           run the auto-format check."
 	@echo "    make lint             run the import sorter check."
 	@echo "    make load-data        load the main database fixture."
 	@echo "    make setup            set up local env for dev."
 	@echo "    make sort             run the linter."
 	@echo "    make test             run the tests."
+
+.PHONY: dump-data
+dump-data:
+	@pipenv run python manage.py dumpdata phmi projects --indent=2 --exclude=phmi.User > data/json/db.json
 
 .PHONY: format
 format:

@@ -139,8 +139,9 @@
   "pk": 9,
   "fields": {
     "name": "General provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
-    "index": 0,
-    "slug": "provision-of-population-health-management-includin"
+    "index": 3,
+    "slug": "provision-of-population-health-management-includin",
+    "group": 1
   }
 },
 {
@@ -148,8 +149,9 @@
   "pk": 10,
   "fields": {
     "name": "Activating and empowering citizens",
-    "index": 1,
-    "slug": "activating-and-empowering-citizens"
+    "index": 4,
+    "slug": "activating-and-empowering-citizens",
+    "group": 2
   }
 },
 {
@@ -157,8 +159,9 @@
   "pk": 11,
   "fields": {
     "name": "Managing individual care",
-    "index": 2,
-    "slug": "managing-individual-care"
+    "index": 5,
+    "slug": "managing-individual-care",
+    "group": 2
   }
 },
 {
@@ -166,8 +169,9 @@
   "pk": 12,
   "fields": {
     "name": "Co-ordinating and optimising service user flows",
-    "index": 3,
-    "slug": "co-ordinating-and-optimising-service-user-flows"
+    "index": 6,
+    "slug": "co-ordinating-and-optimising-service-user-flows",
+    "group": 2
   }
 },
 {
@@ -175,8 +179,9 @@
   "pk": 13,
   "fields": {
     "name": "Risk stratification for early intervention and prevention",
-    "index": 4,
-    "slug": "risk-stratification-for-early-intervention-and-pre"
+    "index": 0,
+    "slug": "risk-stratification-for-early-intervention-and-pre",
+    "group": 1
   }
 },
 {
@@ -184,8 +189,9 @@
   "pk": 14,
   "fields": {
     "name": "Managing finances, quality and outcomes",
-    "index": 5,
-    "slug": "managing-finances-quality-and-outcomes"
+    "index": 1,
+    "slug": "managing-finances-quality-and-outcomes",
+    "group": 1
   }
 },
 {
@@ -193,8 +199,9 @@
   "pk": 15,
   "fields": {
     "name": "Planning, implementing and evaluating population health strategy",
-    "index": 6,
-    "slug": "planning-implementing-and-evaluating-population-he"
+    "index": 2,
+    "slug": "planning-implementing-and-evaluating-population-he",
+    "group": 1
   }
 },
 {
@@ -203,7 +210,26 @@
   "fields": {
     "name": "Undertaking research",
     "index": 7,
-    "slug": "undertaking-research"
+    "slug": "undertaking-research",
+    "group": null
+  }
+},
+{
+  "model": "phmi.activitycategorygroup",
+  "pk": 1,
+  "fields": {
+    "name": "Secondary data use activities",
+    "description": "Where data is used for purposes other than the individual care of the patient. Includes activities that contribute to the overall provision of services to a population as a whole or a group of patients with a particular condition.",
+    "index": 0
+  }
+},
+{
+  "model": "phmi.activitycategorygroup",
+  "pk": 2,
+  "fields": {
+    "name": "Individual care data use activities",
+    "description": "A clinical, social or public health activity concerned with the prevention, investigation and treatment of illness and the alleviation of suffering of individuals.",
+    "index": 1
   }
 },
 {
@@ -1595,21 +1621,21 @@
     "details": "An NHS Trust must exercise its functions effectively, efficiently and economically.",
     "activities": [
       705,
-      711,
-      710,
-      709,
       708,
-      718,
-      716,
-      715,
-      714,
+      709,
+      710,
+      711,
       713,
-      725,
-      724,
-      723,
-      722,
+      714,
+      715,
+      716,
+      718,
+      720,
       721,
-      720
+      722,
+      723,
+      724,
+      725
     ],
     "statutes": [
       76
@@ -1820,8 +1846,8 @@
     "org_type": 32,
     "details": "CCGs must promote innovation in the provision of health services, including innovative approaches to commissioning.",
     "activities": [
-      705,
-      738
+      738,
+      705
     ],
     "statutes": [
       45
@@ -2317,21 +2343,21 @@
     "org_type": 38,
     "details": "Local authorities are subject to various duties under different legislation to provide social care services.",
     "activities": [
-      711,
-      708,
-      707,
       706,
-      717,
-      716,
-      715,
+      707,
+      708,
+      711,
       714,
-      725,
-      724,
-      723,
-      722,
-      721,
+      715,
+      716,
+      717,
+      719,
       720,
-      719
+      721,
+      722,
+      723,
+      724,
+      725
     ],
     "statutes": [
       64
@@ -2520,10 +2546,10 @@
     "details": "Duty to support NHS England to deliver NHS England\u2019s duty secure continuous improvement in the quality of primary medical services.",
     "activities": [
       727,
+      737,
       731,
       734,
       735,
-      737,
       743,
       744,
       746,
@@ -3086,17 +3112,17 @@
     "activities": [
       738,
       746,
-      759,
-      758,
-      757,
-      756,
-      755,
-      754,
-      753,
-      752,
-      751,
+      749,
       750,
-      749
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
+      757,
+      758,
+      759
     ],
     "statutes": [
       47
@@ -3113,17 +3139,17 @@
     "activities": [
       738,
       746,
-      759,
-      758,
-      757,
-      756,
-      755,
-      754,
-      753,
-      752,
-      751,
+      749,
       750,
-      749
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
+      757,
+      758,
+      759
     ],
     "statutes": [
       30
@@ -3436,26 +3462,26 @@
     "details": "Processing shall be lawful for the purposes of the legitimate interests pursued by the controller, however, does not apply for public authorities, for the performance of their public tasks.  (GDPR, Article 6(1)(f))",
     "activities": [
       705,
-      712,
-      711,
-      710,
-      709,
-      708,
-      707,
       706,
-      718,
-      717,
-      716,
-      715,
-      714,
+      707,
+      708,
+      709,
+      710,
+      711,
+      712,
       713,
-      725,
-      724,
-      723,
-      722,
-      721,
+      714,
+      715,
+      716,
+      717,
+      718,
+      719,
       720,
-      719
+      721,
+      722,
+      723,
+      724,
+      725
     ],
     "statutes": []
   }

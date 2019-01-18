@@ -74,7 +74,7 @@
 - name: Load in initial data
   args:
     chdir: "{{ PROJECT_PATH}}"
-  command: envdir env_vars pipenv run python manage.py loaddata data/json/db.json
+  command: envdir env_vars make load-data
 
 - name: Remove old nginx default
   become: true
