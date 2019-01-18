@@ -17,6 +17,14 @@ from incuna_mail import send
 
 
 class Activity(models.Model):
+    activity_category = models.ForeignKey(
+        "ActivityCategory",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="activities",
+    )
+
     class Meta:
         verbose_name_plural = "Activities"
         ordering = ["activity_category__index"]
@@ -38,14 +46,6 @@ class Activity(models.Model):
 
     name = models.TextField(unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
-
-    activity_category = models.ForeignKey(
-        "ActivityCategory",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name="activities",
-    )
 
     duty_of_confidence = models.CharField(
         max_length=256, default="", blank=True, choices=DUTY_OF_CONFIDENCE_CHOICES
@@ -69,11 +69,6 @@ class Activity(models.Model):
 
 
 class ActivityCategory(models.Model):
-    name = models.CharField(max_length=256, unique=True)
-    index = models.IntegerField(default=0)
-
-    slug = models.SlugField(unique=True, blank=True, null=True)
-
     group = models.ForeignKey(
         "ActivityCategoryGroup",
         on_delete=models.SET_NULL,
@@ -81,6 +76,11 @@ class ActivityCategory(models.Model):
         blank=True,
         related_name="categories",
     )
+
+    name = models.CharField(max_length=256, unique=True)
+    index = models.IntegerField(default=0)
+
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -169,13 +169,14 @@ class LegalJustificationQuerySet(models.QuerySet):
 
 
 class LegalJustification(models.Model):
-    name = models.TextField()
+    activities = models.ManyToManyField("Activity")
+    statutes = models.ManyToManyField("Statute", blank=True)
     org_type = models.ForeignKey(
         "OrgType", blank=True, null=True, on_delete=models.CASCADE
     )
+
+    name = models.TextField()
     details = models.TextField(default="")
-    activities = models.ManyToManyField("Activity")
-    statutes = models.ManyToManyField("Statute", blank=True)
 
     objects = LegalJustificationQuerySet.as_manager()
 
