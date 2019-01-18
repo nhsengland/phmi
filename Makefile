@@ -1,6 +1,7 @@
 help:
 	@echo "Usage:"
 	@echo "    make help             prints this help."
+	@echo "    make deploy           deploy the site to the current HEAD server."
 	@echo "    make dump-data        dump the current database to a JSON fixture."
 	@echo "    make format           run the auto-format check."
 	@echo "    make lint             run the import sorter check."
@@ -8,6 +9,10 @@ help:
 	@echo "    make setup            set up local env for dev."
 	@echo "    make sort             run the linter."
 	@echo "    make test             run the tests."
+
+.PHONY: deploy
+deploy:
+	@(cd deployment; ansible-playbook setup-server.yml -i hosts.dev --vault-password-file .vault.txt)
 
 .PHONY: dump-data
 dump-data:
