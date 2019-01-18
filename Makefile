@@ -20,7 +20,7 @@ dump-data:
 
 .PHONY: format
 format:
-	@echo "Running black" && pipenv run black --check phmi projects || exit 1
+	@echo "Running black" && pipenv run black --check phmi projects scripts || exit 1
 
 .PHONY: lint
 lint:
