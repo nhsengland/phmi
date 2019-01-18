@@ -15,6 +15,21 @@ from django.utils import timezone
 from django.utils.text import slugify
 from incuna_mail import send
 
+DUTY_OF_CONFIDENCE_CHOICES = (
+    (
+        "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
+        "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
+    ),
+    (
+        "Implied consent/reasonable expectations",
+        "Implied consent/reasonable expectations",
+    ),
+    (
+        "Set aside as data will be de-identified for this purpose",
+        "Set aside as data will be de-identified for this purpose",
+    ),
+)
+
 
 class Activity(models.Model):
     activity_category = models.ForeignKey(
@@ -25,24 +40,8 @@ class Activity(models.Model):
         related_name="activities",
     )
 
-    DUTY_OF_CONFIDENCE_CHOICES = (
-        (
-            "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
-            "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
-        ),
-        (
-            "Implied consent/reasonable expectations",
-            "Implied consent/reasonable expectations",
-        ),
-        (
-            "Set aside as data will be de-identified for this purpose",
-            "Set aside as data will be de-identified for this purpose",
-        ),
-    )
-
     name = models.TextField(unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
-
     duty_of_confidence = models.CharField(
         max_length=256, default="", blank=True, choices=DUTY_OF_CONFIDENCE_CHOICES
     )
