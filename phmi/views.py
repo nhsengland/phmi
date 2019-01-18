@@ -50,9 +50,8 @@ class GroupChangeMixin(object):
             return super().get_success_url()
 
         url = reverse("organisation-add")
-        return "{}?name={}&care_system={}".format(
-            url, self.request.POST["search_term"], self.object.id
-        )
+        search_term = self.request.POST["search_term"]
+        return f"{url}?name={search_term}&care_system={self.object.id}"
 
 
 class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):

@@ -52,7 +52,7 @@ class Activity(models.Model):
         ordering = ["activity_category__index"]
 
     def __str__(self):
-        return "{}: {}".format(self.__class__.__name__, self.name)
+        return f"{self.__class__.__name__}: {self.name}"
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs={"slug": self.slug})
@@ -185,7 +185,7 @@ class LegalJustification(models.Model):
         unique_together = ["name", "org_type"]
 
     def __str__(self):
-        return "{}: {}".format(self.__class__.__name__, self.name)
+        return f"{self.__class__.__name__}: {self.name}"
 
 
 class Organisation(models.Model):
