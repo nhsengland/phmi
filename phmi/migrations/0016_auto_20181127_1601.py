@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 def forwards(apps, *args):
-    Activity = apps.get_model('phmi', 'Activity')
+    Activity = apps.get_model("phmi", "Activity")
     activities = Activity.objects.filter(slug=None)
     for activity in activities:
         activity.slug = slugify(activity.name[:50])
@@ -19,12 +19,6 @@ def backwards(*args):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0015_activity_slug'),
-    ]
+    dependencies = [("phmi", "0015_activity_slug")]
 
-    operations = [
-        migrations.RunPython(
-            forwards, backwards
-        )
-    ]
+    operations = [migrations.RunPython(forwards, backwards)]

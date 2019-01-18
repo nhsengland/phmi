@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0001_add_initial_models'),
-    ]
+    dependencies = [("phmi", "0001_add_initial_models")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='caresystem',
-            options={'ordering': ['type__name', 'name']},
-        ),
+            name="caresystem", options={"ordering": ["type__name", "name"]}
+        )
     ]

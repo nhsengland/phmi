@@ -6,14 +6,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0010_auto_20181107_1708'),
-    ]
+    dependencies = [("phmi", "0010_auto_20181107_1708")]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='care_system',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='users', to='phmi.CareSystem'),
-        ),
+            model_name="user",
+            name="care_system",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="users",
+                to="phmi.CareSystem",
+            ),
+        )
     ]

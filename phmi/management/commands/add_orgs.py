@@ -5,11 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from ...models import Organisation, OrgType
 
-ORG_CSVS = [
-    "ccg", "csu", "dscro", "independent-sector",
-    "local-authority", "nhs-trust"
-
-]
+ORG_CSVS = ["ccg", "csu", "dscro", "independent-sector", "local-authority", "nhs-trust"]
 
 
 class Command(BaseCommand):
@@ -31,9 +27,7 @@ class Command(BaseCommand):
 
         Org types should already have been loaded.
         """
-        return OrgType.objects.get(
-            name__iexact=csv_name.replace("-", " ")
-        )
+        return OrgType.objects.get(name__iexact=csv_name.replace("-", " "))
 
     def handle(self, *args, **options):
 

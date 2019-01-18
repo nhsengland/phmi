@@ -6,18 +6,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0017_activitycategory'),
-    ]
+    dependencies = [("phmi", "0017_activitycategory")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='activitycategory',
-            name='activity',
-        ),
+        migrations.RemoveField(model_name="activitycategory", name="activity"),
         migrations.AddField(
-            model_name='activity',
-            name='activity_category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='phmi.ActivityCategory'),
+            model_name="activity",
+            name="activity_category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="phmi.ActivityCategory",
+            ),
         ),
     ]

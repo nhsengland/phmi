@@ -5,18 +5,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0009_auto_20181107_1658'),
-    ]
+    dependencies = [("phmi", "0009_auto_20181107_1658")]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='activity',
-            options={'ordering': ['name']},
-        ),
+        migrations.AlterModelOptions(name="activity", options={"ordering": ["name"]}),
         migrations.AddField(
-            model_name='orgtype',
-            name='activities',
-            field=models.ManyToManyField(through='phmi.LegalMapping', to='phmi.Activity'),
+            model_name="orgtype",
+            name="activities",
+            field=models.ManyToManyField(
+                through="phmi.LegalMapping", to="phmi.Activity"
+            ),
         ),
     ]

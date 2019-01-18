@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0023_auto_20181205_1216'),
-    ]
+    dependencies = [("phmi", "0023_auto_20181205_1216")]
 
     operations = [
         migrations.AddField(
-            model_name='activitycategory',
-            name='slug',
+            model_name="activitycategory",
+            name="slug",
             field=models.SlugField(blank=True, null=True, unique=True),
-        ),
+        )
     ]

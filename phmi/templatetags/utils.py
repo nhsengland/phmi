@@ -10,6 +10,6 @@ def url_name(request):
     return resolve(request.path_info).url_name
 
 
-@register.inclusion_tag('template_tags/breadcrumbs.html')
+@register.inclusion_tag("template_tags/breadcrumbs.html")
 def breadcrumbs(breadcrumbs):
     return dict(breadcrumbs=breadcrumbs)

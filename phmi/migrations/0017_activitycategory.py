@@ -6,17 +6,31 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0016_auto_20181127_1601'),
-    ]
+    dependencies = [("phmi", "0016_auto_20181127_1601")]
 
     operations = [
         migrations.CreateModel(
-            name='ActivityCategory',
+            name="ActivityCategory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('activity', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='phmi.Activity')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                (
+                    "activity",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="phmi.Activity",
+                    ),
+                ),
             ],
-        ),
+        )
     ]

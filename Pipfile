@@ -21,6 +21,10 @@ isort = "*"
 django-debug-toolbar = "*"
 ipdb = "*"
 flake8 = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

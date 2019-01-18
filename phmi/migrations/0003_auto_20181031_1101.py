@@ -5,13 +5,8 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0002_auto_20181031_1053'),
-    ]
+    dependencies = [("phmi", "0002_auto_20181031_1053")]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='grouptype',
-            options={'ordering': ['name']},
-        ),
+        migrations.AlterModelOptions(name="grouptype", options={"ordering": ["name"]})
     ]

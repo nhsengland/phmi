@@ -5,18 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0021_auto_20181205_1140'),
-    ]
+    dependencies = [("phmi", "0021_auto_20181205_1140")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='statute',
-            name='justification',
-        ),
+        migrations.RemoveField(model_name="statute", name="justification"),
         migrations.AddField(
-            model_name='legaljustification',
-            name='statutes',
-            field=models.ManyToManyField(to='phmi.Statute'),
+            model_name="legaljustification",
+            name="statutes",
+            field=models.ManyToManyField(to="phmi.Statute"),
         ),
     ]

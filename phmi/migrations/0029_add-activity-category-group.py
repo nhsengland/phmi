@@ -6,30 +6,43 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0028_auto_20181206_1519'),
-    ]
+    dependencies = [("phmi", "0028_auto_20181206_1519")]
 
     operations = [
         migrations.CreateModel(
-            name='ActivityCategoryGroup',
+            name="ActivityCategoryGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField()),
-                ('description', models.TextField()),
-                ('index', models.IntegerField(default=0)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.TextField()),
+                ("description", models.TextField()),
+                ("index", models.IntegerField(default=0)),
             ],
-            options={
-                'ordering': ['index'],
-            },
+            options={"ordering": ["index"]},
         ),
         migrations.AlterModelOptions(
-            name='activity',
-            options={'ordering': ['activity_category__index'], 'verbose_name_plural': 'Activities'},
+            name="activity",
+            options={
+                "ordering": ["activity_category__index"],
+                "verbose_name_plural": "Activities",
+            },
         ),
         migrations.AddField(
-            model_name='activitycategory',
-            name='group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='phmi.ActivityCategoryGroup', related_name="categories"),
+            model_name="activitycategory",
+            name="group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="phmi.ActivityCategoryGroup",
+                related_name="categories",
+            ),
         ),
     ]

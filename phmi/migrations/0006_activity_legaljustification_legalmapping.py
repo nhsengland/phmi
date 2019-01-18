@@ -6,33 +6,82 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('phmi', '0005_auto_20181106_1022'),
-    ]
+    dependencies = [("phmi", "0005_auto_20181106_1022")]
 
     operations = [
         migrations.CreateModel(
-            name='Activity',
+            name="Activity",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField(unique=True)),
-                ('duty_of_confidence', models.CharField(blank=True, choices=[('Implied or explicit consent', 'Implied or explicit consent,'), ('Set aside as data will be de-identified', 'Set aside as data will be de-identified')], default='', max_length=256)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.TextField(unique=True)),
+                (
+                    "duty_of_confidence",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            (
+                                "Implied or explicit consent",
+                                "Implied or explicit consent,",
+                            ),
+                            (
+                                "Set aside as data will be de-identified",
+                                "Set aside as data will be de-identified",
+                            ),
+                        ],
+                        default="",
+                        max_length=256,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='LegalJustification',
+            name="LegalJustification",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField(unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.TextField(unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='LegalMapping',
+            name="LegalMapping",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('activity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='phmi.Activity')),
-                ('justification', models.ManyToManyField(to='phmi.LegalJustification')),
-                ('organisation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='phmi.OrgType')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "activity",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="phmi.Activity"
+                    ),
+                ),
+                ("justification", models.ManyToManyField(to="phmi.LegalJustification")),
+                (
+                    "organisation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="phmi.OrgType"
+                    ),
+                ),
             ],
         ),
     ]
