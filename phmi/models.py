@@ -25,10 +25,6 @@ class Activity(models.Model):
         related_name="activities",
     )
 
-    class Meta:
-        verbose_name_plural = "Activities"
-        ordering = ["activity_category__index"]
-
     DUTY_OF_CONFIDENCE_CHOICES = (
         (
             "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply",
@@ -51,16 +47,20 @@ class Activity(models.Model):
         max_length=256, default="", blank=True, choices=DUTY_OF_CONFIDENCE_CHOICES
     )
 
-    def get_org_types(self):
-        return OrgType.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
-        ).distinct()
+    class Meta:
+        verbose_name_plural = "Activities"
+        ordering = ["activity_category__index"]
 
     def __str__(self):
         return "{}: {}".format(self.__class__.__name__, self.name)
 
     def get_absolute_url(self):
-        return reverse("activity-detail", kwargs=dict(slug=self.slug))
+        return reverse("activity-detail", kwargs={"slug": self.slug})
+
+    def get_org_types(self):
+        return OrgType.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        ).distinct()
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -82,20 +82,20 @@ class ActivityCategory(models.Model):
 
     slug = models.SlugField(unique=True, blank=True, null=True)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        return super().save(*args, **kwargs)
+    class Meta:
+        ordering = ["index"]
+
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         activity_list_url = reverse("activity-list")
         return f"{activity_list_url}#{self.slug}"
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["index"]
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
 
 
 class ActivityCategoryGroup(models.Model):
@@ -180,12 +180,12 @@ class LegalJustification(models.Model):
 
     objects = LegalJustificationQuerySet.as_manager()
 
-    def __str__(self):
-        return "{}: {}".format(self.__class__.__name__, self.name)
-
     class Meta:
         ordering = ["name"]
-        unique_together = (("name", "org_type"),)
+        unique_together = ["name", "org_type"]
+
+    def __str__(self):
+        return "{}: {}".format(self.__class__.__name__, self.name)
 
 
 class Organisation(models.Model):
@@ -218,13 +218,13 @@ class OrgType(models.Model):
             legaljustification__in=self.legaljustification_set.all()
         )
 
+    def get_absolute_url(self):
+        return reverse("org-type-detail", kwargs=dict(slug=self.slug))
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse("org-type-detail", kwargs=dict(slug=self.slug))
 
 
 class Statute(models.Model):
