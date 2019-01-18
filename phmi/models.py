@@ -16,108 +16,6 @@ from django.utils.text import slugify
 from incuna_mail import send
 
 
-class CareSystem(models.Model):
-    type = models.ForeignKey(
-        "GroupType", on_delete=models.CASCADE, related_name="care_systems"
-    )
-
-    name = models.TextField()
-
-    class Meta:
-        unique_together = ("type", "name")
-        ordering = ["-type__name", "name"]
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("group-detail", args=[str(self.id)])
-
-
-class GroupType(models.Model):
-    name = models.TextField(unique=True)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-    def get_display_name(self):
-        if "(" and ")" in self.name:
-            start = self.name.find("(") + 1
-            end = self.name.find(")")
-            return self.name[start:end]
-        return self.name
-
-
-class OrgType(models.Model):
-    name = models.CharField(max_length=256, unique=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
-    index = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ["index"]
-
-    def __str__(self):
-        return self.name
-
-    def get_activities(self):
-        return Activity.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
-        )
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse("org-type-detail", kwargs=dict(slug=self.slug))
-
-
-class ActivityCategory(models.Model):
-    name = models.CharField(max_length=256, unique=True)
-    index = models.IntegerField(default=0)
-
-    slug = models.SlugField(unique=True, blank=True, null=True)
-
-    group = models.ForeignKey(
-        "ActivityCategoryGroup",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="categories",
-    )
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        return super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        activity_list_url = reverse("activity-list")
-        return f"{activity_list_url}#{self.slug}"
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["index"]
-
-
-class ActivityCategoryGroup(models.Model):
-    name = models.TextField()
-    description = models.TextField()
-    index = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ["index"]
-
-    def __str__(self):
-        return self.name
-
-
 class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
@@ -170,6 +68,83 @@ class Activity(models.Model):
         return super().save(*args, **kwargs)
 
 
+class ActivityCategory(models.Model):
+    name = models.CharField(max_length=256, unique=True)
+    index = models.IntegerField(default=0)
+
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    group = models.ForeignKey(
+        "ActivityCategoryGroup",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="categories",
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        activity_list_url = reverse("activity-list")
+        return f"{activity_list_url}#{self.slug}"
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["index"]
+
+
+class ActivityCategoryGroup(models.Model):
+    name = models.TextField()
+    description = models.TextField()
+    index = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ["index"]
+
+    def __str__(self):
+        return self.name
+
+
+class CareSystem(models.Model):
+    type = models.ForeignKey(
+        "GroupType", on_delete=models.CASCADE, related_name="care_systems"
+    )
+
+    name = models.TextField()
+
+    class Meta:
+        unique_together = ("type", "name")
+        ordering = ["-type__name", "name"]
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("group-detail", args=[str(self.id)])
+
+
+class GroupType(models.Model):
+    name = models.TextField(unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def get_display_name(self):
+        if "(" and ")" in self.name:
+            start = self.name.find("(") + 1
+            end = self.name.find(")")
+            return self.name[start:end]
+        return self.name
+
+
 class LegalJustificationQuerySet(models.QuerySet):
     def by_org_type_and_activity(self, org_types, activities):
         by_org_type = OrderedDict()
@@ -191,17 +166,6 @@ class LegalJustificationQuerySet(models.QuerySet):
         for organisation in organisations:
             result[organisation] = by_org_type_and_activity[organisation.type]
         return result
-
-
-class Statute(models.Model):
-    name = models.CharField(max_length=256)
-    link = models.URLField(unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
 
 
 class LegalJustification(models.Model):
@@ -235,6 +199,42 @@ class Organisation(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class OrgType(models.Model):
+    name = models.CharField(max_length=256, unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    index = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ["index"]
+
+    def __str__(self):
+        return self.name
+
+    def get_activities(self):
+        return Activity.objects.filter(
+            legaljustification__in=self.legaljustification_set.all()
+        )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("org-type-detail", kwargs=dict(slug=self.slug))
+
+
+class Statute(models.Model):
+    name = models.CharField(max_length=256)
+    link = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
 
 
 class UserManager(BaseUserManager):
