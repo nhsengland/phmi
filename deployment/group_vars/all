@@ -1,5 +1,5 @@
 GIT_REPO: https://github.com/nhsengland/phmi.git
-GIT_BRANCH: merge-with-legal-mappings
+GIT_BRANCH: master
 
 PROJECT_NAME: phmi
 PROJECT_PATH: /usr/lib/phmi
