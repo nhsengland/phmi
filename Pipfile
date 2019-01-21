@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "==2.1.5"
 "psycopg2-binary" = "*"
 django-environ = "*"
 gunicorn = "*"
@@ -16,6 +16,7 @@ django-ses = "*"
 django-markdownify = "*"
 structlog = "*"
 isort = "*"
+roman = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
