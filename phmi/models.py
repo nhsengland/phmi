@@ -298,6 +298,26 @@ class OrgType(models.Model):
         return super().save(*args, **kwargs)
 
 
+class Output(models.Model):
+    type = models.ForeignKey("OutputType", on_delete=models.CASCADE)
+
+    name = models.TextField()
+    description = models.TextField()
+
+    class Meta:
+        unique_together = ["type", "name"]
+
+    def __str__(self):
+        return self.name
+
+
+class OutputType(models.Model):
+    name = models.TextField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Statute(models.Model):
     name = models.CharField(max_length=256)
     link = models.URLField(unique=True)
