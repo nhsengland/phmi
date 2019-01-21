@@ -161,6 +161,14 @@ class GroupType(models.Model):
         return self.name
 
 
+class LawfulBasis(models.Model):
+    name = models.TextField()
+    number = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class LegalJustificationQuerySet(models.QuerySet):
     def by_org_type_and_activity(self, org_types, activities):
         by_org_type = OrderedDict()
@@ -213,6 +221,36 @@ class Organisation(models.Model):
 
     class Meta:
         ordering = ["type__name", "name"]
+
+    def __str__(self):
+        return self.name
+
+
+class OrgFunction(models.Model):
+    type = models.ForeignKey(
+        "OrgType", on_delete=models.CASCADE, related_name="functions"
+    )
+
+    name = models.TextField()
+    index = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ["name", "type"]
+
+    def __str__(self):
+        return self.name
+
+
+class OrgResponsibility(models.Model):
+    function = models.ForeignKey(
+        "OrgFunction", on_delete=models.CASCADE, related_name="responsibilities"
+    )
+    lawful_bases = models.ManyToManyField("LawfulBasis")
+
+    index = models.IntegerField(default=0)
+    name = models.TextField()
+    additional_information = models.TextField()
+    related_reading = models.TextField()
 
     def __str__(self):
         return self.name
