@@ -109,6 +109,23 @@ class ActivityCategoryGroup(models.Model):
         return self.name
 
 
+class Benefit(models.Model):
+    aim = models.ForeignKey("BenefitAim", on_delete=models.CASCADE)
+
+    name = models.TextField(unique=True)
+    index = models.TextField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class BenefitAim(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class CareSystem(models.Model):
     type = models.ForeignKey(
         "GroupType", on_delete=models.CASCADE, related_name="care_systems"
