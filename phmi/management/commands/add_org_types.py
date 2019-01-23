@@ -1,26 +1,27 @@
 import csv
-import os
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 
 from ...models import OrgType
 
 
 class Command(BaseCommand):
-    help = "Load OrgTypes from the given CSV"
-
     def add_arguments(self, parser):
-        parser.add_argument("file", help="CSV file to load OrgTypes from")
+        parser.add_argument(
+            "--file",
+            default="data/csvs/org-types.csv",
+            help="CSV file to load OrgTypes from",
+        )
 
     def handle(self, *args, **options):
         path = options["file"]
-        if not os.path.exists(path):
-            raise CommandError(f"Unknown path: {path}")
-
         with open(path, "r") as f:
-            data = csv.reader(f)
-            org_types = [OrgType(name=row[0]) for row in data]
+            data = list(csv.reader(f))
 
+        OrgType.objects.all().delete()
+
+        org_types = [OrgType(name=row[0], slug=slugify(row[0])) for row in data]
         OrgType.objects.bulk_create(org_types)
 
         self.stdout.write(

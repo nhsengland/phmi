@@ -1,21 +1,20 @@
 import csv
-import os
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from ...models import GroupType
 
 
 class Command(BaseCommand):
-    help = "Load GroupTypes from the given CSV"
-
     def add_arguments(self, parser):
-        parser.add_argument("file", help="CSV file to load GroupTypes from")
+        parser.add_argument(
+            "--file",
+            default="data/csvs/group-types.csv",
+            help="CSV file to load GroupTypes from",
+        )
 
     def handle(self, *args, **options):
         path = options["file"]
-        if not os.path.exists(path):
-            raise CommandError(f"Unknown path: {path}")
 
         with open(path, "r") as f:
             data = csv.reader(f)
