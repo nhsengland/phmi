@@ -154,6 +154,7 @@ class DataCategory(models.Model):
 class DataType(models.Model):
     activities = models.ManyToManyField("Activity", related_name="data_types")
     category = models.ForeignKey("DataCategory", on_delete=models.CASCADE)
+    org_types = models.ManyToManyField("OrgType", related_name="data_types")
 
     name = models.TextField()
     example_data_sets = models.TextField()
