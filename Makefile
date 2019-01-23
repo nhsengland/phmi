@@ -39,6 +39,7 @@ import-csvs:
 	@pipenv run python manage.py add_outputs
 	@pipenv run python manage.py link_activities_to_data_types
 	@pipenv run python manage.py link_orgtypes_to_data_types
+	@pipenv run python manage.py link_services_to_data_types
 	@pipenv run python manage.py create_activity_category_groups
 
 .PHONY: lint

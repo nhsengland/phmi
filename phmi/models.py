@@ -155,6 +155,7 @@ class DataType(models.Model):
     activities = models.ManyToManyField("Activity", related_name="data_types")
     category = models.ForeignKey("DataCategory", on_delete=models.CASCADE)
     org_types = models.ManyToManyField("OrgType", related_name="data_types")
+    services = models.ManyToManyField("Service", related_name="data_types")
 
     name = models.TextField()
     example_data_sets = models.TextField()
@@ -315,6 +316,14 @@ class Output(models.Model):
 
 class OutputType(models.Model):
     name = models.TextField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Service(models.Model):
+    name = models.TextField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return self.name
