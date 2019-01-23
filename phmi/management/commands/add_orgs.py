@@ -48,8 +48,4 @@ class Command(BaseCommand):
 
             Organisation.objects.bulk_create(organisations)
 
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"Successfully created {len(organisations)} Organisations"
-                )
-            )
+        self.stdout.write(self.style.SUCCESS("Created Organisations"))

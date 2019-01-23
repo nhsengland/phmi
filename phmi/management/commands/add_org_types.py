@@ -24,6 +24,4 @@ class Command(BaseCommand):
         org_types = [OrgType(name=row[0], slug=slugify(row[0])) for row in data]
         OrgType.objects.bulk_create(org_types)
 
-        self.stdout.write(
-            self.style.SUCCESS(f"Successfully created {len(org_types)} OrgTypes")
-        )
+        self.stdout.write(self.style.SUCCESS(f"Created {len(org_types)} OrgTypes"))
