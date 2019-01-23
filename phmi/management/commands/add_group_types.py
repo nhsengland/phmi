@@ -22,6 +22,4 @@ class Command(BaseCommand):
 
         GroupType.objects.bulk_create(group_types)
 
-        self.stdout.write(
-            self.style.SUCCESS(f"Successfully created {len(group_types)} GroupTypes")
-        )
+        self.stdout.write(self.style.SUCCESS(f"Created {len(group_types)} GroupTypes"))

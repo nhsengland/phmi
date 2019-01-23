@@ -65,7 +65,6 @@ class Command(BaseCommand):
                         if not row_value:
                             continue
 
-                        print(f"{i} {ROW_MAPPINGS[i]}")
                         org_type = models.OrgType.objects.get(name=ROW_MAPPINGS[i])
 
                         parsed_justificaiton = self.parse_justification_name(row_value)
@@ -79,3 +78,7 @@ class Command(BaseCommand):
 
                         if activity_name:
                             legal_justification.activities.add(activity)
+
+            self.stdout.write(
+                self.style.SUCCESS("Created Activity and Legal Justifications")
+            )
