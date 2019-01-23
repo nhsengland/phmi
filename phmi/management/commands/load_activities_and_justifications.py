@@ -1,9 +1,10 @@
 import csv
-import re
 
 from django.core.management.base import BaseCommand
 
 from phmi import models
+
+from ...prefix import strip_prefix
 
 FILE_NAME = "data/csvs/activities.csv"
 
@@ -32,25 +33,6 @@ class Command(BaseCommand):
         pre = pre.lower().capitalize()
         return f"{pre}:{suf}"
 
-    def parse_activiy_category_name(self, some_name):
-        """
-        These come in in the form
-
-        A. SOMETHING
-        B. SOMETHING ELSE
-
-        lets strip off the `A.` and title case it please
-        """
-        some_name = some_name.strip().split(" ", 1)[1]
-        return some_name.lower().capitalize()
-
-    def clean_activity_name(self, some_name):
-        """
-        Changes for example "1. An Activitiy" to
-        """
-        pattern = r"^\d+\.\s*"
-        return re.sub(pattern, "", some_name)
-
     def handle(self, *args, **options):
         models.Activity.objects.all().delete()
         models.LegalJustification.objects.all().delete()
@@ -62,19 +44,20 @@ class Command(BaseCommand):
             activity = None
 
             for row in reader:
-                if row[0]:
+                category_name = strip_prefix(row[0]).capitalize()
+                if category_name:
                     category, _ = models.ActivityCategory.objects.get_or_create(
-                        name=self.parse_activiy_category_name(row[0])
+                        name=category_name
                     )
 
-                if row[1]:
+                activity_name = strip_prefix(row[1])
+                if activity_name:
                     activity, _ = models.Activity.objects.get_or_create(
-                        name=self.clean_activity_name(row[1])
+                        name=activity_name, defaults={"duty_of_confidence": row[4]}
                     )
-                    activity.duty_of_confidence = row[4]
-                    activity.save()
 
-                category.activities.add(activity)
+                if category_name:
+                    category.activities.add(activity)
 
                 for i in range(4, max(ROW_MAPPINGS.keys()) + 1):
                     if i in ROW_MAPPINGS:
@@ -93,4 +76,6 @@ class Command(BaseCommand):
                             name=self.parse_justification_name(row_value),
                             org_type=org_type,
                         )
-                        legal_justification.activities.add(activity)
+
+                        if activity_name:
+                            legal_justification.activities.add(activity)
