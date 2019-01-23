@@ -22,6 +22,24 @@ dump-data:
 format:
 	@echo "Running black" && pipenv run black --check phmi projects scripts || exit 1
 
+.PHONY: import-csvs
+import-csvs:
+	@psql -c "DROP DATABASE phmi;"
+	@psql -c "CREATE DATABASE phmi;"
+	@pipenv run python manage.py migrate
+	@pipenv run python manage.py add_org_types
+	@pipenv run python manage.py add_orgs
+	@pipenv run python manage.py load_justification_details
+	@pipenv run python manage.py load_activities_and_justifications
+	@pipenv run python manage.py add_group_types
+	@pipenv run python manage.py load_care_groups
+	@pipenv run python manage.py add_data_types
+	@pipenv run python manage.py add_org_functions
+	@pipenv run python manage.py add_benefits
+	@pipenv run python manage.py add_outputs
+	@pipenv run python manage.py link_activities_to_data_types
+	@pipenv run python manage.py create_activity_category_groups
+
 .PHONY: lint
 lint:
 	@echo "Running flake8" && pipenv run flake8 --show-source || exit 1
