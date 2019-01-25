@@ -22,6 +22,19 @@ class CareSystemForm(forms.ModelForm):
             self.fields[field].widget.attrs["class"] = "form-control"
 
 
+class DataMapForm(forms.Form):
+    def __init__(self, activities, org_types, services, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["activities"] = forms.ModelChoiceField(queryset=activities)
+        self.fields["org_types"] = forms.ModelMultipleChoiceField(
+            queryset=org_types, widget=forms.CheckboxSelectMultiple
+        )
+        self.fields["services"] = forms.ModelMultipleChoiceField(
+            queryset=services, widget=forms.CheckboxSelectMultiple
+        )
+
+
 class OrganisationForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(

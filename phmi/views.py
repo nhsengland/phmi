@@ -15,9 +15,10 @@ from django.views.generic import (
     UpdateView,
     View,
 )
+from django.views.generic.base import TemplateResponseMixin
 
 from . import models
-from .forms import CareSystemForm, LoginForm, OrganisationForm
+from .forms import CareSystemForm, DataMapForm, LoginForm, OrganisationForm
 
 
 def get_orgs_by_type():
@@ -351,3 +352,66 @@ class GenerateMagicLoginURL(FormView):
             )
 
         return redirect(reverse("request-login"))
+
+
+class DataMapView(TemplateResponseMixin, View):
+    page_width = "col-md-12"
+    template_name = "data_map.html"
+
+    def get(self, request, *args, **kwargs):
+        all_org_types = models.OrgType.objects.all()
+        all_services = models.Service.objects.all()
+
+        # Get objects from Query Args
+        selected_activity = models.Activity.objects.filter(
+            pk=self.request.GET.get("activities")
+        ).first()
+
+        # default to all org types if none are selected
+        selected_org_types = all_org_types.all()
+        selected_org_type_ids = self.request.GET.getlist("org_types")
+        if selected_org_type_ids:
+            selected_org_types = all_org_types.filter(pk__in=selected_org_type_ids)
+
+        # default to all services if none are selected
+        selected_services = all_services.all()
+        selected_service_ids = self.request.GET.getlist("services")
+        if selected_service_ids:
+            selected_services = all_services.filter(pk__in=selected_service_ids)
+
+        # Get a list of DataType IDs which should have a tick
+        allowed_data_type_ids = set(
+            models.DataType.objects.filter(
+                activities=selected_activity,
+                org_types__in=selected_org_types,
+                services__in=selected_services,
+            ).values_list("pk", flat=True)
+        )
+
+        # Get a full list of DataTypes
+        data_types = models.DataType.objects.select_related("category").order_by(
+            "category__name", "name"
+        )
+
+        # Generate initial values for the form
+        initial = {
+            "activities": selected_activity,
+            "org_types": selected_org_types,
+            "services": selected_services,
+        }
+
+        # Build the form
+        form = DataMapForm(
+            models.Activity.objects.order_by("name"),
+            all_org_types.order_by("name"),
+            all_services.order_by("name"),
+            initial=initial,
+        )
+
+        context = {
+            "allowed_data_type_ids": allowed_data_type_ids,
+            "data_types": data_types,
+            "form": form,
+        }
+
+        return self.render_to_response(context)

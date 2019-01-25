@@ -51,7 +51,7 @@ class Activity(models.Model):
         ordering = ["activity_category__index"]
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.name}"
+        return self.name
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs={"slug": self.slug})
