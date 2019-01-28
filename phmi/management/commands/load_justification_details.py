@@ -52,12 +52,11 @@ class Command(BaseCommand):
         We can't just use the suffix as for some suffixes there is both
         a Duty and a Power
         """
-        file_name = "data/csvs/statutes/{}.csv".format(
-            org_type_name.lower().replace(" ", "-")
-        )
+        file_name = org_type_name.lower().replace(" ", "-")
+        path = f"data/csvs/statutes/{file_name}.csv"
         count = 0
 
-        with open(file_name) as f:
+        with open(path) as f:
             reader = csv.reader(f)
             for i in reader:
                 justifications = self.get_justifications(i[1], org_type_name)
