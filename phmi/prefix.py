@@ -9,5 +9,10 @@ def strip_prefix(s):
     This function removes the '2. ' part regardless of the length of the prefix
     prior to the period character.
     """
-    _, _, suffix = s.partition(".")
+    separator = "."
+
+    if separator not in s:
+        return s
+
+    _, _, suffix = s.partition(separator)
     return suffix.strip()
