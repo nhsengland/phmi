@@ -406,7 +406,9 @@ class DataMapView(TemplateResponseMixin, View):
 
         # Build the form
         form = DataMapForm(
-            models.Activity.objects.order_by("name"),
+            models.Activity.objects.select_related("activity_category").order_by(
+                "activity_category__name", "name"
+            ),
             all_org_types.order_by("name"),
             all_services.order_by("name"),
             initial=initial,

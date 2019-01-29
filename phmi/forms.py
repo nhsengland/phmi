@@ -1,8 +1,51 @@
+import functools
+import itertools
+import operator
+
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
 from phmi.models import CareSystem, Organisation
+
+
+class GroupedModelChoiceIterator(forms.models.ModelChoiceIterator):
+    """Taken from: https://code.djangoproject.com/ticket/27331#comment:7"""
+
+    def __init__(self, field, groupby):
+        self.groupby = groupby
+        super().__init__(field)
+
+    def __iter__(self):
+        if self.field.empty_label is not None:
+            yield ("", self.field.empty_label)
+
+        queryset = self.queryset
+
+        # Can't use iterator() when queryset uses prefetch_related()
+        if not queryset._prefetch_related_lookups:
+            queryset = queryset.iterator()
+
+        for group, objs in itertools.groupby(queryset, self.groupby):
+            yield (group, [self.choice(obj) for obj in objs])
+
+
+class GroupedModelChoiceField(forms.ModelChoiceField):
+    """Taken from: https://code.djangoproject.com/ticket/27331#comment:7"""
+
+    def __init__(self, *args, choices_groupby, **kwargs):
+        if isinstance(choices_groupby, str):
+            choices_groupby = operator.attrgetter(choices_groupby)
+        elif not callable(choices_groupby):
+            raise TypeError(
+                "choices_groupby must either be a str or a callable accepting a single argument"
+            )
+
+        self.iterator = functools.partial(
+            GroupedModelChoiceIterator, groupby=choices_groupby
+        )
+
+        super().__init__(*args, **kwargs)
 
 
 class CareSystemForm(forms.ModelForm):
@@ -26,7 +69,9 @@ class DataMapForm(forms.Form):
     def __init__(self, activities, org_types, services, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["activities"] = forms.ModelChoiceField(queryset=activities)
+        self.fields["activities"] = GroupedModelChoiceField(
+            queryset=activities, choices_groupby=lambda a: a.activity_category
+        )
         self.fields["org_types"] = forms.ModelMultipleChoiceField(
             queryset=org_types, widget=forms.CheckboxSelectMultiple
         )
