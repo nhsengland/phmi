@@ -59,6 +59,12 @@
                         Activities
                       </a>
                     </li>
+
+                  <li>
+                      <a {% if request|url_name == 'data-map-selector' %} class="active" {% endif %} href="{% url 'data-map-selector' %}">
+                        Data Map
+                      </a>
+                    </li>
                 </ul>
               </nav>
             </div>
