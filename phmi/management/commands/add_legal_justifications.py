@@ -3,10 +3,10 @@ import os
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils.text import slugify
 
 from ...models import LegalJustification, OrgType
-
-ORG_TYPES = ["CCG", "NHS Trust", "Local Authority", "NHS England"]
+from ...prefix import normalise_justification_name
 
 
 class Command(BaseCommand):
@@ -23,13 +23,16 @@ class Command(BaseCommand):
             with open(os.path.join(options["path"], filename), "r") as f:
                 rows = list(csv.reader(f))
 
-            name = filename.replace(".csv", "").replace("-", " ")
-            org_type = OrgType.objects.get(name__icontains=name)
+            slug = slugify(filename.replace(".csv", ""))
+            org_type = OrgType.objects.get(slug=slug)
 
-            for row in rows:
-                lgs = [
-                    LegalJustification(name=row[1], details=row[2], org_type=org_type)
-                ]
-                LegalJustification.objects.bulk_create(lgs)
+            LegalJustification.objects.bulk_create(
+                LegalJustification(
+                    name=normalise_justification_name(row[1]),
+                    details=row[2],
+                    org_type=org_type,
+                )
+                for row in rows
+            )
 
-        self.stdout.write(self.style.SUCCESS(f"Created legal justifications"))
+        self.stdout.write(self.style.SUCCESS("Added LegalJustifications"))

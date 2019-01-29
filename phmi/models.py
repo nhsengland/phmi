@@ -48,7 +48,7 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = "Activities"
-        ordering = ["activity_category__index"]
+        ordering = ["activity_category__index", "name"]
 
     def __str__(self):
         return self.name
@@ -294,6 +294,11 @@ class OrgType(models.Model):
 
     def get_absolute_url(self):
         return reverse("org-type-detail", kwargs=dict(slug=self.slug))
+
+    @property
+    def short_name(self):
+        short, _, _ = self.name.partition("(")
+        return short.strip()
 
     def save(self, *args, **kwargs):
         if not self.slug:

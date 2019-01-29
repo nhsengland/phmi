@@ -27,17 +27,14 @@ import-csvs:
 	@psql -c "DROP DATABASE phmi;"
 	@psql -c "CREATE DATABASE phmi;"
 	@pipenv run python manage.py migrate
-	@pipenv run python manage.py add_org_types
-	@pipenv run python manage.py add_orgs
-	@pipenv run python manage.py load_justification_details
-	@pipenv run python manage.py load_activities_and_justifications
-	@pipenv run python manage.py add_group_types
-	@pipenv run python manage.py load_care_groups
 	@pipenv run python manage.py add_data_types
+	@pipenv run python manage.py add_activities
 	@pipenv run python manage.py add_org_functions
+	@pipenv run python manage.py add_legal_justifications
 	@pipenv run python manage.py add_benefits
 	@pipenv run python manage.py add_outputs
 	@pipenv run python manage.py link_activities_to_data_types
+	@pipenv run python manage.py link_activities_to_legal_justifications
 	@pipenv run python manage.py link_orgtypes_to_data_types
 	@pipenv run python manage.py link_services_to_data_types
 	@pipenv run python manage.py create_activity_category_groups

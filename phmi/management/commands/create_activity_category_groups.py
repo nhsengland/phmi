@@ -18,22 +18,22 @@ class Command(BaseCommand):
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Risk stratification"
+                name__istartswith="risk stratification"
             ).update(group=acg, index=0)
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Managing finances"
+                name__istartswith="managing finances"
             ).update(group=acg, index=1)
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Planning, implementing and evaluating"
+                name__istartswith="planning, implementing and evaluating"
             ).update(group=acg, index=2)
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="General Provision of Population"
+                name__istartswith="general provision of population"
             ).update(group=acg, index=3)
         )
 
@@ -47,17 +47,17 @@ class Command(BaseCommand):
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Activating and empowering"
+                name__istartswith="activating and empowering"
             ).update(group=acg, index=4)
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Managing individual"
+                name__istartswith="managing individual"
             ).update(group=acg, index=5)
         )
         (
             ActivityCategory.objects.filter(
-                name__startswith="Co-ordinating and optimising"
+                name__istartswith="co-ordinating and optimising"
             ).update(group=acg, index=6)
         )
 

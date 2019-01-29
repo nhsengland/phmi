@@ -6,6 +6,16 @@ from django.utils.text import slugify
 from roman import fromRoman
 
 from ...models import LawfulBasis, OrgFunction, OrgResponsibility, OrgType
+from ...prefix import strip_prefix
+
+nameLUT = {
+    "nhs england": "NHS England",
+    "ccg": "CCG",
+    "local authority (public health)": "Local Authority (Public Health)",
+    "local authority (non-public health)": "Local Authority (Non-Public Health)",
+    "nhs provider": "NHS Provider",
+    "non-nhs provider (inc. charities)": "Non-NHS Provider (inc. Charities)",
+}
 
 
 class Command(BaseCommand):
@@ -56,12 +66,11 @@ class Command(BaseCommand):
             rows = list(csv.DictReader(f))
 
         for row in rows:
-            org_type_name = row["ORGANISATION"]
+            org_type_name = strip_prefix(row["ORGANISATION"])
             if org_type_name:
-                cleaned_name = org_type_name[3:].strip()
-                slug = slugify(cleaned_name)
+                slug = slugify(org_type_name)
                 org_type, _ = OrgType.objects.get_or_create(
-                    slug=slug, defaults={"name": cleaned_name}
+                    slug=slug, defaults={"name": nameLUT[org_type_name.lower()]}
                 )
 
             function_name = row["FUNCTION"]
@@ -92,3 +101,7 @@ class Command(BaseCommand):
 
             if lawful_basis_number and lawful_basis_name:
                 responsibility.lawful_bases.add(lawful_basis)
+
+        self.stdout.write(
+            self.style.SUCCESS("Added OrgTypes, OrgFunctions, and OrgResponsibilities")
+        )
