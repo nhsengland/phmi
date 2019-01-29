@@ -20,14 +20,44 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>{{ form.org_types.label }}</label>
-          {{ form.org_types }}
+
+          <ul class="list-unstyled">
+            {% for value, label in form.org_types.field.choices %}
+            <li>
+              <label for="id_org_types_{{ forloop.counter0 }}" style="display:flex;align-items:baseline;">
+                <input
+                  type="checkbox"
+                  name="org_types"
+                  value="{{ value }}"
+                  id="id_org_types_{{ forloop.counter0 }}"
+                />
+                <span style="margin-left:10px">{{ label }}</span>
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
           <label>{{ form.services.label }}</label>
-          {{ form.services }}
+
+          <ul class="list-unstyled">
+            {% for value, label in form.services.field.choices %}
+            <li>
+              <label for="id_services_{{ forloop.counter0 }}" style="display:flex;align-items:baseline;">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value="{{ value }}"
+                  id="id_services_{{ forloop.counter0 }}"
+                />
+                <span style="margin-left:10px">{{ label }}</span>
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
 
