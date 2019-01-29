@@ -2,6 +2,7 @@
 
 {% block contents %}
 <article>
+  {% if not request.GET %}
   <form method="GET" class="form-horizontal" style="margin-left:15px;margin-right:15px;">
 
     <div class="row" style="margin-top:20px">
@@ -38,29 +39,35 @@
 
   </form>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Data Category</th>
-        <th colspan="2">Data Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for data_type in data_types %}
-      <tr>
-        <td style="padding-right:10px">{% ifchanged %}{{ data_type.category.name }}{% endifchanged %}</td>
-        <td>{{ data_type.name }}</td>
-        <td>
-          {% if data_type.id in allowed_data_type_ids %}
-          {% include "icons/tick.html" %}
-          {% else %}
-          {% include "icons/cross.html" %}
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% else %}
+
+  <div class="content-offset content-offset-below-80">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Data Category</th>
+          <th colspan="2">Data Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data_type in data_types %}
+        <tr>
+          <td style="padding-right:10px">{% ifchanged %}{{ data_type.category.name }}{% endifchanged %}</td>
+          <td>{{ data_type.name }}</td>
+          <td>
+            {% if data_type.id in allowed_data_type_ids %}
+            {% include "icons/tick.html" %}
+            {% else %}
+            {% include "icons/cross.html" %}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% endif %}
 
 </article>
 {% endblock contents %}
