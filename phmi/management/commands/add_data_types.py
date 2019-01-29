@@ -44,3 +44,5 @@ class Command(BaseCommand):
             )
 
         DataType.objects.bulk_create(types)
+
+        self.stdout.write(self.style.SUCCESS("Added DataTypes"))

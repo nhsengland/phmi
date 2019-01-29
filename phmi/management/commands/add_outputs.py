@@ -31,3 +31,5 @@ class Command(BaseCommand):
             Output.objects.create(
                 type=output_type, name=name, description=row["DESCRIPTION"]
             )
+
+        self.stdout.write(self.style.SUCCESS("Added Outputs"))

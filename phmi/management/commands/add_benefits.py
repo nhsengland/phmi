@@ -28,3 +28,5 @@ class Command(BaseCommand):
             name = name.strip()
 
             Benefit.objects.create(aim=aim, name=name, index=index)
+
+        self.stdout.write(self.style.SUCCESS("Added Benefits"))
