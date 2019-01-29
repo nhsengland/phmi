@@ -397,13 +397,6 @@ class DataMapView(TemplateResponseMixin, View):
             "category__name", "name"
         )
 
-        # Generate initial values for the form
-        initial = {
-            "activities": selected_activity,
-            "org_types": selected_org_types,
-            "services": selected_services,
-        }
-
         # Build the form
         form = DataMapForm(
             models.Activity.objects.select_related("activity_category").order_by(
@@ -411,7 +404,6 @@ class DataMapView(TemplateResponseMixin, View):
             ),
             all_org_types.order_by("name"),
             all_services.order_by("name"),
-            initial=initial,
         )
 
         context = {
