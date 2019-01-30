@@ -70,15 +70,18 @@ class DataAccessForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         self.fields["activities"] = GroupedModelChoiceField(
-            queryset=activities, choices_groupby=lambda a: a.activity_category
+            queryset=activities,
+            choices_groupby=lambda a: a.activity_category,
+            widget=forms.Select(attrs={"class": "form-control"}),
         )
         self.fields["org_types"] = forms.ModelMultipleChoiceField(
             label="Organisation Types",
             queryset=org_types,
-            widget=forms.CheckboxSelectMultiple,
+            widget=forms.CheckboxSelectMultiple(attrs={"class": "form-control"}),
         )
         self.fields["services"] = forms.ModelMultipleChoiceField(
-            queryset=services, widget=forms.CheckboxSelectMultiple
+            queryset=services,
+            widget=forms.CheckboxSelectMultiple(attrs={"class": "form-control"}),
         )
 
 
