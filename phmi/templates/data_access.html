@@ -112,29 +112,43 @@
 
     {% else %}
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Data Category</th>
-          <th colspan="2">Data Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for data_type in data_types %}
-        <tr>
-          <td style="padding-right:10px">{% ifchanged %}{{ data_type.category.name }}{% endifchanged %}</td>
-          <td>{{ data_type.name }}</td>
-          <td>
-            {% if data_type.id in allowed_data_type_ids %}
-            {% include "icons/tick.html" %}
-            {% else %}
-            {% include "icons/cross.html" %}
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor
+      lectus augue, nec feugiat lorem placerat eget. Pellentesque consectetur
+      tellus vel justo pharetra, vel interdum nisl tristique. Sed cursus metus
+      vitae venenatis dapibus. Sed eu metus purus. In ac lacinia nisi, et
+      varius eros. Suspendisse commodo nisi risus, quis dapibus lectus
+      efficitur et. Donec laoreet, velit ac aliquam egestas, nulla elit
+      placerat arcu, a consectetur odio eros non magna.
+    </p>
+
+    {% regroup data_types by category.name as categories %}
+    {% for category in categories %}
+    <div class="content-offset content-offset-below-40">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3">{{ category.grouper }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data_type in category.list %}
+          <tr>
+            <td style="width:430px">{{ data_type.name|truncatechars:50 }}</td>
+            <td>{{ data_type.example_data_sets }}</td>
+            <td>
+              {% if data_type.id in allowed_data_type_ids %}
+              {% include "icons/tick.html" %}
+              {% else %}
+              {% include "icons/cross.html" %}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
 
     {% endif %}
 
