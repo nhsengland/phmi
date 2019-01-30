@@ -18,7 +18,7 @@ from django.views.generic import (
 from django.views.generic.base import TemplateResponseMixin
 
 from . import models
-from .forms import CareSystemForm, DataMapForm, LoginForm, OrganisationForm
+from .forms import CareSystemForm, DataAccessForm, LoginForm, OrganisationForm
 
 
 def get_orgs_by_type():
@@ -358,9 +358,9 @@ class GenerateMagicLoginURL(FormView):
         return redirect(reverse("request-login"))
 
 
-class DataMapView(TemplateResponseMixin, View):
+class DataAccessView(TemplateResponseMixin, View):
     page_width = "col-md-12"
-    template_name = "data_map.html"
+    template_name = "data_access.html"
 
     def get(self, request, *args, **kwargs):
         all_org_types = models.OrgType.objects.all()
@@ -398,7 +398,7 @@ class DataMapView(TemplateResponseMixin, View):
         )
 
         # Build the form
-        form = DataMapForm(
+        form = DataAccessForm(
             models.Activity.objects.select_related("activity_category").order_by(
                 "activity_category__name", "name"
             ),

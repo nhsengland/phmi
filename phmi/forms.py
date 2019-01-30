@@ -65,7 +65,7 @@ class CareSystemForm(forms.ModelForm):
             self.fields[field].widget.attrs["class"] = "form-control"
 
 
-class DataMapForm(forms.Form):
+class DataAccessForm(forms.Form):
     def __init__(self, activities, org_types, services, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

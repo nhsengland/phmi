@@ -30,7 +30,7 @@ urlpatterns = [
     path("logout", LogoutView.as_view(), name="logout"),
     path("org-types", views.OrgTypeList.as_view(), name="org-type-list"),
     path("org-types/<slug>", views.OrgTypeDetail.as_view(), name="org-type-detail"),
-    path("data-map", views.DataMapView.as_view(), name="data-map-selector"),
+    path("data-access", views.DataAccessView.as_view(), name="data-access"),
     path("", include("projects.urls")),
 ]
 
