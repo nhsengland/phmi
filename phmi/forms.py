@@ -73,7 +73,9 @@ class DataAccessForm(forms.Form):
             queryset=activities, choices_groupby=lambda a: a.activity_category
         )
         self.fields["org_types"] = forms.ModelMultipleChoiceField(
-            queryset=org_types, widget=forms.CheckboxSelectMultiple
+            label="Organisation Types",
+            queryset=org_types,
+            widget=forms.CheckboxSelectMultiple,
         )
         self.fields["services"] = forms.ModelMultipleChoiceField(
             queryset=services, widget=forms.CheckboxSelectMultiple
