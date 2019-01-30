@@ -12,7 +12,7 @@
       <div class="row" style="margin-top:20px">
         <div class="col-md-12">
           <div class="form-group">
-            <label>{{ form.activities.label }}</label>
+            <h2 class="nhsuk-heading-l">{{ form.activities.label }}</h2>
 
             {{ form.activities }}
           </div>
@@ -23,7 +23,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{ form.org_types.label }}</label>
+            <h2 class="nhsuk-heading-l">{{ form.org_types.label }}</h2>
 
             <ul class="list-unstyled">
               {% for value, label in form.org_types.field.choices %}
@@ -46,7 +46,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{ form.services.label }}</label>
+            <h2 class="nhsuk-heading-l">{{ form.services.label }}</h2>
 
             <ul class="list-unstyled">
               {% for value, label in form.services.field.choices %}
