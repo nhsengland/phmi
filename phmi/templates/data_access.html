@@ -122,6 +122,30 @@
       placerat arcu, a consectetur odio eros non magna.
     </p>
 
+    <h3>Selected Data</h3>
+    <div>
+      <strong>Activity</strong> <span>{{ selected_activity }}</span><br />
+    </div>
+
+    <div>
+      <strong>Organisation Types</strong>
+      <ul>
+        {% for ot in selected_org_types %}
+        <li>{{ ot.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <strong>Services</strong>
+      <ul>
+        {% for s in selected_services %}
+        <li>{{ s.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+
     {% regroup data_types by category.name as categories %}
     {% for category in categories %}
     <div class="content-offset content-offset-below-40">

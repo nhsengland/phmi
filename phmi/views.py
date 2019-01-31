@@ -410,6 +410,9 @@ class DataAccessView(TemplateResponseMixin, View):
             "allowed_data_type_ids": allowed_data_type_ids,
             "data_types": data_types,
             "form": form,
+            "selected_activity": selected_activity,
+            "selected_org_types": selected_org_types,
+            "selected_services": selected_services,
         }
 
         return self.render_to_response(context)
