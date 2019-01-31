@@ -32,7 +32,7 @@ urlpatterns = [
     path("org-types/<slug>", views.OrgTypeDetail.as_view(), name="org-type-detail"),
     path("data-access", views.DataAccessView.as_view(), name="data-access"),
     path(
-        "data-access-wizard",
+        "data-access-wizard/",
         include(("data_access.urls", "data_access"), namespace="data-access"),
     ),
     path("", include("projects.urls")),
