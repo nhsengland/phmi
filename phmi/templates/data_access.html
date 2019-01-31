@@ -135,7 +135,7 @@
           {% for data_type in category.list %}
           <tr>
             <td style="width:430px">{{ data_type.name|truncatechars:50 }}</td>
-            <td>{{ data_type.example_data_sets }}</td>
+            <td style="width:693px">{{ data_type.example_data_sets }}</td>
             <td>
               {% if data_type.id in allowed_data_type_ids %}
               {% include "icons/tick.html" %}
