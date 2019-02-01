@@ -5,10 +5,10 @@ from django.utils.functional import cached_property
 from django.views.generic import TemplateView
 
 from phmi import models
-from phmi import views as phmi_views
+from phmi.views import AbstractPhmiView, BreadcrumbsMixin
 
 
-class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
+class AbstractProjectView(AbstractPhmiView, TemplateView):
     def decode_location_sign(self):
         if "location_sign" not in self.kwargs:
             return {}
@@ -37,7 +37,7 @@ class AbstractProjectView(phmi_views.AbstractPhmiView, TemplateView):
         return ctx
 
 
-class ProjectLocationView(AbstractProjectView):
+class ProjectLocationView(BreadcrumbsMixin, AbstractProjectView):
     template_name = "projects/location.html"
     breadcrumbs = (("Home", reverse_lazy("home")), ("Project description", ""))
 
@@ -52,7 +52,7 @@ class ProjectLocationView(AbstractProjectView):
         )
 
 
-class ProjectActivityView(AbstractProjectView):
+class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         ("Project description", reverse_lazy("project-location")),
@@ -77,7 +77,7 @@ class ProjectActivityView(AbstractProjectView):
         )
 
 
-class ProjectResultView(AbstractProjectView):
+class ProjectResultView(BreadcrumbsMixin, AbstractProjectView):
     template_name = "projects/result.html"
     page_width = "col-md-12"
 

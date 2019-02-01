@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, TemplateView
 
 from phmi.models import Activity, ActivityCategory, DataType, OrgType, Service
+from phmi.views import BreadcrumbsMixin
 
 from .forms import ActivitiesForm, ActivityCategoryForm, OrgTypesForm, ServicesForm
 
@@ -33,7 +34,7 @@ class SignedDataMixin:
         )
 
 
-class ActivitiesView(SignedDataMixin, FormView):
+class ActivitiesView(SignedDataMixin, BreadcrumbsMixin, FormView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         # ("Categories", reverse_lazy("data-access:categories")),
@@ -58,7 +59,7 @@ class ActivitiesView(SignedDataMixin, FormView):
         return kwargs
 
 
-class ActivityCategoryView(SignedDataMixin, FormView):
+class ActivityCategoryView(SignedDataMixin, BreadcrumbsMixin, FormView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Categories", "")]
     form_class = ActivityCategoryForm
     next_page_url_name = "activities"
@@ -76,7 +77,7 @@ class ActivityCategoryView(SignedDataMixin, FormView):
         return kwargs
 
 
-class OrgTypesView(SignedDataMixin, FormView):
+class OrgTypesView(SignedDataMixin, BreadcrumbsMixin, FormView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         # ("Categories", reverse_lazy("data-access:categories")),
@@ -98,7 +99,7 @@ class OrgTypesView(SignedDataMixin, FormView):
         return kwargs
 
 
-class OutcomeView(SignedDataMixin, TemplateView):
+class OutcomeView(SignedDataMixin, BreadcrumbsMixin, TemplateView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         # ("Categories", reverse_lazy("data-access:categories")),
@@ -137,7 +138,7 @@ class OutcomeView(SignedDataMixin, TemplateView):
         return context
 
 
-class ServicesView(SignedDataMixin, FormView):
+class ServicesView(SignedDataMixin, BreadcrumbsMixin, FormView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         # ("Categories", reverse_lazy("data-access:categories")),

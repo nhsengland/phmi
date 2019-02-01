@@ -91,8 +91,8 @@
       <div class="row">
         <div class="{{ view.page_width }}">
           {% block breadcrumbs %}
-            {% if view.breadcrumbs %}
-              {% breadcrumbs view.breadcrumbs %}
+            {% if breadcrumbs %}
+              {% breadcrumbs breadcrumbs %}
             {% endif %}
           {% endblock %}
           {% block contents %}

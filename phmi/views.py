@@ -37,8 +37,30 @@ class IsStaffMixin(UserPassesTestMixin):
 
 
 class AbstractPhmiView(object):
-    breadcrumbs = []
     page_width = "col-md-8"
+
+
+class BreadcrumbsMixin:
+    """
+    Mixin to add breadcrumbs support to a subclass
+
+    When inheriting from this Mixin one can add a list of tuples containing a
+    label and URL string, for example:
+
+        breadcrumbs = [
+            ("Home", reverse_lazy("home"))
+            ("Intermediate Page", reverse_lazy("intermediate"))
+            ("Current Page", "")
+        ]
+
+    """
+
+    breadcrumbs = []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = self.breadcrumbs
+        return context
 
 
 class GroupChangeMixin(object):
@@ -55,7 +77,9 @@ class GroupChangeMixin(object):
         return f"{url}?name={search_term}&care_system={self.object.id}"
 
 
-class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
+class GroupAdd(
+    IsStaffMixin, GroupChangeMixin, BreadcrumbsMixin, AbstractPhmiView, CreateView
+):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         ("Care systems", reverse_lazy("group-list")),
@@ -124,7 +148,9 @@ class GroupDetail(AbstractPhmiView, DetailView):
         return ctx
 
 
-class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
+class GroupEdit(
+    IsStaffMixin, GroupChangeMixin, BreadcrumbsMixin, AbstractPhmiView, UpdateView
+):
     form_class = CareSystemForm
     model = models.CareSystem
     template_name = "group_form.html"
@@ -167,13 +193,13 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
         return super().get_object(queryset=qs)
 
 
-class OrgTypeList(AbstractPhmiView, ListView):
+class OrgTypeList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Organizations", "")]
     model = models.OrgType
     template_name = "orgtype_list.html"
 
 
-class OrgTypeDetail(AbstractPhmiView, DetailView):
+class OrgTypeDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
     model = models.OrgType
     template_name = "orgtype_detail.html"
     page_width = "col-md-12"
@@ -213,7 +239,7 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
         return result
 
 
-class ActivityList(AbstractPhmiView, ListView):
+class ActivityList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Activities", "")]
     template_name = "activity_list.html"
     page_width = "col-md-12"
@@ -236,7 +262,7 @@ class ActivityList(AbstractPhmiView, ListView):
         return ctx
 
 
-class ActivityDetail(AbstractPhmiView, DetailView):
+class ActivityDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
     model = models.Activity
     template_name = "activity_detail.html"
     page_width = "col-md-12"
@@ -269,7 +295,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
         return ctx
 
 
-class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
+class OrganisationAdd(BreadcrumbsMixin, AbstractPhmiView, IsStaffMixin, CreateView):
     form_class = OrganisationForm
     model = models.Organisation
     template_name = "organisation_form.html"
@@ -293,7 +319,7 @@ class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
         return super().form_valid(form)
 
 
-class GroupList(AbstractPhmiView, ListView):
+class GroupList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Care systems", "")]
     model = models.CareSystem
     template_name = "group_list.html"
