@@ -2,10 +2,14 @@
 
 {% block contents %}
 <article>
-  <h1 class="nhsuk-heading-xl">Data Access</h1>
-
+  <h1 class="nhsuk-heading-xl">Data access</h1>
+  
   <div class="content-offset content-offset-below-80">
-
+    <p>
+      This service is being developed to help teams hoping to bring together data for 
+      secondary uses understand when they are likely to be granted access to different 
+      datasets and for what purposes.
+    </p>
     {% if not request.GET %}
     <form method="GET" class="form-horizontal" style="margin-left:15px;margin-right:15px;">
 
@@ -13,18 +17,9 @@
         <div class="col-md-12">
           <div class="form-group">
             <h2 class="nhsuk-heading-l">{{ form.activities.label }}</h2>
-
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              porttitor lectus augue, nec feugiat lorem placerat eget.
-              Pellentesque consectetur tellus vel justo pharetra, vel interdum
-              nisl tristique. Sed cursus metus vitae venenatis dapibus. Sed eu
-              metus purus. In ac lacinia nisi, et varius eros. Suspendisse
-              commodo nisi risus, quis dapibus lectus efficitur et. Donec
-              laoreet, velit ac aliquam egestas, nulla elit placerat arcu, a
-              consectetur odio eros non magna.
+             Select the type of secondary use activity you are planning to undertake.
             </p>
-
             {{ form.activities }}
           </div>
         </div>
@@ -37,14 +32,7 @@
             <h2 class="nhsuk-heading-l">{{ form.org_types.label }}</h2>
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              porttitor lectus augue, nec feugiat lorem placerat eget.
-              Pellentesque consectetur tellus vel justo pharetra, vel interdum
-              nisl tristique. Sed cursus metus vitae venenatis dapibus. Sed eu
-              metus purus. In ac lacinia nisi, et varius eros. Suspendisse
-              commodo nisi risus, quis dapibus lectus efficitur et. Donec
-              laoreet, velit ac aliquam egestas, nulla elit placerat arcu, a
-              consectetur odio eros non magna.
+              Which type of organizations will you be doing this work on behalf of?
             </p>
 
             <ul class="list-unstyled">
@@ -73,14 +61,7 @@
             <h2 class="nhsuk-heading-l">{{ form.services.label }}</h2>
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              porttitor lectus augue, nec feugiat lorem placerat eget.
-              Pellentesque consectetur tellus vel justo pharetra, vel interdum
-              nisl tristique. Sed cursus metus vitae venenatis dapibus. Sed eu
-              metus purus. In ac lacinia nisi, et varius eros. Suspendisse
-              commodo nisi risus, quis dapibus lectus efficitur et. Donec
-              laoreet, velit ac aliquam egestas, nulla elit placerat arcu, a
-              consectetur odio eros non magna.
+              Which services will this activity be related to ?
             </p>
 
             <ul class="list-unstyled">
