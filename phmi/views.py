@@ -12,10 +12,10 @@ from django.views.generic import (
     DetailView,
     FormView,
     ListView,
+    TemplateView,
     UpdateView,
     View,
 )
-from django.views.generic.base import TemplateResponseMixin
 
 from . import models
 from .forms import CareSystemForm, DataAccessForm, LoginForm, OrganisationForm
@@ -384,11 +384,12 @@ class GenerateMagicLoginURL(FormView):
         return redirect(reverse("request-login"))
 
 
-class DataAccessView(TemplateResponseMixin, View):
+class DataAccessView(BreadcrumbsMixin, TemplateView):
+    breadcrumbs = [("Home", reverse_lazy("home")), ("Data access", "")]
     page_width = "col-md-12"
     template_name = "data_access.html"
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         all_org_types = models.OrgType.objects.all()
         all_services = models.Service.objects.all()
 
@@ -432,13 +433,15 @@ class DataAccessView(TemplateResponseMixin, View):
             all_services.order_by("name"),
         )
 
-        context = {
-            "allowed_data_type_ids": allowed_data_type_ids,
-            "data_types": data_types,
-            "form": form,
-            "selected_activity": selected_activity,
-            "selected_org_types": selected_org_types,
-            "selected_services": selected_services,
-        }
-
-        return self.render_to_response(context)
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "allowed_data_type_ids": allowed_data_type_ids,
+                "data_types": data_types,
+                "form": form,
+                "selected_activity": selected_activity,
+                "selected_org_types": selected_org_types,
+                "selected_services": selected_services,
+            }
+        )
+        return context
