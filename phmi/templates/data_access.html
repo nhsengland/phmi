@@ -4,12 +4,13 @@
 <article>
   <h1 class="nhsuk-heading-xl">Data access</h1>
 
-  <div class="content-offset content-offset-below-80">
-    <p>
+  <div class="content-offset-24 content-offset-below-80">
+    <p class="content-offset-below-20">
       This service is being developed to help teams hoping to bring together data for
       secondary uses understand when they are likely to be granted access to different
       datasets and for what purposes.
     </p>
+
     {% if not request.GET %}
     <form method="GET" class="form-horizontal" style="margin-left:15px;margin-right:15px;">
 
@@ -93,35 +94,24 @@
 
     {% else %}
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor
-      lectus augue, nec feugiat lorem placerat eget. Pellentesque consectetur
-      tellus vel justo pharetra, vel interdum nisl tristique. Sed cursus metus
-      vitae venenatis dapibus. Sed eu metus purus. In ac lacinia nisi, et
-      varius eros. Suspendisse commodo nisi risus, quis dapibus lectus
-      efficitur et. Donec laoreet, velit ac aliquam egestas, nulla elit
-      placerat arcu, a consectetur odio eros non magna.
-    </p>
-
-    <h3>Selected Data</h3>
-    <div>
-      <strong>Activity</strong> <span>{{ selected_activity }}</span><br />
+    <div class="content-offset-below-10">
+      <strong>Activity:</strong> <span style="margin-left:5px">{{ selected_activity }}</span>
     </div>
 
-    <div>
-      <strong>Organisation Types</strong>
-      <ul>
+    <div class="content-offset-below-10">
+      <strong>Organisation types:</strong>
+      <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
         {% for ot in selected_org_types %}
-        <li>{{ ot.name }}</li>
+        <li class="nhsuk-c-page-contents__item">{{ ot.name }}</li>
         {% endfor %}
       </ul>
     </div>
 
     <div>
-      <strong>Services</strong>
-      <ul>
+      <strong>Services:</strong>
+      <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
         {% for s in selected_services %}
-        <li>{{ s.name }}</li>
+        <li class="nhsuk-c-page-contents__item">{{ s.name }}</li>
         {% endfor %}
       </ul>
     </div>
@@ -129,7 +119,7 @@
 
     {% regroup data_types by category.name as categories %}
     {% for category in categories %}
-    <div class="content-offset content-offset-below-40">
+    <div class="content-offset">
       <table class="table table-striped">
         <thead>
           <tr>
