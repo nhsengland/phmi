@@ -99,32 +99,35 @@
       processing that data, as well as articulating the benefits and rationale.
     </p>
 
-    <div class="content-offset-below-10">
-      <strong>Activity:</strong> <span style="margin-left:5px">{{ selected_activity }}</span>
+    <div class="content-offset-below">
+      <div class="content-offset-below-10">
+        <strong>Activity:</strong> <span style="margin-left:5px">{{ selected_activity }}</span>
+      </div>
+
+      <div class="content-offset-below-10">
+        <strong>Organisation types:</strong>
+        <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
+          {% for ot in selected_org_types %}
+          <li class="nhsuk-c-page-contents__item">{{ ot.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div>
+        <strong>Services:</strong>
+        <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
+          {% for s in selected_services %}
+          <li class="nhsuk-c-page-contents__item">{{ s.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
 
-    <div class="content-offset-below-10">
-      <strong>Organisation types:</strong>
-      <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
-        {% for ot in selected_org_types %}
-        <li class="nhsuk-c-page-contents__item">{{ ot.name }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div>
-      <strong>Services:</strong>
-      <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
-        {% for s in selected_services %}
-        <li class="nhsuk-c-page-contents__item">{{ s.name }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-
+    <h2 class="content-offset-below-24">Datasets</h2>
 
     {% regroup data_types by category.name as categories %}
     {% for category in categories %}
-    <div class="content-offset">
+    <div class="content-offset-below">
       <table class="table table-striped">
         <thead>
           <tr>
