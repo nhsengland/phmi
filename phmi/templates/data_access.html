@@ -38,17 +38,15 @@
 
             <ul class="list-unstyled">
               {% for value, label in form.org_types.field.choices %}
-              <li>
-                <label for="id_org_types_{{ forloop.counter0 }}" style="display:flex;align-items:baseline;">
-                  <input
-                    type="checkbox"
-                    name="org_types"
-                    value="{{ value }}"
-                    id="id_org_types_{{ forloop.counter0 }}"
-                    checked
-                  />
-                  <span style="margin-left:10px">{{ label }}</span>
-                </label>
+              <li class="multiple-choice">
+                <input
+                  type="checkbox"
+                  name="org_types"
+                  value="{{ value }}"
+                  id="id_org_types_{{ forloop.counter0 }}"
+                  checked
+                />
+                <label for="id_org_types_{{ forloop.counter0 }}">{{ label }}</label>
               </li>
               {% endfor %}
             </ul>
@@ -67,17 +65,15 @@
 
             <ul class="list-unstyled">
               {% for value, label in form.services.field.choices %}
-              <li>
-                <label for="id_services_{{ forloop.counter0 }}" style="display:flex;align-items:baseline;">
-                  <input
-                    type="checkbox"
-                    name="services"
-                    value="{{ value }}"
-                    id="id_services_{{ forloop.counter0 }}"
-                    checked
+              <li class="multiple-choice">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value="{{ value }}"
+                  id="id_services_{{ forloop.counter0 }}"
+                  checked
                   />
-                  <span style="margin-left:10px">{{ label }}</span>
-                </label>
+                <label for="id_services_{{ forloop.counter0 }}">{{ label }}</label>
               </li>
               {% endfor %}
             </ul>
