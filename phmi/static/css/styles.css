@@ -794,7 +794,7 @@ table thead {
   position: absolute;
   top: 0;
   left: 0;
-  box-sizing: unset;
+  box-sizing: content-box;
 }
 
 .multiple-choice [type=checkbox] + label::after {
@@ -816,7 +816,7 @@ table thead {
   zoom: 1;
   filter: alpha(opacity=0);
   opacity: 0;
-  box-sizing: unset;
+  box-sizing: content-box;
 }
 
 .multiple-choice [type=checkbox]:focus + label::before {

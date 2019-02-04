@@ -929,7 +929,7 @@ table thead{
   position: absolute;
   top: 0;
   left: 0;
-  box-sizing: unset;
+  box-sizing: content-box;
 }
 .multiple-choice [type=checkbox] + label::after {
   content: "";
@@ -950,7 +950,7 @@ table thead{
   zoom: 1;
   filter: alpha(opacity=0);
   opacity: 0;
-  box-sizing: unset;
+  box-sizing: content-box;
 }
 .multiple-choice [type=checkbox]:focus + label::before {
   -webkit-box-shadow: 0 0 0 3px #ffbf47;
