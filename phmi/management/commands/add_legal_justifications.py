@@ -26,13 +26,11 @@ class Command(BaseCommand):
             slug = slugify(filename.replace(".csv", ""))
             org_type = OrgType.objects.get(slug=slug)
 
-            LegalJustification.objects.bulk_create(
-                LegalJustification(
-                    name=normalise_justification_name(row[1]),
-                    details=row[2],
-                    org_type=org_type,
+            for row in rows:
+                name = normalise_justification_name(row[1])
+                lg, _ = LegalJustification.objects.get_or_create(
+                    name=name, defaults={"details": row[2]}
                 )
-                for row in rows
-            )
+                lg.org_types.add(org_type)
 
         self.stdout.write(self.style.SUCCESS("Added LegalJustifications"))

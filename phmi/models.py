@@ -58,7 +58,7 @@ class Activity(models.Model):
 
     def get_org_types(self):
         return OrgType.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
+            legaljustification__in=self.legal_justifications.all()
         ).distinct()
 
     def save(self, *args, **kwargs):
@@ -215,18 +215,15 @@ class LegalJustificationQuerySet(models.QuerySet):
 class LegalJustification(models.Model):
     activities = models.ManyToManyField("Activity")
     statutes = models.ManyToManyField("Statute", blank=True)
-    org_type = models.ForeignKey(
-        "OrgType", blank=True, null=True, on_delete=models.CASCADE
-    )
+    org_types = models.ManyToManyField("OrgType", blank=True)
 
-    name = models.TextField()
+    name = models.TextField(unique=True)
     details = models.TextField(default="")
 
     objects = LegalJustificationQuerySet.as_manager()
 
     class Meta:
         ordering = ["name"]
-        unique_together = ["name", "org_type"]
 
     def __str__(self):
         return f"{self.__class__.__name__}: {self.name}"
@@ -289,7 +286,7 @@ class OrgType(models.Model):
 
     def get_activities(self):
         return Activity.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
+            legal_justifications__in=self.legal_justifications.all()
         )
 
     def get_absolute_url(self):

@@ -53,9 +53,10 @@ class Command(BaseCommand):
 
                 justification_name = normalise_justification_name(cell)
                 legal_justification, _ = LegalJustification.objects.get_or_create(
-                    name=justification_name, org_type=org_type
+                    name=justification_name
                 )
                 legal_justification.activities.add(activity)
+                legal_justification.org_types.add(org_type)
 
         self.stdout.write(
             self.style.SUCCESS("Linked Activities to LegalJustifications")

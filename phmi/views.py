@@ -230,7 +230,7 @@ class OrgTypeDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
             justifications = []
             if allowed:
                 justifications = (
-                    i.legaljustification_set.filter(org_type=self.object)
+                    i.legal_justifications.filter(org_type=self.object)
                     .values_list("name", flat=True)
                     .distinct()
                 )
