@@ -101,12 +101,18 @@ class ActivityCategoryGroup(models.Model):
     name = models.TextField()
     description = models.TextField()
     index = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     class Meta:
         ordering = ["index"]
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
 
 
 class Benefit(models.Model):
