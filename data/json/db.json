@@ -623,9 +623,9 @@
   "model": "phmi.activitycategory",
   "pk": 8,
   "fields": {
-    "group": 1,
+    "group": 3,
     "name": "General provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
-    "index": 3,
+    "index": 0,
     "slug": "general-provision-of-population-health-management-"
   }
 },
@@ -635,7 +635,8 @@
   "fields": {
     "name": "Secondary data use activities",
     "description": "Where data is used for purposes other than the individual care of thepatient. Includes activities that contribute to the overall provisionof services to a population as a whole or a group of patients witha particular condition.",
-    "index": 0
+    "index": 0,
+    "slug": "secondary-data-use-activities"
   }
 },
 {
@@ -644,7 +645,18 @@
   "fields": {
     "name": "Individual care",
     "description": "A clinical, social or public health activity concerned with theprevention, investigation and treatment of illness and thealleviation of suffering of individuals.",
-    "index": 0
+    "index": 1,
+    "slug": "individual-care"
+  }
+},
+{
+  "model": "phmi.activitycategorygroup",
+  "pk": 3,
+  "fields": {
+    "name": "General provision of population health management",
+    "description": "All organisations have some legal duties or powers in relation topopulation health management. To establish the full legal basis for the dataprocessing proposed, you should identify which general duties or powers are relevantfor the activities and organisations in the care system as well as identifying anymore specific legal basis in the more detailed activities in the lists below.",
+    "index": 2,
+    "slug": "general-provision-of-population-health-management"
   }
 },
 {
@@ -7603,8 +7615,8 @@
     "name": "Duty: To promote innovation",
     "details": "NHS England must promote innovation in the provision of health services, including innovative approaches to commissioning.\n(NHS Act 2006, s13K)",
     "activities": [
-      33,
-      55
+      55,
+      33
     ],
     "statutes": [],
     "org_types": [
@@ -8293,8 +8305,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -8322,8 +8334,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -8437,8 +8449,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -8618,8 +8630,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -8634,8 +8646,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -8676,8 +8688,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
@@ -9962,8 +9974,8 @@
     ],
     "statutes": [],
     "org_types": [
-      3,
-      4
+      4,
+      3
     ]
   }
 },
