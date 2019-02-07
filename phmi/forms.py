@@ -85,6 +85,15 @@ class DataAccessForm(forms.Form):
         )
 
 
+class DataTypeSelectorForm(forms.Form):
+    def __init__(self, data_types, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["data_type"] = forms.ModelChoiceField(
+            queryset=data_types, widget=forms.Select(attrs={"class": "form-control"})
+        )
+
+
 class OrganisationForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(

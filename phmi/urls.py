@@ -35,6 +35,20 @@ urlpatterns = [
         "data-access-wizard/",
         include(("data_access.urls", "data_access"), namespace="data-access"),
     ),
+    path("data-access2", views.DataTypeSelector.as_view(), name="data-type-selector"),
+    path(
+        "data-access2/<pk>", views.DataTypeResults.as_view(), name="data-type-results"
+    ),
+    path(
+        "data-access2/<pk>/activities/<activity_pk>",
+        views.DataTypeActivityLegalJustifications.as_view(),
+        name="data-type-activity",
+    ),
+    path(
+        "data-access2/<pk>/organisations/<org_type_pk>",
+        views.DataTypeOrgTypeLegalJustifications.as_view(),
+        name="data-type-org-type",
+    ),
     path("", include("projects.urls")),
 ]
 

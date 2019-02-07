@@ -213,9 +213,11 @@ class LegalJustificationQuerySet(models.QuerySet):
 
 
 class LegalJustification(models.Model):
-    activities = models.ManyToManyField("Activity")
+    activities = models.ManyToManyField("Activity", related_name="legal_justifications")
     statutes = models.ManyToManyField("Statute", blank=True)
-    org_types = models.ManyToManyField("OrgType", blank=True)
+    org_types = models.ManyToManyField(
+        "OrgType", blank=True, related_name="legal_justifications"
+    )
 
     name = models.TextField(unique=True)
     details = models.TextField(default="")

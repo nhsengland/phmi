@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
@@ -18,7 +19,13 @@ from django.views.generic import (
 )
 
 from . import models
-from .forms import CareSystemForm, DataAccessForm, LoginForm, OrganisationForm
+from .forms import (
+    CareSystemForm,
+    DataAccessForm,
+    DataTypeSelectorForm,
+    LoginForm,
+    OrganisationForm,
+)
 
 
 def get_orgs_by_type():
@@ -444,4 +451,121 @@ class DataAccessView(BreadcrumbsMixin, TemplateView):
                 "selected_services": selected_services,
             }
         )
+        return context
+
+
+class DataTypeSelector(BreadcrumbsMixin, FormView):
+    breadcrumbs = [("Home", reverse_lazy("home")), ("Data access selector", "")]
+    form_class = DataTypeSelectorForm
+    page_width = "col-md-12"
+    template_name = "data_type_selector.html"
+
+    def form_valid(self, form):
+        data_type = form.cleaned_data["data_type"]
+        url = reverse("data-type-results", kwargs={"pk": data_type.pk})
+        return redirect(url)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["data_types"] = models.DataType.objects.order_by("name")
+        return kwargs
+
+
+class DataTypeResults(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_results.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (self.data_type.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["data_type"] = self.data_type
+        return context
+
+
+class DataTypeOrgTypeLegalJustifications(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_org_type.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (
+                self.data_type.name,
+                reverse_lazy("data-type-results", kwargs={"pk": self.kwargs["pk"]}),
+            ),
+            (self.org_type.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        try:
+            self.org_type = models.OrgType.objects.get(
+                pk=self.kwargs["org_type_pk"], data_types=self.data_type
+            )
+        except models.OrgType.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org_type"] = self.org_type
+        return context
+
+
+class DataTypeActivityLegalJustifications(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_activity.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (
+                self.data_type.name,
+                reverse_lazy("data-type-results", kwargs={"pk": self.kwargs["pk"]}),
+            ),
+            (self.activity.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        try:
+            self.activity = models.Activity.objects.get(
+                pk=self.kwargs["activity_pk"], data_types=self.data_type
+            )
+        except models.Activity.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["activity"] = self.activity
         return context
