@@ -48,17 +48,17 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = "Activities"
-        ordering = ["activity_category__index"]
+        ordering = ["activity_category__index", "name"]
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.name}"
+        return self.name
 
     def get_absolute_url(self):
         return reverse("activity-detail", kwargs={"slug": self.slug})
 
     def get_org_types(self):
         return OrgType.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
+            legaljustification__in=self.legal_justifications.all()
         ).distinct()
 
     def save(self, *args, **kwargs):
@@ -101,9 +101,32 @@ class ActivityCategoryGroup(models.Model):
     name = models.TextField()
     description = models.TextField()
     index = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     class Meta:
         ordering = ["index"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        return super().save(*args, **kwargs)
+
+
+class Benefit(models.Model):
+    aim = models.ForeignKey("BenefitAim", on_delete=models.CASCADE)
+
+    name = models.TextField(unique=True)
+    index = models.TextField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class BenefitAim(models.Model):
+    name = models.TextField()
 
     def __str__(self):
         return self.name
@@ -127,6 +150,26 @@ class CareSystem(models.Model):
         return reverse("group-detail", args=[str(self.id)])
 
 
+class DataCategory(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class DataType(models.Model):
+    activities = models.ManyToManyField("Activity", related_name="data_types")
+    category = models.ForeignKey("DataCategory", on_delete=models.CASCADE)
+    org_types = models.ManyToManyField("OrgType", related_name="data_types")
+    services = models.ManyToManyField("Service", related_name="data_types")
+
+    name = models.TextField()
+    example_data_sets = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class GroupType(models.Model):
     name = models.TextField(unique=True)
 
@@ -141,6 +184,14 @@ class GroupType(models.Model):
             start = self.name.find("(") + 1
             end = self.name.find(")")
             return self.name[start:end]
+        return self.name
+
+
+class LawfulBasis(models.Model):
+    name = models.TextField()
+    number = models.IntegerField(unique=True)
+
+    def __str__(self):
         return self.name
 
 
@@ -168,20 +219,19 @@ class LegalJustificationQuerySet(models.QuerySet):
 
 
 class LegalJustification(models.Model):
-    activities = models.ManyToManyField("Activity")
+    activities = models.ManyToManyField("Activity", related_name="legal_justifications")
     statutes = models.ManyToManyField("Statute", blank=True)
-    org_type = models.ForeignKey(
-        "OrgType", blank=True, null=True, on_delete=models.CASCADE
+    org_types = models.ManyToManyField(
+        "OrgType", blank=True, related_name="legal_justifications"
     )
 
-    name = models.TextField()
+    name = models.TextField(unique=True)
     details = models.TextField(default="")
 
     objects = LegalJustificationQuerySet.as_manager()
 
     class Meta:
         ordering = ["name"]
-        unique_together = ["name", "org_type"]
 
     def __str__(self):
         return f"{self.__class__.__name__}: {self.name}"
@@ -201,6 +251,36 @@ class Organisation(models.Model):
         return self.name
 
 
+class OrgFunction(models.Model):
+    type = models.ForeignKey(
+        "OrgType", on_delete=models.CASCADE, related_name="functions"
+    )
+
+    name = models.TextField()
+    index = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ["name", "type"]
+
+    def __str__(self):
+        return self.name
+
+
+class OrgResponsibility(models.Model):
+    function = models.ForeignKey(
+        "OrgFunction", on_delete=models.CASCADE, related_name="responsibilities"
+    )
+    lawful_bases = models.ManyToManyField("LawfulBasis")
+
+    index = models.IntegerField(default=0)
+    name = models.TextField()
+    additional_information = models.TextField()
+    related_reading = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class OrgType(models.Model):
     name = models.CharField(max_length=256, unique=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
@@ -214,16 +294,49 @@ class OrgType(models.Model):
 
     def get_activities(self):
         return Activity.objects.filter(
-            legaljustification__in=self.legaljustification_set.all()
+            legal_justifications__in=self.legal_justifications.all()
         )
 
     def get_absolute_url(self):
         return reverse("org-type-detail", kwargs=dict(slug=self.slug))
 
+    @property
+    def short_name(self):
+        short, _, _ = self.name.partition("(")
+        return short.strip()
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+
+
+class Output(models.Model):
+    type = models.ForeignKey("OutputType", on_delete=models.CASCADE)
+
+    name = models.TextField()
+    description = models.TextField()
+
+    class Meta:
+        unique_together = ["type", "name"]
+
+    def __str__(self):
+        return self.name
+
+
+class OutputType(models.Model):
+    name = models.TextField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Service(models.Model):
+    name = models.TextField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Statute(models.Model):

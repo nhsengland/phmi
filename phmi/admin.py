@@ -7,7 +7,6 @@ from . import models
 
 admin.site.register(models.CareSystem)
 admin.site.register(models.GroupType)
-admin.site.register(models.OrgType)
 admin.site.register(models.Organisation)
 admin.site.register(models.Statute)
 admin.site.register(models.ActivityCategoryGroup)
@@ -60,6 +59,12 @@ class StatuteLinkFilter(admin.SimpleListFilter):
 class LegalJustificationAdmin(admin.ModelAdmin):
     search_fields = ["name", "details"]
     list_filter = (StatuteFilter, StatuteLinkFilter)
+
+
+@admin.register(models.OrgType)
+class OrgTypeAdmin(admin.ModelAdmin):
+    list_display = ["name", "index"]
+    list_editable = ["index"]
 
 
 @admin.register(models.User)

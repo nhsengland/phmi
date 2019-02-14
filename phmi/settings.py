@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "markdownify",
     "phmi",
     "projects",
+    "data_access",
 ]
 
 if DEBUG:

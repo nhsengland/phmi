@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<article>
+  <h1 class="nhsuk-heading-xl">Assess Your Data Access</h1>
+
+  <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor
+      lectus augue, nec feugiat lorem placerat eget. Pellentesque consectetur
+      tellus vel justo pharetra, vel interdum nisl tristique. Sed cursus metus
+      vitae venenatis dapibus. Sed eu metus purus. In ac lacinia nisi, et
+      varius eros. Suspendisse commodo nisi risus, quis dapibus lectus
+      efficitur et. Donec laoreet, velit ac aliquam egestas, nulla elit
+      placerat arcu, a consectetur odio eros non magna.
+  </p>
+
+  <div class="content-offset-24">
+    <form method="POST" class="form">
+        {% csrf_token %}
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <h2 class="nhsuk-heading-l">{{ form.activities.label }}</h2>
+            {{ form.activities }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group content-offset-24">
+        <button type="submit" class="btn btn-success">Continue</button>
+      </div>
+
+    </form>
+  </div>
+
+</article>
+{% endblock contents %}

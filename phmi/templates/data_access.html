@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<article>
+  <h1 class="nhsuk-heading-xl">Data access</h1>
+
+  <div class="content-offset-24 content-offset-below-80">
+    <p class="content-offset-below-20">
+      This service is being developed to help teams hoping to bring together data for
+      secondary uses understand when they are likely to be granted access to different
+      datasets and for what purposes.
+    </p>
+
+    {% if not request.GET %}
+    <form method="GET" class="form-horizontal" style="margin-left:15px;margin-right:15px;">
+
+      <div class="row content-offset-24">
+        <div class="col-md-12">
+          <div class="form-group">
+            <h2 class="nhsuk-heading-l">{{ form.activities.label }}</h2>
+            <p>
+             Select the type of secondary use activity you are planning to undertake.
+            </p>
+            {{ form.activities }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <h2 class="nhsuk-heading-l">{{ form.org_types.label }}</h2>
+
+            <p>
+              Which type of organizations will you be doing this work on behalf of?
+            </p>
+
+            <ul class="list-unstyled">
+              {% for value, label in form.org_types.field.choices %}
+              <li class="multiple-choice">
+                <input
+                  type="checkbox"
+                  name="org_types"
+                  value="{{ value }}"
+                  id="id_org_types_{{ forloop.counter0 }}"
+                  checked
+                />
+                <label for="id_org_types_{{ forloop.counter0 }}">{{ label }}</label>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <h2 class="nhsuk-heading-l">{{ form.services.label }}</h2>
+
+            <p>
+              Which services will this activity be related to ?
+            </p>
+
+            <ul class="list-unstyled">
+              {% for value, label in form.services.field.choices %}
+              <li class="multiple-choice">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value="{{ value }}"
+                  id="id_services_{{ forloop.counter0 }}"
+                  checked
+                  />
+                <label for="id_services_{{ forloop.counter0 }}">{{ label }}</label>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success">Continue</button>
+      </div>
+
+    </form>
+
+    {% else %}
+
+    <p class="content-offset-below-24">
+      The following table shows with a
+      <span class="align-middle">{% include "icons/tick.html" %}</span>
+      which types of data you are likely to be granted access to for this
+      activity, without requiring extensive work to justify that access.
+      Although it is often possible for projects to access data which is
+      currently marked with a
+      <span class="align-middle">{% include "icons/cross.html" %}</span>
+      you will likely need to pay special attention to the legal basis and
+      condition for processing that data, as well as articulating the benefits
+      and rationale.
+    </p>
+
+    <div class="content-offset-below">
+      <div class="content-offset-below-10">
+        <strong>Activity:</strong> <span style="margin-left:5px">{{ selected_activity }}</span>
+      </div>
+
+      <div class="content-offset-below-10">
+        <strong>Organisation types:</strong>
+        <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
+          {% for ot in selected_org_types %}
+          <li class="nhsuk-c-page-contents__item">{{ ot.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div>
+        <strong>Services:</strong>
+        <ul class="nhsuk-c-page-contents__list" style="margin-top:0">
+          {% for s in selected_services %}
+          <li class="nhsuk-c-page-contents__item">{{ s.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="content-offset-below-24">Datasets</h2>
+
+    {% regroup data_types by category.name as categories %}
+    {% for category in categories %}
+    <div class="content-offset-below">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3">{{ category.grouper }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data_type in category.list %}
+          <tr>
+            <td style="width:430px">{{ data_type.name|truncatechars:50 }}</td>
+            <td style="width:693px">{{ data_type.example_data_sets }}</td>
+            <td>
+              {% if data_type.id in allowed_data_type_ids %}
+              {% include "icons/tick.html" %}
+              {% else %}
+              {% include "icons/cross.html" %}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+
+  </div>
+</article>
+{% endblock contents %}

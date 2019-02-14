@@ -1,0 +1,14 @@
+OUTPUT TYPE,OUTPUT,DESCRIPTION
+A. AGGREGATE OUTPUT,1. Tabulation,"A data table is a simple output of raw data, often to be consumed for a downstream purpose.
+
+For this description to apply, the data table(s) must only contain data that has been aggregated and is fully anonymised in line with the ICO's Anonymisation Code of Practice."
+,2. Visualisation,"Data visualisation helps users, often non-analytical, to understand data and evidence. A primary goal of data visualization is to communicate information clearly and efficiently to users via the statistical graphics, plots, information graphics, tables, and charts selected. Visualisations, in this context, also include dashboards as visualisation tools that display the current status of metrics and key performance indicators (KPIs)."
+,3. Report,"A report is a written account of something that has been undertaken, observed or investigated. Reports can take a variety of forms (paper, presentation etc.) and be produced for a wide range of audiences (publication, management, Board reports etc.). They will usually contain summary information and conclusions and should not contain raw patient-level data.
+
+Routine reports are produced at agreed regular intervals to provide ongoing assurance to customers, management and stakeholders about the performance of outcomes, projects and business functions."
+B. PATIENT-LEVEL DE-IDENTIFIED OUTPUT,1. Tabulation,"A data table is a simple output of raw data, often to be consumed for a downstream purpose.
+
+For this description to apply, the data table(s) will contain at least one data record that refers to a single individual, however all identifiable attributes have been effectively de-identified in line with the ICO's Anonymisation Code of Practice."
+C. PATIENT-LEVEL IDENTIFIABLE OUTPUT,1. Tabulation,"A data table is a simple output of raw data, often to be consumed for a downstream purpose.
+
+For this description to apply, the data table(s) will contain at least one data record that refers to a single individual where one or more identifiable attributes remain in the data in raw form."

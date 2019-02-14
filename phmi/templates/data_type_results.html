@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<article>
+  <h1 class="nhsuk-heading-xl">{{ data_type.name }}</h1>
+
+  <p class="content-offset-below-24">
+  The following table shows with a
+  <span class="align-middle">{% include "icons/tick.html" %}</span>
+  which types of data you are likely to be granted access to for this
+  activity, without requiring extensive work to justify that access.
+  Although it is often possible for projects to access data which is
+  currently marked with a
+  <span class="align-middle">{% include "icons/cross.html" %}</span>
+  you will likely need to pay special attention to the legal basis and
+  condition for processing that data, as well as articulating the benefits
+  and rationale.
+  </p>
+
+  <h2>Services</h2>
+  <ul>
+    {% for service in data_type.services.all %}
+    <li>{{ service.name }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Organisation Types</h2>
+  <ul>
+    {% for org_type in data_type.org_types.all %}
+    <li><a href="{% url 'data-type-org-type' data_type.pk org_type.pk %}">{{ org_type.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h2>Activities</h2>
+  <ul>
+    {% for activity in data_type.activities.all %}
+    <li><a href="{% url 'data-type-activity' data_type.pk activity.pk %}">{{ activity.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+</article>
+{% endblock contents %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<article>
+  <h1 class="nhsuk-heading-xl">{{ org_type.name }}</h1>
+
+  <p class="content-offset-below-24">
+  The following table shows with a
+  <span class="align-middle">{% include "icons/tick.html" %}</span>
+  which types of data you are likely to be granted access to for this
+  activity, without requiring extensive work to justify that access.
+  Although it is often possible for projects to access data which is
+  currently marked with a
+  <span class="align-middle">{% include "icons/cross.html" %}</span>
+  you will likely need to pay special attention to the legal basis and
+  condition for processing that data, as well as articulating the benefits
+  and rationale.
+  </p>
+
+  <h2>Legal Justifications</h2>
+
+  {% for justification in org_type.legal_justifications.all %}
+  <div>
+      <h3>{{ justification.name }}</h3>
+      <p>{{ justification.details }}</p>
+  </div>
+  {% endfor %}
+
+</article>
+{% endblock contents %}

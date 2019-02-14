@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
@@ -12,12 +13,19 @@ from django.views.generic import (
     DetailView,
     FormView,
     ListView,
+    TemplateView,
     UpdateView,
     View,
 )
 
 from . import models
-from .forms import CareSystemForm, LoginForm, OrganisationForm
+from .forms import (
+    CareSystemForm,
+    DataAccessForm,
+    DataTypeSelectorForm,
+    LoginForm,
+    OrganisationForm,
+)
 
 
 def get_orgs_by_type():
@@ -36,8 +44,30 @@ class IsStaffMixin(UserPassesTestMixin):
 
 
 class AbstractPhmiView(object):
-    breadcrumbs = []
     page_width = "col-md-8"
+
+
+class BreadcrumbsMixin:
+    """
+    Mixin to add breadcrumbs support to a subclass
+
+    When inheriting from this Mixin one can add a list of tuples containing a
+    label and URL string, for example:
+
+        breadcrumbs = [
+            ("Home", reverse_lazy("home"))
+            ("Intermediate Page", reverse_lazy("intermediate"))
+            ("Current Page", "")
+        ]
+
+    """
+
+    breadcrumbs = []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = self.breadcrumbs
+        return context
 
 
 class GroupChangeMixin(object):
@@ -54,7 +84,9 @@ class GroupChangeMixin(object):
         return f"{url}?name={search_term}&care_system={self.object.id}"
 
 
-class GroupAdd(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, CreateView):
+class GroupAdd(
+    IsStaffMixin, GroupChangeMixin, BreadcrumbsMixin, AbstractPhmiView, CreateView
+):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         ("Care systems", reverse_lazy("group-list")),
@@ -123,7 +155,9 @@ class GroupDetail(AbstractPhmiView, DetailView):
         return ctx
 
 
-class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
+class GroupEdit(
+    IsStaffMixin, GroupChangeMixin, BreadcrumbsMixin, AbstractPhmiView, UpdateView
+):
     form_class = CareSystemForm
     model = models.CareSystem
     template_name = "group_form.html"
@@ -166,13 +200,13 @@ class GroupEdit(IsStaffMixin, GroupChangeMixin, AbstractPhmiView, UpdateView):
         return super().get_object(queryset=qs)
 
 
-class OrgTypeList(AbstractPhmiView, ListView):
+class OrgTypeList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Organizations", "")]
     model = models.OrgType
     template_name = "orgtype_list.html"
 
 
-class OrgTypeDetail(AbstractPhmiView, DetailView):
+class OrgTypeDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
     model = models.OrgType
     template_name = "orgtype_detail.html"
     page_width = "col-md-12"
@@ -203,7 +237,7 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
             justifications = []
             if allowed:
                 justifications = (
-                    i.legaljustification_set.filter(org_type=self.object)
+                    i.legal_justifications.filter(org_type=self.object)
                     .values_list("name", flat=True)
                     .distinct()
                 )
@@ -212,7 +246,7 @@ class OrgTypeDetail(AbstractPhmiView, DetailView):
         return result
 
 
-class ActivityList(AbstractPhmiView, ListView):
+class ActivityList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Activities", "")]
     template_name = "activity_list.html"
     page_width = "col-md-12"
@@ -221,7 +255,11 @@ class ActivityList(AbstractPhmiView, ListView):
     )
 
     def get_context_data(self, *args, **kwargs):
-        org_types = models.OrgType.objects.all()
+        # We are skipping "Local Authority (Public Health)" and just doing
+        # "Local Authority (Non-Public Health)" currently.
+        org_types = models.OrgType.objects.exclude(
+            name="Local Authority (Public Health)"
+        )
         org_permissions = {
             org_type: org_type.get_activities() for org_type in org_types
         }
@@ -231,7 +269,7 @@ class ActivityList(AbstractPhmiView, ListView):
         return ctx
 
 
-class ActivityDetail(AbstractPhmiView, DetailView):
+class ActivityDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
     model = models.Activity
     template_name = "activity_detail.html"
     page_width = "col-md-12"
@@ -264,7 +302,7 @@ class ActivityDetail(AbstractPhmiView, DetailView):
         return ctx
 
 
-class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
+class OrganisationAdd(BreadcrumbsMixin, AbstractPhmiView, IsStaffMixin, CreateView):
     form_class = OrganisationForm
     model = models.Organisation
     template_name = "organisation_form.html"
@@ -288,7 +326,7 @@ class OrganisationAdd(AbstractPhmiView, IsStaffMixin, CreateView):
         return super().form_valid(form)
 
 
-class GroupList(AbstractPhmiView, ListView):
+class GroupList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     breadcrumbs = [("Home", reverse_lazy("home")), ("Care systems", "")]
     model = models.CareSystem
     template_name = "group_list.html"
@@ -351,3 +389,183 @@ class GenerateMagicLoginURL(FormView):
             )
 
         return redirect(reverse("request-login"))
+
+
+class DataAccessView(BreadcrumbsMixin, TemplateView):
+    breadcrumbs = [("Home", reverse_lazy("home")), ("Data access", "")]
+    page_width = "col-md-12"
+    template_name = "data_access.html"
+
+    def get_context_data(self, **kwargs):
+        all_org_types = models.OrgType.objects.all()
+        all_services = models.Service.objects.all()
+
+        # Get objects from Query Args
+        selected_activity = models.Activity.objects.filter(
+            pk=self.request.GET.get("activities")
+        ).first()
+
+        # default to all org types if none are selected
+        selected_org_types = all_org_types.all()
+        selected_org_type_ids = self.request.GET.getlist("org_types")
+        if selected_org_type_ids:
+            selected_org_types = all_org_types.filter(pk__in=selected_org_type_ids)
+
+        # default to all services if none are selected
+        selected_services = all_services.all()
+        selected_service_ids = self.request.GET.getlist("services")
+        if selected_service_ids:
+            selected_services = all_services.filter(pk__in=selected_service_ids)
+
+        # Get a list of DataType IDs which should have a tick
+        allowed_data_type_ids = set(
+            models.DataType.objects.filter(
+                activities=selected_activity,
+                org_types__in=selected_org_types,
+                services__in=selected_services,
+            ).values_list("pk", flat=True)
+        )
+
+        # Get a full list of DataTypes
+        data_types = models.DataType.objects.select_related("category").order_by(
+            "category__name", "name"
+        )
+
+        # Build the form
+        form = DataAccessForm(
+            models.Activity.objects.select_related("activity_category").order_by(
+                "activity_category__name", "name"
+            ),
+            all_org_types.order_by("name"),
+            all_services.order_by("name"),
+        )
+
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "allowed_data_type_ids": allowed_data_type_ids,
+                "data_types": data_types,
+                "form": form,
+                "selected_activity": selected_activity,
+                "selected_org_types": selected_org_types,
+                "selected_services": selected_services,
+            }
+        )
+        return context
+
+
+class DataTypeSelector(BreadcrumbsMixin, FormView):
+    breadcrumbs = [("Home", reverse_lazy("home")), ("Data access selector", "")]
+    form_class = DataTypeSelectorForm
+    page_width = "col-md-12"
+    template_name = "data_type_selector.html"
+
+    def form_valid(self, form):
+        data_type = form.cleaned_data["data_type"]
+        url = reverse("data-type-results", kwargs={"pk": data_type.pk})
+        return redirect(url)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["data_types"] = models.DataType.objects.order_by("name")
+        return kwargs
+
+
+class DataTypeResults(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_results.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (self.data_type.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["data_type"] = self.data_type
+        return context
+
+
+class DataTypeOrgTypeLegalJustifications(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_org_type.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (
+                self.data_type.name,
+                reverse_lazy("data-type-results", kwargs={"pk": self.kwargs["pk"]}),
+            ),
+            (self.org_type.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        try:
+            self.org_type = models.OrgType.objects.get(
+                pk=self.kwargs["org_type_pk"], data_types=self.data_type
+            )
+        except models.OrgType.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org_type"] = self.org_type
+        return context
+
+
+class DataTypeActivityLegalJustifications(BreadcrumbsMixin, TemplateView):
+    page_width = "col-md-12"
+    template_name = "data_type_activity.html"
+
+    @property
+    def breadcrumbs(self):
+        return [
+            ("Home", reverse_lazy("home")),
+            ("Data access selector", reverse_lazy("data-type-selector")),
+            (
+                self.data_type.name,
+                reverse_lazy("data-type-results", kwargs={"pk": self.kwargs["pk"]}),
+            ),
+            (self.activity.name, ""),
+        ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.data_type = models.DataType.objects.get(pk=self.kwargs["pk"])
+        except models.DataType.DoesNotExist:
+            raise Http404
+
+        try:
+            self.activity = models.Activity.objects.get(
+                pk=self.kwargs["activity_pk"], data_types=self.data_type
+            )
+        except models.Activity.DoesNotExist:
+            raise Http404
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["activity"] = self.activity
+        return context
