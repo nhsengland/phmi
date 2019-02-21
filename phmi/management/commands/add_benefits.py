@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             "--path",
-            default="data/csvs/reference-material-and-matricies/benefits.csv",
+            default="data/csvs/benefits.csv",
             help="CSV file to load Benefits from",
         )
 
