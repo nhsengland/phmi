@@ -31,14 +31,12 @@
                 </h2>
             </div>
             <div class="col-md-6">
-            {% for justification in org_type.justifications %}
+            {% for lawful_basis in org_type.lawful_bases %}
             <div class="row nhs_markdown_ul content-offset-below-80">
                 <div class="col-md-12">
-                    <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ justification.name }}</h4>
-                    <p>
-                        {{ justification.details|markdownify }}
-                    </p>
-                    {% if justification.statutes.exists %}
+                    <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
+                    <p>{{ lawful_basis.details|markdownify }}</p>
+                    {% if lawful_basis.statutes.exists %}
                         {% comment %}
                         Uncomment once a lawyer has checked the data
                         {% for statute in justification.statutes.all %}

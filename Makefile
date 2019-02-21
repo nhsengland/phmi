@@ -29,6 +29,8 @@ import-csvs:
 	@pipenv run python manage.py migrate
 	@pipenv run python manage.py add_data_types
 	@pipenv run python manage.py add_activities
+	@pipenv run python manage.py add_org_types
+	@pipenv run python manage.py add_lawful_bases
 	@pipenv run python manage.py add_org_functions
 	@pipenv run python manage.py add_legal_justifications
 	@pipenv run python manage.py add_benefits

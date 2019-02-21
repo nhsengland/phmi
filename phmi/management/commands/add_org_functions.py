@@ -6,16 +6,7 @@ from django.utils.text import slugify
 from roman import fromRoman
 
 from ...models import LawfulBasis, OrgFunction, OrgResponsibility, OrgType
-from ...prefix import strip_prefix
-
-nameLUT = {
-    "nhs england": "NHS England",
-    "ccg": "CCG",
-    "local authority (public health)": "Local Authority (Public Health)",
-    "local authority (non-public health)": "Local Authority (Non-Public Health)",
-    "nhs provider": "NHS Provider",
-    "non-nhs provider (inc. charities)": "Non-NHS Provider (inc. Charities)",
-}
+from ...prefix import normalise_lawful_basis_name, strip_prefix
 
 
 class Command(BaseCommand):
@@ -69,21 +60,21 @@ class Command(BaseCommand):
             org_type_name = strip_prefix(row["ORGANISATION"])
             if org_type_name:
                 slug = slugify(org_type_name)
-                org_type, _ = OrgType.objects.get_or_create(
-                    slug=slug, defaults={"name": nameLUT[org_type_name.lower()]}
-                )
+                org_type = OrgType.objects.get(slug__istartswith=slug)
 
             function_name = row["FUNCTION"]
             if function_name:
                 function = self.get_function(row, org_type, function_name)
 
-            lawful_basis_number = row["LAWFUL BASIS NUMBER"]
-            lawful_basis_name = row[
-                "LAWFUL BASIS FOR SERVICE PROVISION / COMMISSIONING (where applicable)"
-            ]
-            if lawful_basis_number and lawful_basis_name:
-                lawful_basis, _ = LawfulBasis.objects.get_or_create(
-                    number=lawful_basis_number, defaults={"name": lawful_basis_name}
+            lawful_basis_name = normalise_lawful_basis_name(
+                row[
+                    "LAWFUL BASIS FOR SERVICE PROVISION / COMMISSIONING (where applicable)"
+                ]
+            )
+            if lawful_basis_name:
+                title, _, description = lawful_basis_name.partition(": ")
+                lawful_basis = LawfulBasis.objects.get(
+                    org_type=org_type, title=title, description=description
                 )
 
             responsibility_name = row["RESPONSIBILITY"]
@@ -99,9 +90,9 @@ class Command(BaseCommand):
                     related_reading=row["RELATED READING"],
                 )
 
-            if lawful_basis_number and lawful_basis_name:
+            if lawful_basis_name:
                 responsibility.lawful_bases.add(lawful_basis)
 
         self.stdout.write(
-            self.style.SUCCESS("Added OrgTypes, OrgFunctions, and OrgResponsibilities")
+            self.style.SUCCESS("Added OrgFunctions, and OrgResponsibilities")
         )

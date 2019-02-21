@@ -17,6 +17,7 @@ django-markdownify = "*"
 structlog = "*"
 isort = "*"
 roman = "*"
+more-itertools = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

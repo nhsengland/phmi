@@ -286,16 +286,19 @@ class ActivityDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
         ctx = super().get_context_data(*args, **kwargs)
 
         data = []
-        for orgtype in self.object.get_org_types():
+        for org_type in self.object.get_org_types():
+            justifications = org_type.legal_justifications.filter(activity=self.object)
+            lawful_bases = models.LawfulBasis.objects.filter(
+                legal_justifications__in=justifications
+            )
+
             data.append(
-                dict(
-                    name=orgtype.name,
-                    slug=orgtype.slug,
-                    url=orgtype.get_absolute_url,
-                    justifications=models.LegalJustification.objects.filter(
-                        org_type=orgtype
-                    ).filter(activities=self.object),
-                )
+                {
+                    "name": org_type.name,
+                    "slug": org_type.slug,
+                    "url": org_type.get_absolute_url,
+                    "lawful_bases": lawful_bases,
+                }
             )
 
         ctx["org_types"] = data

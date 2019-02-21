@@ -58,7 +58,7 @@ class Activity(models.Model):
 
     def get_org_types(self):
         return OrgType.objects.filter(
-            legaljustification__in=self.legal_justifications.all()
+            legal_justifications__in=self.legal_justifications.all()
         ).distinct()
 
     def save(self, *args, **kwargs):
@@ -188,11 +188,34 @@ class GroupType(models.Model):
 
 
 class LawfulBasis(models.Model):
-    name = models.TextField()
-    number = models.IntegerField(unique=True)
+    """
+    Represents a high level Statute
+
+    For example:
+
+        DUTY: To reduce health inequalities
+
+    These are reworded, short versions of their related Statute SubSections.
+    """
+
+    org_type = models.ForeignKey(
+        "OrgType", on_delete=models.CASCADE, related_name="lawful_bases"
+    )
+    subsections = models.ManyToManyField("SubSection", related_name="lawful_bases")
+
+    title = models.TextField()
+    description = models.TextField()
+    details = models.TextField()
+
+    class Meta:
+        unique_together = ["org_type", "title", "description"]
 
     def __str__(self):
         return self.name
+
+    @property
+    def name(self):
+        return f"{self.title}: {self.description}"
 
 
 class LegalJustificationQuerySet(models.QuerySet):
@@ -219,22 +242,38 @@ class LegalJustificationQuerySet(models.QuerySet):
 
 
 class LegalJustification(models.Model):
-    activities = models.ManyToManyField("Activity", related_name="legal_justifications")
-    statutes = models.ManyToManyField("Statute", blank=True)
-    org_types = models.ManyToManyField(
-        "OrgType", blank=True, related_name="legal_justifications"
+    """
+    Represents the Lawful Bases which legally justify an OrgType performing an
+    Activity.
+
+    Example from the SUDGT spreadsheet in sheet "A. Lawful Basis Map (Relevant
+    Legislation)":
+
+        Range E3:F22 lists N LawfulBasis rows which are the LegalJustification
+        for "NHS England" (OrgType) to perform "General provision of population
+        health management" (the Activity).
+
+    """
+
+    activity = models.ForeignKey(
+        "Activity", on_delete=models.CASCADE, related_name="legal_justifications"
+    )
+    lawful_bases = models.ManyToManyField(
+        "LawfulBasis", related_name="legal_justifications"
+    )
+    org_type = models.ForeignKey(
+        "OrgType", on_delete=models.CASCADE, related_name="legal_justifications"
     )
 
-    name = models.TextField(unique=True)
-    details = models.TextField(default="")
+    is_specific = models.BooleanField(default=True)
 
     objects = LegalJustificationQuerySet.as_manager()
 
     class Meta:
-        ordering = ["name"]
+        unique_together = ["activity", "org_type", "is_specific"]
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.name}"
+        return f"Legal Justification for {self.org_type.name} to perform {self.activity.name}"
 
 
 class Organisation(models.Model):
@@ -340,14 +379,29 @@ class Service(models.Model):
 
 
 class Statute(models.Model):
-    name = models.CharField(max_length=256)
-    link = models.URLField(unique=True)
+    name = models.TextField(unique=True)
+    # link = models.URLField(unique=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
 
+
+class SubSection(models.Model):
+    statute = models.ForeignKey(
+        "Statute", on_delete=models.CASCADE, related_name="subsections"
+    )
+
+    name = models.TextField()
+    # link = models.URLField(unique=True)
+
     class Meta:
-        ordering = ["name"]
+        unique_together = ["name", "statute"]
+
+    def __str__(self):
+        return self.name
 
 
 class UserManager(BaseUserManager):
