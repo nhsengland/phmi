@@ -17,7 +17,7 @@ Migrate your database with:
 
 Load the data:
 
-    make load-data
+    make import-csvs
 
 
 ## Running

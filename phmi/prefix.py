@@ -1,8 +1,8 @@
-def normalise_justification_name(some_name):
+def normalise_lawful_basis_name(some_name):
     """
-    Produce a stable string for each LegalJustification name during ingestion
+    Produce a stable string for each LawfulBasis name during ingestion
 
-    LegalJustification names are in the format:
+    LawfulBasis names are in the format:
 
         TYPE: Some string
 

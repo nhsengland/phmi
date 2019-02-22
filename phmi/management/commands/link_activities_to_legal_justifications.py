@@ -5,26 +5,24 @@ from django.db import transaction
 from django.utils.text import slugify
 
 from ...models import Activity, ActivityCategory, LegalJustification, OrgType
-from ...prefix import normalise_justification_name, strip_prefix
+from ...prefix import normalise_lawful_basis_name, strip_prefix
 
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             "--path",
-            default="data/csvs/data-map-legal-basis.csv",
+            default="data/csvs/data-map-lawful-basis-relevant.csv",
             help="CSV file to link LegalJustifications and Activities",
         )
 
     @transaction.atomic
     def handle(self, *args, **options):
-        with open(options["path"], "r") as f:
+        with open(options["path"], "r", encoding="utf-8-sig") as f:
             rows = list(csv.DictReader(f))
 
         for row in rows:
-            # there is a BOM (byte order mark) character on the first line of
-            # this CSV, hence the unicode character in the row title here.
-            category_name = strip_prefix(row["\ufeffFUNCTION"]).capitalize()
+            category_name = strip_prefix(row["FUNCTION"]).capitalize()
             if category_name:
                 category, _ = ActivityCategory.objects.get_or_create(name=category_name)
 
@@ -51,13 +49,21 @@ class Command(BaseCommand):
                 if not cell:
                     continue
 
-                justification_name = normalise_justification_name(cell)
-                legal_justification, _ = LegalJustification.objects.get_or_create(
-                    name=justification_name
-                )
-                legal_justification.activities.add(activity)
-                legal_justification.org_types.add(org_type)
+                name = normalise_lawful_basis_name(cell)
+                title, _, description = name.partition(": ")
+                if title.lower().startswith("provider"):
+                    title = title[9:].capitalize()
+                if title.lower().startswith("commissioner"):
+                    title = title[13:].capitalize()
 
+                lawful_basis = org_type.lawful_bases.get(
+                    title=title, description=description
+                )
+
+                legal_justification, _ = LegalJustification.objects.get_or_create(
+                    activity=activity, org_type=org_type, is_specific=True
+                )
+                legal_justification.lawful_bases.add(lawful_basis)
         self.stdout.write(
             self.style.SUCCESS("Linked Activities to LegalJustifications")
         )

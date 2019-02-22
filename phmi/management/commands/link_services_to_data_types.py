@@ -13,7 +13,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             "--path",
-            default="data/csvs/reference-material-and-matricies/data-map-service.csv",
+            default="data/csvs/data-map-service.csv",
             help="CSV file to link Services to DataTypes from",
         )
 
