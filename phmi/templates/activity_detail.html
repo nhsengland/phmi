@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% load markdownify %}
+{% extends "base.html" %}
+
 {% block contents %}
     <article>
         <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
@@ -35,9 +35,9 @@
             <div class="row nhs_markdown_ul content-offset-below-80">
                 <div class="col-md-12">
                     <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
-                    <p>{{ lawful_basis.details|markdownify }}</p>
+                    <p>{{ lawful_basis.details|linebreaks }}</p>
+                    {% comment %}
                     {% if lawful_basis.statutes.exists %}
-                        {% comment %}
                         Uncomment once a lawyer has checked the data
                         {% for statute in justification.statutes.all %}
                             <div class="row">
@@ -46,8 +46,8 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        {% endcomment %}
                     {% endif %}
+                    {% endcomment %}
                 </div>
             </div>
             {% endfor %}
@@ -86,4 +86,3 @@
         </div>
     </article>
 {% endblock contents %}
-
