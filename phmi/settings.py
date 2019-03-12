@@ -204,3 +204,6 @@ INTERNAL_IPS = ["127.0.0.1"]
 # Allowed Email Domains for Auth
 STAFF_LOGIN_DOMAINS = ["openhealthcare.org.uk"]
 ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"] + STAFF_LOGIN_DOMAINS
+
+
+SHOW_PROJECTS = env.bool("SHOW_PROJECTS", default=False)

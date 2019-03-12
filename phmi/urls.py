@@ -49,8 +49,11 @@ urlpatterns = [
         views.DataTypeOrgTypeLegalJustifications.as_view(),
         name="data-type-org-type",
     ),
-    path("", include("projects.urls")),
 ]
+
+
+if settings.SHOW_PROJECTS:
+    urlpatterns = urlpatterns + [path("", include("projects.urls"))]
 
 
 if settings.DEBUG:

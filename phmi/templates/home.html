@@ -29,6 +29,7 @@
         </div>
     </div>
 
+    {% if SHOW_PROJECTS %}
     <hr class="content-offset-90 nhs_thick" />
     <div class="row content-offset ">
         <div class="col-md-8">
@@ -50,6 +51,7 @@
             <a href="{% url 'project-location' %}" class="btn btn-success">Assess your project</a>
         </div>
     </div>
+    {% endif %}
 
     <hr class="content-offset-90 nhs_thick" />
     <div class="row content-offset ">
@@ -61,8 +63,8 @@
                 </span>
             </h2>
             <p class="home-lead">
-                This service is being developed to help teams hoping to bring together data for 
-                secondary uses understand when they are likely to be granted access to different 
+                This service is being developed to help teams hoping to bring together data for
+                secondary uses understand when they are likely to be granted access to different
                 datasets and for what purposes.
             </p>
         </div>
