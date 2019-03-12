@@ -60,11 +60,13 @@
                       </a>
                     </li>
 
+                  {% if SHOW_DATA_ACCESS %}
                   <li>
-                      <a {% if request|url_name == 'data-access' %} class="active" {% endif %} href="{% url 'data-access' %}">
-                        Data access
-                      </a>
-                    </li>
+                    <a {% if request|url_name == 'data-access' %} class="active" {% endif %} href="{% url 'data-access' %}">
+                      Data access
+                    </a>
+                  </li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>

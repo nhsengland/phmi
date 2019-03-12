@@ -206,4 +206,6 @@ STAFF_LOGIN_DOMAINS = ["openhealthcare.org.uk"]
 ALLOWED_LOGIN_DOMAINS = ["nhs.uk", "nhs.net"] + STAFF_LOGIN_DOMAINS
 
 
+# Toggles to hide various in-progress sections
+SHOW_DATA_ACCESS = env.bool("SHOW_DATA_ACCESS", default=False)
 SHOW_PROJECTS = env.bool("SHOW_PROJECTS", default=False)

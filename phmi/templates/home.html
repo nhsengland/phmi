@@ -53,6 +53,7 @@
     </div>
     {% endif %}
 
+    {% if SHOW_DATA_ACCESS %}
     <hr class="content-offset-90 nhs_thick" />
     <div class="row content-offset ">
         <div class="col-md-8">
@@ -74,4 +75,5 @@
             <a href="{% url 'data-access' %}" class="btn btn-success">Understand data access</a>
         </div>
     </div>
+    {% endif %}
 {% endblock %}

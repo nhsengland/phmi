@@ -30,26 +30,35 @@ urlpatterns = [
     path("logout", LogoutView.as_view(), name="logout"),
     path("org-types", views.OrgTypeList.as_view(), name="org-type-list"),
     path("org-types/<slug>", views.OrgTypeDetail.as_view(), name="org-type-detail"),
-    path("data-access", views.DataAccessView.as_view(), name="data-access"),
-    path(
-        "data-access-wizard/",
-        include(("data_access.urls", "data_access"), namespace="data-access"),
-    ),
-    path("data-access2", views.DataTypeSelector.as_view(), name="data-type-selector"),
-    path(
-        "data-access2/<pk>", views.DataTypeResults.as_view(), name="data-type-results"
-    ),
-    path(
-        "data-access2/<pk>/activities/<activity_pk>",
-        views.DataTypeActivityLegalJustifications.as_view(),
-        name="data-type-activity",
-    ),
-    path(
-        "data-access2/<pk>/organisations/<org_type_pk>",
-        views.DataTypeOrgTypeLegalJustifications.as_view(),
-        name="data-type-org-type",
-    ),
 ]
+
+
+if settings.SHOW_DATA_ACCESS:
+    urlpatterns = urlpatterns + [
+        path("data-access", views.DataAccessView.as_view(), name="data-access"),
+        path(
+            "data-access-wizard/",
+            include(("data_access.urls", "data_access"), namespace="data-access"),
+        ),
+        path(
+            "data-access2", views.DataTypeSelector.as_view(), name="data-type-selector"
+        ),
+        path(
+            "data-access2/<pk>",
+            views.DataTypeResults.as_view(),
+            name="data-type-results",
+        ),
+        path(
+            "data-access2/<pk>/activities/<activity_pk>",
+            views.DataTypeActivityLegalJustifications.as_view(),
+            name="data-type-activity",
+        ),
+        path(
+            "data-access2/<pk>/organisations/<org_type_pk>",
+            views.DataTypeOrgTypeLegalJustifications.as_view(),
+            name="data-type-org-type",
+        ),
+    ]
 
 
 if settings.SHOW_PROJECTS:
