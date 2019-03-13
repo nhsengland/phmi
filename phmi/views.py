@@ -219,31 +219,45 @@ class OrgTypeDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
             (self.object.name, ""),
         ]
 
-    def get_activities(self):
+    def get_activities(self, org_type):
         """
-            returns an ordered dictionary of
+        Get the activities for the given OrgType
+
+        Returns an ordered dictionary:
+
             {
-                actvity_name: allowed=True
-                              allowed_orgs=[]
-                              [legal_justifications]
+                Actvity: {
+                    "allowed": True,
+                    "justifications": [legal_justifications],
+                },
             }
         """
         org_type_activities_ids = set(
-            self.object.get_activities().values_list("id", flat=True)
+            org_type.get_activities().values_list("id", flat=True)
         )
-        result = OrderedDict()
-        for i in models.Activity.objects.all():
-            allowed = i.id in org_type_activities_ids
+
+        for activity in models.Activity.objects.all():
+            allowed = activity.id in org_type_activities_ids
             justifications = []
+
             if allowed:
                 justifications = (
-                    i.legal_justifications.filter(org_type=self.object)
+                    activity.legal_justifications.filter(org_type=org_type)
                     .values_list("name", flat=True)
                     .distinct()
                 )
 
-            result[i] = dict(allowed=allowed, justifications=justifications)
-        return result
+            yield activity, {"allowed": allowed, "justifications": justifications}
+
+    def get_context_data(self, **kwargs):
+        activity_category_groups = models.ActivityCategoryGroup.objects.prefetch_related(
+            "categories", "categories__activities"
+        )
+
+        context = super().get_context_data(**kwargs)
+        context["allowed_activities"] = self.object.get_activities()
+        context["activity_category_groups"] = activity_category_groups
+        return context
 
 
 class ActivityList(BreadcrumbsMixin, AbstractPhmiView, ListView):

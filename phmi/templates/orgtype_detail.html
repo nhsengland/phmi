@@ -2,46 +2,59 @@
 
 {% block contents %}
 <article>
-    <div class="content-offset content-offset-below-80">
-        <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
-        <h2 class="text-muted">
-            Secondary data use activities
-        </h2>
-    </div>
+  <div class="content-offset content-offset-below">
+    <h1 class="nhsuk-heading-xl">{{ object.name }}</h1>
+  </div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <div>
-                This table shows activities with a legal basis marked with a
-                <div class="align-middle">{% include "icons/tick.html" %}</div>
-            </div>
+  <div class="row">
+    <div class="col-md-12">
 
+      {% for group in activity_category_groups %}
+      <div class="content-offset-below-80" id="{{ group.slug }}">
 
+        <h3>{{ group.name }}</h3>
+        <p>{{ group.description }}</p>
 
-            <table class="table xs-scrollable">
-                {% for activity, d in view.get_activities.items %}
-                    {% ifchanged activity.activity_category %}
-                    <thead>
-                        <tr>
-                            <th>{{ activity.activity_category.name }}</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                    {% endifchanged %}
-                    <tr>
-                        <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
-                        <td>
-                            {% if d.allowed %}
-                                {% include "icons/tick.html" %}
-                            {% else %}
-                                {% include "icons/cross.html" %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+        <div>
+          This table shows organizations with a legal basis to conduct different
+          types of activity with a
+          <div class="align-middle">{% include "icons/tick.html" %}</div>
         </div>
+
+        <table class="xs-scrollable table content-offset">
+          {% for category in group.categories.all %}
+          <thead>
+            <tr>
+              <th>{{ category.name }}</th>
+              <th style="text-align: center">
+                <div style="min-width: 160px">
+                  {{ object.short_name }}
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          {% for activity in category.activities.all %}
+          <tr>
+            <td><a href="{{ activity.get_absolute_url }}">{{ activity.name }}</a></td>
+            <td style="text-align: center">
+              {% if activity in allowed_activities %}
+              {% include "icons/tick.html" %}
+              {% else %}
+              {% include "icons/cross.html" %}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+
+          {% endfor %}
+        </table>
+
+      </div>
+      {% endfor %}
+
     </div>
+  </div>
 
 </article>
 {% endblock contents %}
