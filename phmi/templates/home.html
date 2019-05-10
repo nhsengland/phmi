@@ -28,8 +28,7 @@
             </ul>
         </div>
     </div>
-
-    {% if SHOW_PROJECTS %}
+    {% if settings.SHOW_PROJECTS %}
     <hr class="content-offset-90 nhs_thick" />
     <div class="row content-offset ">
         <div class="col-md-8">
@@ -53,7 +52,7 @@
     </div>
     {% endif %}
 
-    {% if SHOW_DATA_ACCESS %}
+    {% if settings.SHOW_DATA_ACCESS %}
     <hr class="content-offset-90 nhs_thick" />
     <div class="row content-offset ">
         <div class="col-md-8">
