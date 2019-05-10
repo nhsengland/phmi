@@ -19,7 +19,7 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="risk stratification"
-            ).update(group=acg, index=0)
+            ).update(group=acg, index=4)
         )
         (
             ActivityCategory.objects.filter(
@@ -29,7 +29,7 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="planning, implementing and evaluating"
-            ).update(group=acg, index=2)
+            ).update(group=acg, index=0)
         )
 
         # Individual care group and catetories
@@ -43,17 +43,17 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="activating and empowering"
-            ).update(group=acg, index=4)
-        )
-        (
-            ActivityCategory.objects.filter(
-                name__istartswith="managing individual"
             ).update(group=acg, index=5)
         )
         (
             ActivityCategory.objects.filter(
-                name__istartswith="co-ordinating and optimising"
+                name__istartswith="managing individual"
             ).update(group=acg, index=6)
+        )
+        (
+            ActivityCategory.objects.filter(
+                name__istartswith="co-ordinating and optimising"
+            ).update(group=acg, index=7)
         )
 
         # General
@@ -69,7 +69,7 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="general provision of population"
-            ).update(group=acg, index=0)
+            ).update(group=acg, index=3)
         )
 
         self.stdout.write(

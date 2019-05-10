@@ -451,7 +451,7 @@ class DataAccessView(BreadcrumbsMixin, TemplateView):
         # Build the form
         form = DataAccessForm(
             models.Activity.objects.select_related("activity_category").order_by(
-                "activity_category__name", "name"
+                "activity_category__index", "name"
             ),
             all_org_types.order_by("name"),
             all_services.order_by("name"),

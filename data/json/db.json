@@ -565,7 +565,7 @@
   "fields": {
     "group": 2,
     "name": "Managing individual care",
-    "index": 5,
+    "index": 6,
     "slug": "managing-individual-care"
   }
 },
@@ -575,7 +575,7 @@
   "fields": {
     "group": 2,
     "name": "Co-ordinating and optimising service user flows",
-    "index": 6,
+    "index": 7,
     "slug": "co-ordinating-and-optimising-service-user-flows"
   }
 },
@@ -585,7 +585,7 @@
   "fields": {
     "group": 1,
     "name": "Risk stratification for early intervention and prevention",
-    "index": 0,
+    "index": 3,
     "slug": "risk-stratification-for-early-intervention-and-pre"
   }
 },
@@ -605,7 +605,7 @@
   "fields": {
     "group": 1,
     "name": "Planning, implementing and evaluating population health strategy",
-    "index": 2,
+    "index": 0,
     "slug": "planning-implementing-and-evaluating-population-he"
   }
 },
@@ -615,7 +615,7 @@
   "fields": {
     "group": null,
     "name": "Undertaking research",
-    "index": 0,
+    "index": 5,
     "slug": "undertaking-research"
   }
 },
@@ -623,7 +623,7 @@
   "model": "phmi.activitycategory",
   "pk": 8,
   "fields": {
-    "group": 3,
+    "group": 2,
     "name": "General provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
     "index": 0,
     "slug": "general-provision-of-population-health-management-"
