@@ -35,7 +35,8 @@
       {% for category in group.categories.all %}
       <thead>
         <tr>
-          <th>{{ category.name }}</th>
+          {# The id of slug is used to link from the home page to this part of the page #}
+          <th id="{{ category.slug }}" >{{ category.name }}</th>
           {% for org_type in org_permissions.keys %}
           <th style="text-align: center">
             <div style="min-width: 90px">
