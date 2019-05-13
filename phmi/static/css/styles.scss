@@ -11,6 +11,9 @@ $tertiary-colour-text: #425563;
 // the blue text used for sub headers
 $subheader-text-colour: #003087;
 
+$true-color: #007f3b;
+$false-color: #da291c;
+
 $black: #0b0c0c;
 $warm-yellow: #ffb81c;
 $yellow: #ffcd60;
@@ -973,4 +976,17 @@ table thead{
 }
 .multiple-choice:last-child, .multiple-choice:last-of-type {
   margin-bottom: 0;
+}
+
+.diamond-icon{
+  font-size: 25px;
+  color: $true-color;
+  display: inline-block;
+}
+
+.square-icon{
+  display: inline-block;
+  font-size: 28px;
+  margin-top: -7px;
+  color: $false-color;
 }

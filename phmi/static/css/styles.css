@@ -846,4 +846,17 @@ table thead {
   margin-bottom: 0;
 }
 
+.diamond-icon {
+  font-size: 25px;
+  color: #007f3b;
+  display: inline-block;
+}
+
+.square-icon {
+  display: inline-block;
+  font-size: 28px;
+  margin-top: -7px;
+  color: #da291c;
+}
+
 /*# sourceMappingURL=styles.css.map */

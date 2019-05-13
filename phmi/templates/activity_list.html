@@ -26,9 +26,14 @@
     <p>{{ group.description }}</p>
 
     <div>
-      This table shows organizations with a legal basis to conduct different
-      types of activity with a
-      <div class="align-middle">{% include "icons/tick.html" %}</div>
+      {% include "icons/tick.html" %} = it is clearly reasonable to require this
+      sort of data for the selected activity/organisations and no further
+      justification is required
+    </div>
+    <div>
+      {% include "icons/cross.html" %} = it is not immediately obvious why this
+      sort of data would be required for this activity, so care systems should
+      provide further justification.
     </div>
 
     <table class="xs-scrollable table content-offset">
