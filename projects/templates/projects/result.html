@@ -52,31 +52,27 @@
     </div>
 
     {% for org_type, b in org_permissions.items %}
-    <div class="row content-offset-24 ">
-        <div class="col-md-3">
-            <h3 class="nhsuk-heading-l no-top-margin" style="font-size: 24px" id="{{ org_type.slug }}">
+      {% with lawful_bases=activity|legal_justifications:org_type %}
+        {% if lawful_bases %}
+        <div class="row content-offset-24 ">
+            <div class="col-md-3">
+              <h3 class="nhsuk-heading-l no-top-margin" style="font-size: 24px" id="{{ org_type.slug }}">
                 {{ org_type.name | structure_name }}
-            </h3>
-        </div>
-        <div class="col-md-6">
-        {% with lawful_bases=activity|legal_justifications:org_type %}
-          {% for lawful_basis in activity|legal_justifications:org_type %}
-          <div class="row nhs_markdown_ul content-offset-below-40">
-              <div class="col-md-12">
+              </h3>
+            </div>
+            <div class="col-md-6">
+            {% for lawful_basis in activity|legal_justifications:org_type %}
+              <div class="row nhs_markdown_ul content-offset-below-40">
+                <div class="col-md-12">
                   <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
                   <p>{{ lawful_basis.details|linebreaks }}</p>
+                </div>
               </div>
-          </div>
-          {% endfor %}
-          {% if not lawful_bases %}
-          <h2 style="margin-top: 0" class="content-offset-below-40 text-muted">
-            No legal basis
-          </h2>
-          {% endif %}
-        {% endwith %}
-        <hr class="nhs_thick" />
-    </div></div>
-
+            {% endfor %}
+            <hr class="nhs_thick" />
+        </div></div>
+        {% endif %}
+      {% endwith %}
     {% endfor %}
     <div class="content-offset-below-80"></div>
 
