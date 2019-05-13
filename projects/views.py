@@ -9,13 +9,6 @@ from phmi.views import AbstractPhmiView, BreadcrumbsMixin
 
 
 class AbstractProjectView(AbstractPhmiView, TemplateView):
-    def decode_location_sign(self):
-        if "location_sign" not in self.kwargs:
-            return {}
-
-        location_dict = signing.loads(self.kwargs["location_sign"])
-        return location_dict
-
     def decode_activity_sign(self):
         if "activity_sign" not in self.kwargs:
             return {}
@@ -32,30 +25,13 @@ class AbstractProjectView(AbstractPhmiView, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
-        ctx.update(self.decode_location_sign())
         ctx.update(self.decode_activity_sign())
         return ctx
-
-
-class ProjectLocationView(BreadcrumbsMixin, AbstractProjectView):
-    template_name = "projects/location.html"
-    breadcrumbs = (("Home", reverse_lazy("home")), ("Project description", ""))
-
-    def post(self, *args, **kwargs):
-        governance = self.request.POST["governance"]
-        project_name = self.request.POST["project_name"]
-        location_sign = signing.dumps(
-            dict(governance=governance, project_name=project_name)
-        )
-        return HttpResponseRedirect(
-            reverse("project-activity", kwargs=dict(location_sign=location_sign))
-        )
 
 
 class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
-        ("Project description", reverse_lazy("project-location")),
         ("Project activities", ""),
     ]
     template_name = "projects/activity.html"
@@ -70,7 +46,6 @@ class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
             reverse(
                 "project-result",
                 kwargs=dict(
-                    location_sign=self.kwargs["location_sign"],
                     activity_sign=activity_sign,
                 ),
             )
@@ -86,15 +61,13 @@ class ProjectResultView(BreadcrumbsMixin, AbstractProjectView):
         project_activity_url = (
             reverse(
                 "project-activity",
-                kwargs={"location_sign": self.kwargs["location_sign"]},
             ),
         )
 
         return [
             ("Home", reverse_lazy("home")),
-            ("Project description", reverse("project-location")),
-            ("Project activity", project_activity_url),
-            ("Project results", ""),
+            ("Activity choices", project_activity_url),
+            ("Activity results", ""),
         ]
 
     def get_org_permissions(self):
