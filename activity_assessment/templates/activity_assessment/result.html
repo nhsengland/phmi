@@ -31,11 +31,11 @@
           {% for chunked_org_type_to_allowed_activities in org_permissions.items|chuncked:3 %}
           <div class="row">
             {% for org_type, allowed_activities in chunked_org_type_to_allowed_activities %}
-            <div style="padding: 5px" class="col-md-4">
+            <div style="padding: 5px" class="col-xs-4">
               <div style="background-color: #e3e8ed; padding: 10px; height: 70px;">
                 <div class="row">
-                  <div class="col-md-9">{{ org_type.name | structure_name}}</div>
-                  <div class="col-md-3">
+                  <div class="col-xs-9">{{ org_type.name | structure_name}}</div>
+                  <div class="col-xs-3">
                     {% if activity in allowed_activities %}
                       {% include "icons/tick.html" %}
                     {% else %}
@@ -54,7 +54,7 @@
     {% for org_type, b in org_permissions.items %}
       {% with lawful_bases=activity|legal_justifications:org_type %}
         {% if lawful_bases %}
-        <div class="row content-offset-24 ">
+        <div class="row content-offset-24 avoid-page-break">
             <div class="col-md-3">
               <h3 class="nhsuk-heading-l no-top-margin" style="font-size: 24px" id="{{ org_type.slug }}">
                 {{ org_type.name | structure_name }}
@@ -62,7 +62,7 @@
             </div>
             <div class="col-md-6">
             {% for lawful_basis in activity|legal_justifications:org_type %}
-              <div class="row nhs_markdown_ul content-offset-below-40">
+              <div class="row avoid-page-break nhs_markdown_ul content-offset-below-40">
                 <div class="col-md-12">
                   <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
                   <p>{{ lawful_basis.details|linebreaks }}</p>
@@ -75,8 +75,6 @@
       {% endwith %}
     {% endfor %}
     <div class="content-offset-below-80"></div>
-
-
     {% endfor %}
   </article>
 {% endblock %}

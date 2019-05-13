@@ -145,8 +145,20 @@ header.masthead .subtitle {
   padding-left: 30px;
   color: #FFF;
 }
+@media print {
+  header.masthead .subtitle {
+    padding: 0;
+    float: right;
+    font-size: 20px;
+  }
+}
 header.masthead .banner {
   height: 120px;
+}
+@media print {
+  header.masthead .banner {
+    height: 40px;
+  }
 }
 @media screen and (max-width: 768px) {
   header.masthead .banner {
@@ -287,6 +299,10 @@ footer .social-networks a[href^="http://twitter.com/"]:before, footer .social-ne
 h1 {
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.avoid-page-break {
+  break-inside: avoid;
 }
 
 .card-list .title {
@@ -857,6 +873,13 @@ table thead {
   font-size: 28px;
   margin-top: -7px;
   color: #da291c;
+}
+
+@media print {
+  a[href]:after {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
