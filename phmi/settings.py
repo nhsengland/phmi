@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "phmi",
-    "projects",
+    "activity_assessment",
     "data_access",
 ]
 

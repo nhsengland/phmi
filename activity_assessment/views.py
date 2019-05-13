@@ -8,7 +8,7 @@ from phmi import models
 from phmi.views import AbstractPhmiView, BreadcrumbsMixin
 
 
-class AbstractProjectView(AbstractPhmiView, TemplateView):
+class AbstractActivityView(AbstractPhmiView, TemplateView):
     def decode_activity_sign(self):
         if "activity_sign" not in self.kwargs:
             return {}
@@ -29,12 +29,12 @@ class AbstractProjectView(AbstractPhmiView, TemplateView):
         return ctx
 
 
-class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
+class ActivityAssessmentView(BreadcrumbsMixin, AbstractActivityView):
     breadcrumbs = [
         ("Home", reverse_lazy("home")),
         ("Project activities", ""),
     ]
-    template_name = "projects/activity.html"
+    template_name = "activity_assessment/activity.html"
 
     def post(self, *args, **kwargs):
         activity_ids = [int(i) for i in self.request.POST.getlist("activities")]
@@ -44,7 +44,7 @@ class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
         activity_sign = signing.dumps(dict(activities=activity_ids))
         return HttpResponseRedirect(
             reverse(
-                "project-result",
+                "activity-assessment-result",
                 kwargs=dict(
                     activity_sign=activity_sign,
                 ),
@@ -52,21 +52,15 @@ class ProjectActivityView(BreadcrumbsMixin, AbstractProjectView):
         )
 
 
-class ProjectResultView(BreadcrumbsMixin, AbstractProjectView):
-    template_name = "projects/result.html"
+class ActivityResultView(BreadcrumbsMixin, AbstractActivityView):
+    template_name = "activity_assessment/result.html"
     page_width = "col-md-12"
 
     @property
     def breadcrumbs(self):
-        project_activity_url = (
-            reverse(
-                "project-activity",
-            ),
-        )
-
         return [
             ("Home", reverse_lazy("home")),
-            ("Activity choices", project_activity_url),
+            ("Activity choices", reverse_lazy("activity-assessment")),
             ("Activity results", ""),
         ]
 

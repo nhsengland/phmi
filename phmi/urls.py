@@ -62,7 +62,7 @@ if settings.SHOW_DATA_ACCESS:
 
 
 if settings.SHOW_PROJECTS:
-    urlpatterns = urlpatterns + [path("", include("projects.urls"))]
+    urlpatterns = urlpatterns + [path("", include("activity_assessment.urls"))]
 
 
 if settings.DEBUG:
