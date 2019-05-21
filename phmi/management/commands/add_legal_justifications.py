@@ -19,13 +19,6 @@ statute_pat = re.compile(r"\((?P<full_text>.*)\)")
 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument(
-            "--path",
-            default="data/csvs/data-map-lawful-basis-relevant.csv",
-            help="CSV file to link generate LegalJustification, Statutes, and SubSections",
-        )
-
     def build_org_types(self, rows):
         """Build Org Type names from the header keys of the loaded CSV."""
         first = rows[0]
@@ -36,15 +29,7 @@ class Command(BaseCommand):
         }
         return org_types
 
-    @transaction.atomic
-    def handle(self, *args, **options):
-        LegalJustification.objects.all().delete()
-        Statute.objects.all().delete()
-        SubSection.objects.all().delete()
-
-        with open(options["path"], "r") as f:
-            rows = list(csv.DictReader(f))
-
+    def process_rows(self, rows, is_specific=True):
         org_types = self.build_org_types(rows)
 
         for row in rows:
@@ -71,8 +56,22 @@ class Command(BaseCommand):
                 )
 
                 lj, _ = LegalJustification.objects.get_or_create(
-                    activity=activity, org_type=org_type, is_specific=True
+                    activity=activity, org_type=org_type, is_specific=is_specific
                 )
                 lj.lawful_bases.add(*lawful_basis)
 
+    @transaction.atomic
+    def handle(self, *args, **options):
+        LegalJustification.objects.all().delete()
+        Statute.objects.all().delete()
+        SubSection.objects.all().delete()
+
+        with open("data/csvs/data-map-lawful-basis-relevant.csv", "r") as f:
+            rows = list(csv.DictReader(f))
+        self.process_rows(rows, is_specific=True)
         self.stdout.write(self.style.SUCCESS("Added LegalJustifications"))
+
+        with open("data/csvs/data-map-lawful-basis-general.csv", "r") as f:
+            rows = list(csv.DictReader(f))
+        self.process_rows(rows, is_specific=False)
+

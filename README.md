@@ -19,6 +19,9 @@ Load the data:
 
     make import-csvs
 
+If loading the data in fresh from spreadsheets the `clean_csvs.sh` script
+will run `dos2unix` (this needs to be installed) and removes empty csv lines.
+
 
 ## Running
 
