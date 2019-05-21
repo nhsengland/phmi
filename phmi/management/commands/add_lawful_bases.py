@@ -13,6 +13,9 @@ from ...prefix import normalise_lawful_basis_name
 
 statute_pat = re.compile(r"\((?P<full_text>.*)\)")
 
+TO_IGNORE = "COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL \
+BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES"
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -52,6 +55,8 @@ class Command(BaseCommand):
             org_type = OrgType.objects.get(slug__startswith=slugify(org_type_slug_ish))
 
             for row in rows:
+                if row[0].strip() == TO_IGNORE:
+                    continue
                 name = normalise_lawful_basis_name(row[1])
                 title, _, description = name.partition(": ")
 
