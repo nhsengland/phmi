@@ -31,7 +31,13 @@
                 </h2>
             </div>
             <div class="col-md-6">
-            {% for lawful_basis in org_type.lawful_bases %}
+            {% for basis_type, lawful_bases in org_type.lawful_bases.items %}
+            {% if lawful_bases %}
+            <h3>
+              {{ basis_type }}
+            </h3>
+            {% endif %}
+            {% for lawful_basis in lawful_bases %}
             <div class="row nhs_markdown_ul content-offset-below-80">
                 <div class="col-md-12">
                     <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
@@ -50,6 +56,7 @@
                     {% endcomment %}
                 </div>
             </div>
+            {% endfor %}
             {% endfor %}
             <hr class="nhs_thick" />
         </div></div>

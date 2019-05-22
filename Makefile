@@ -32,7 +32,8 @@ import-csvs:
 	@pipenv run python manage.py add_org_types
 	@pipenv run python manage.py add_lawful_bases
 	@pipenv run python manage.py add_org_functions
-	@pipenv run python manage.py add_legal_justifications
+	@pipenv run python manage.py add_legal_justifications_general
+	@pipenv run python manage.py add_legal_justifications_relevant
 	@pipenv run python manage.py add_benefits
 	@pipenv run python manage.py add_outputs
 	@pipenv run python manage.py link_activities_to_data_types

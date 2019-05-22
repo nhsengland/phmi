@@ -1,15 +1,13 @@
-import csv
-import os
 import re
 import sys
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.utils.text import slugify
 from more_itertools import chunked
 
-from ...models import LawfulBasis, OrgType, Statute, SubSection
-from ...prefix import normalise_lawful_basis_name
+from . import utils
+from ...models import LawfulBasis, Statute, SubSection
+
 
 statute_pat = re.compile(r"\((?P<full_text>.*)\)")
 
@@ -47,32 +45,22 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        for name in os.listdir(options["path"]):
-            with open(os.path.join(options["path"], name), "r") as f:
-                rows = list(csv.reader(f))
+        for row in utils.iter_statutes(options["path"]):
+            org_type, _, name, title, description, details = row
 
-            org_type_slug_ish, _ = os.path.splitext(name)
-            org_type = OrgType.objects.get(slug__startswith=slugify(org_type_slug_ish))
+            try:
+                subsections = list(self.iter_subsections(details))
+            except Exception as e:
+                print(f"OrgType: {org_type.name} | {e}")
+                sys.exit(1)
 
-            for row in rows:
-                if row[0].strip() == TO_IGNORE:
-                    continue
-                name = normalise_lawful_basis_name(row[1])
-                title, _, description = name.partition(": ")
-
-                try:
-                    subsections = list(self.iter_subsections(row[2]))
-                except Exception as e:
-                    print(f"OrgType: {org_type.name} | {e}")
-                    sys.exit(1)
-
-                lawful_basis, _ = LawfulBasis.objects.get_or_create(
-                    org_type=org_type,
-                    title=title,
-                    description=description,
-                    details=row[2],
-                )
-                lawful_basis.subsections.add(*subsections)
+            lawful_basis, _ = LawfulBasis.objects.get_or_create(
+                org_type=org_type,
+                title=title,
+                description=description,
+                details=details,
+            )
+            lawful_basis.subsections.add(*subsections)
 
         self.stdout.write(
             self.style.SUCCESS("Added Lawful Bases, Subsections, & Statutes")

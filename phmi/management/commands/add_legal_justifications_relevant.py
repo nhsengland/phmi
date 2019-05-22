@@ -15,7 +15,12 @@ from ...models import (
 )
 from ...prefix import normalise_lawful_basis_name, strip_prefix
 
+TO_IGNORE = "COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES"
+
 statute_pat = re.compile(r"\((?P<full_text>.*)\)")
+
+
+LAWFUL_BASIS_PATH = "data/csvs/data-map-lawful-basis-relevant.csv"
 
 
 class Command(BaseCommand):
@@ -29,7 +34,14 @@ class Command(BaseCommand):
         }
         return org_types
 
-    def process_rows(self, rows, is_specific=True):
+    @transaction.atomic
+    def handle(self, *args, **options):
+        Statute.objects.all().delete()
+        SubSection.objects.all().delete()
+
+        with open(LAWFUL_BASIS_PATH, "r") as f:
+            rows = list(csv.DictReader(f))
+
         org_types = self.build_org_types(rows)
 
         for row in rows:
@@ -46,7 +58,7 @@ class Command(BaseCommand):
 
             for name, org_type in org_types.items():
                 lawful_basis_name = row[name]
-                if not lawful_basis_name:
+                if not lawful_basis_name or lawful_basis_name == TO_IGNORE:
                     continue
 
                 lawful_basis_name = normalise_lawful_basis_name(lawful_basis_name)
@@ -56,22 +68,8 @@ class Command(BaseCommand):
                 )
 
                 lj, _ = LegalJustification.objects.get_or_create(
-                    activity=activity, org_type=org_type, is_specific=is_specific
+                    activity=activity, org_type=org_type, is_specific=True
                 )
                 lj.lawful_bases.add(*lawful_basis)
 
-    @transaction.atomic
-    def handle(self, *args, **options):
-        LegalJustification.objects.all().delete()
-        Statute.objects.all().delete()
-        SubSection.objects.all().delete()
-
-        with open("data/csvs/data-map-lawful-basis-relevant.csv", "r") as f:
-            rows = list(csv.DictReader(f))
-        self.process_rows(rows, is_specific=True)
-        self.stdout.write(self.style.SUCCESS("Added LegalJustifications"))
-
-        with open("data/csvs/data-map-lawful-basis-general.csv", "r") as f:
-            rows = list(csv.DictReader(f))
-        self.process_rows(rows, is_specific=False)
-
+        self.stdout.write(self.style.SUCCESS("Added Relevant Legal Justifications"))

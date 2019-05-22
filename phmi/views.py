@@ -296,22 +296,28 @@ class ActivityDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
             (self.object.name, self.object.get_absolute_url()),
         ]
 
+    def get_legal_basis(self, org_type, is_specific):
+        justifications = org_type.legal_justifications.filter(
+            activity=self.object
+        ).filter(is_specific=is_specific)
+        return models.LawfulBasis.objects.filter(
+            legal_justifications__in=justifications
+        )
+
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
 
         data = []
         for org_type in self.object.get_org_types():
-            justifications = org_type.legal_justifications.filter(activity=self.object)
-            lawful_bases = models.LawfulBasis.objects.filter(
-                legal_justifications__in=justifications
-            )
-
             data.append(
                 {
                     "name": org_type.name,
                     "slug": org_type.slug,
                     "url": org_type.get_absolute_url,
-                    "lawful_bases": lawful_bases,
+                    "lawful_bases": {
+                        "Relevant": self.get_legal_basis(org_type, True),
+                        "Specific": self.get_legal_basis(org_type, False)
+                    }
                 }
             )
 

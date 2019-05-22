@@ -1,34 +1,11 @@
-﻿FUNCTION,ACTIVITY,GDPR Condition for Processing,Common Law Duty of Confidence,NHS ENGLAND,,CCG,,LOCAL AUTHORITY (PUBLIC HEALTH),,LOCAL AUTHORITY (NON-PUBLIC HEALTH),,NHS PROVIDER,,NON-NHS PROVIDER (inc. charities),
+FUNCTION,ACTIVITY,GDPR Condition for Processing,Common Law Duty of Confidence,NHS ENGLAND,,CCG,,LOCAL AUTHORITY (PUBLIC HEALTH),,LOCAL AUTHORITY (NON-PUBLIC HEALTH),,NHS PROVIDER,,NON-NHS PROVIDER (inc. charities),
 "GENERAL PROVISION OF POPULATION HEALTH MANAGEMENT (INCLUDING DIRECT CARE, SECONDARY USES AND 'HYBRID' ACTIVITIES)",General provision of population health management,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
 A. ACTIVATING AND EMPOWERING CITIZENS,1. Interacting with own personal health and care record,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Implied consent/reasonable expectations ,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,17,,2,,1,,1,
 ,,,,,,,,,,3,,10,,,
 ,,,,,,,,,,29,,,,,
@@ -52,15 +29,10 @@ Article 9 (h): Management of a Health or Social Care System",Implied consent/rea
 ,,,,,,,,,,29,,,,,
 B. MANAGING INDIVIDUAL CARE,1. Providing personalised health education materials for individual service users,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Implied consent/reasonable expectations ,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,17,,2,,1,,1,
 ,,,,,,,,,,3,,10,,,
 ,,,,,,,,,,29,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
 ,"2. Enabling care professionals to interact (read/write) with organisational electronic care record system, as part of direct care delivery",,,,,,,17,,2,,1,,1,
 ,,,,,,,,,,3,,10,,,
 ,,,,,,,,,,29,,,,,
@@ -76,15 +48,9 @@ Article 9 (h): Management of a Health or Social Care System",Implied consent/rea
 ,6. Enrolling individuals into prevention and health coaching initiatives and providing feedback,,,,,,,17,,2,,1,,1,
 ,,,,,,,,,,3,,10,,,
 ,,,,,,,,,,29,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
 C. CO-ORDINATING AND OPTIMISING SERVICE USER FLOWS,1. Systematically selecting impactible individuals within risk-stratified population cohorts for early intervention or prevention,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Implied consent/reasonable expectations ,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES,,3,,2,,1,,1,
 ,,,,,,,,17,,3,,10,,,
 ,,,,,,,,,,29,,,,,
@@ -108,9 +74,7 @@ Article 9 (h): Management of a Health or Social Care System",Implied consent/rea
 ,,,,,,,,,,29,,,,,
 D. RISK STRATIFICATION FOR EARLY INTERVENTION AND PREVENTION,1. Allocating risk scores and stratifying populations for specified future adverse events causing poor health outcomes to individuals,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Set aside as data will be de-identified for this purpose,1,,3,,3,,3,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,
 ,,,,9,,5,,17,,21,,,,,
 ,,,,10,,8,,20,,30,,,,,
@@ -125,9 +89,7 @@ Article 9 (h): Management of a Health or Social Care System",Set aside as data w
 ,,,,,,48,,,,,,,,,
 "E. MANAGING FINANCES, QUALITY AND OUTCOMES",1. Managing quality of health and care services (inc. clinical audit),"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Set aside as data will be de-identified for this purpose,1,,5,,3,,3,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,
 ,,,,5,,8,,17,,12,,,,,
 ,,,,6,,9,,28,,21,,,,,
@@ -214,9 +176,7 @@ Article 9 (h): Management of a Health or Social Care System",Set aside as data w
 ,,,,11,,24,,,,,,,,,
 "F. PLANNING, IMPLEMENTING AND EVALUATING POPULATION HEALTH STRATEGY","1. Reviewing, evaluating and transforming current health and care service provision across and within populations","Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Set aside as data will be de-identified for this purpose,1,,3,,3,,3,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT ACTIVITIES,
 ,,,,5,,5,,17,,12,,,,,
 ,,,,9,,16,,18,,29,,,,,
@@ -268,9 +228,7 @@ Article 9 (h): Management of a Health or Social Care System",Set aside as data w
 ,,,,16,,,,24,,,,,,,
 G. UNDERTAKING RESEARCH,1. Identifying and managing research cohorts,"Article 6 (e): Official Authority - for NHS bodies and local authorities
 Article 6 (b): Legitimate Interests - for non-NHS providers and charities
-
 AND
-
 Article 9 (h): Management of a Health or Social Care System",Set aside as data will be de-identified for this purpose,9,,35,,35,,34,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT RESEARCH,,PROVIDER ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE SECONDARY PURPOSE POPULATION HEALTH MANAGEMENT RESEARCH,
 ,,,,17,,,,,,,,,,,
 ,,,,32,,,,,,,,,,,
