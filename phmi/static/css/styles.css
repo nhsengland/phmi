@@ -716,6 +716,11 @@ a:focus {
   outline: 0;
 }
 
+a.nhs-footer-icon:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
 ol li, ul li {
   margin: 8px 0 0;
 }

@@ -53,20 +53,6 @@
                       Home
                     </a>
                   </li>
-
-                  <li>
-                      <a {% if request|url_name == 'activity-list' %} class="active" {% endif %} href="{% url 'activity-list' %}">
-                        Activities
-                      </a>
-                    </li>
-
-                  {% if SHOW_DATA_ACCESS %}
-                  <li>
-                    <a {% if request|url_name == 'data-access' %} class="active" {% endif %} href="{% url 'data-access' %}">
-                      Data access
-                    </a>
-                  </li>
-                  {% endif %}
                 </ul>
               </nav>
             </div>
@@ -109,10 +95,11 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-9 col-md-push-3">
+          <div class="row">
+            <div class="col-md-10 col-md-push-1">
               <div class="row">
-                <div class="col-md-8">
-                  <ul class="nav">
+                <div class="col-md-5">
+                  <ul style="margin-top: 0" class="nav">
                     {% comment %}
                     <li>
                       {% if request.user.is_authenticated %}
@@ -139,25 +126,37 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-md-4 pull-right social-networks">
-                  <a href="http://www.twitter.com/NHSEngland" title="Follow us on Twitter" target="_blank" class="external-link">
-                    <span class="hide">Follow us on Twitter</span>
-                  </a>
-                  <a href="https://www.linkedin.com/company/nhsengland" title="Visit us on LinkedIn" target="_blank" class="external-link">
-                    <span class="hide">Visit us on LinkedIn</span>
-                  </a>
-                  <a href="http://www.youtube.com/thenhsengland" title="Watch videos on YouTube" target="_blank" class="external-link">
-                    <span class="hide">Watch videos on YouTube</span>
-                  </a>
-                  <a href="http://www.flickr.com/photos/nhsengland" title="View photos on Flickr" target="_blank" class="external-link">
-                    <span class="hide">View photos on Flickr</span>
-                  </a>
-                  <a href="http://feeds.feedburner.com/NHSCBoard" title="All RSS" target="_blank" class="external-link">
-                    <span class="hide">All RSS</span>
-                  </a>
+                <div class="col-md-6 pull-right">
+                  <div class="row">
+                    <div class="col-md-6 social-networks">
+                      <a href="http://www.twitter.com/NHSEngland" title="Follow us on Twitter" target="_blank" class="external-link">
+                        <span class="hide">Follow us on Twitter</span>
+                      </a>
+                      <a href="https://www.linkedin.com/company/nhsengland" title="Visit us on LinkedIn" target="_blank" class="external-link">
+                        <span class="hide">Visit us on LinkedIn</span>
+                      </a>
+                      <a href="http://www.youtube.com/thenhsengland" title="Watch videos on YouTube" target="_blank" class="external-link">
+                        <span class="hide">Watch videos on YouTube</span>
+                      </a>
+                      <a href="http://www.flickr.com/photos/nhsengland" title="View photos on Flickr" target="_blank" class="external-link">
+                        <span class="hide">View photos on Flickr</span>
+                      </a>
+                      <a href="http://feeds.feedburner.com/NHSCBoard" title="All RSS" target="_blank" class="external-link">
+                        <span class="hide">All RSS</span>
+                      </a>
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        <a href="https://www.nhs.uk/" title="NHS website" class="external-link nhs-footer-icon" rel="external">
+                          <img src="https://www.england.nhs.uk/wp-content/themes/nhsengland/static/img/nhs-uk-logo.svg" alt="NHS website">
+                        </a>
+                      </div>
+                  </div>
+
                 </div>
+
               </div>
             </div>
+          </div>
           </div>
         </footer>
       </div>

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from ...models import ActivityCategory, ActivityCategoryGroup
+from ...models import ActivityCategory, ActivityCategoryGroup, Activity
 
 
 class Command(BaseCommand):
@@ -56,22 +56,11 @@ class Command(BaseCommand):
             ).update(group=acg, index=7)
         )
 
-        # General
-        acg = ActivityCategoryGroup.objects.create(
-            name="General provision of population health management",
-            description="All organisations have some legal duties or powers in relation to"
-            "population health management. To establish the full legal basis for the data"
-            "processing proposed, you should identify which general duties or powers are relevant"
-            "for the activities and organisations in the care system as well as identifying any"
-            "more specific legal basis in the more detailed activities in the lists below.",
-            index=2,
-        )
-        (
-            ActivityCategory.objects.filter(
-                name__istartswith="general provision of population"
-            ).update(group=acg, index=3)
-        )
-
+        # General is no longer ever used, so lets remove it.
+        general = "General provision of population health management (including direct care, secondary uses and 'hybrid' activities"
+        ActivityCategory.objects.filter(name=general).delete()
+        general = "General provision of population health management"
+        Activity.objects.filter(name=general).delete()
         self.stdout.write(
             self.style.SUCCESS(
                 f"Created ActivityCategoryGroups and linked to ActivityCategories"
