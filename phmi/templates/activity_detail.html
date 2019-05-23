@@ -26,22 +26,22 @@
                 <h2 class="nhsuk-heading-l no-top-margin" id="{{ org_type.slug }}">
                     {{ org_type.name }}
                     <div class="hidden-print">
-                        <small><a href="{{ org_type.url }}">See all activities</a></small>
+                        <!-- <small><a href="{{ org_type.url }}">See all activities</a></small> -->
                     </div>
                 </h2>
             </div>
             <div class="col-md-6">
             {% for basis_type, lawful_bases in org_type.lawful_bases.items %}
             {% if lawful_bases %}
-            <h3>
+            <h2>
               {{ basis_type }}
-            </h3>
+            </h2>
             {% endif %}
             {% for lawful_basis in lawful_bases %}
             <div class="row nhs_markdown_ul content-offset-below-80">
                 <div class="col-md-12">
                     <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
-                    <p>{{ lawful_basis.details|linebreaks }}</p>
+                    {{ lawful_basis.details|linebreaks }}
                     {% comment %}
                     {% if lawful_basis.statutes.exists %}
                         Uncomment once a lawyer has checked the data

@@ -61,14 +61,33 @@
               </h3>
             </div>
             <div class="col-md-6">
-            {% for lawful_basis in activity|legal_justifications:org_type %}
+              <h2>Relevant legal justifications</h2>
+
+            {% for lawful_basis in activity|legal_justifications:org_type  %}
+              {% if lawful_basis.is_specific %}
               <div class="row avoid-page-break nhs_markdown_ul content-offset-below-40">
                 <div class="col-md-12">
                   <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
                   <p>{{ lawful_basis.details|linebreaks }}</p>
                 </div>
               </div>
+              {% endif %}
             {% endfor %}
+
+              <h2>General legal justifications</h2>
+
+            {% for lawful_basis in activity|legal_justifications:org_type  %}
+              {% if lawful_basis.is_generic %}
+              <div class="row avoid-page-break nhs_markdown_ul content-offset-below-40">
+                <div class="col-md-12">
+                  <h4 style="padding-top: 4px;" class="nhsuk-heading-s no-top-margin">{{ lawful_basis.name }}</h4>
+                  <p>{{ lawful_basis.details|linebreaks }}</p>
+                </div>
+              </div>
+              {% endif %}
+            {% endfor %}
+
+
             <hr class="nhs_thick" />
         </div></div>
         {% endif %}

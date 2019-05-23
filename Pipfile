@@ -17,6 +17,7 @@ structlog = "*"
 isort = "*"
 roman = "*"
 more-itertools = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

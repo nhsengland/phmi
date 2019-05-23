@@ -315,8 +315,8 @@ class ActivityDetail(BreadcrumbsMixin, AbstractPhmiView, DetailView):
                     "slug": org_type.slug,
                     "url": org_type.get_absolute_url,
                     "lawful_bases": {
-                        "Relevant": self.get_legal_basis(org_type, True),
-                        "Specific": self.get_legal_basis(org_type, False)
+                        "Relevant legal justifications": self.get_legal_basis(org_type, True),
+                        "Specific legal justifications": self.get_legal_basis(org_type, False)
                     }
                 }
             )
