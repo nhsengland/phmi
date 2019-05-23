@@ -10,9 +10,9 @@ class Command(BaseCommand):
         # Secondary data group and catetories
         acg = ActivityCategoryGroup.objects.create(
             name="Secondary data use activities",
-            description="Where data is used for purposes other than the individual care of the"
-            "patient. Includes activities that contribute to the overall provision"
-            "of services to a population as a whole or a group of patients with"
+            description="Where data is used for purposes other than the individual care of the "
+            "patient. Includes activities that contribute to the overall provision "
+            "of services to a population as a whole or a group of patients with "
             "a particular condition.",
             index=0,
         )
@@ -35,8 +35,8 @@ class Command(BaseCommand):
         # Individual care group and catetories
         acg = ActivityCategoryGroup.objects.create(
             name="Individual care",
-            description="A clinical, social or public health activity concerned with the"
-            "prevention, investigation and treatment of illness and the"
+            description="A clinical, social or public health activity concerned with the "
+            "prevention, investigation and treatment of illness and the "
             "alleviation of suffering of individuals.",
             index=1,
         )
