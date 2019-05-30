@@ -15,9 +15,9 @@ class AbstractActivityView(AbstractPhmiView, TemplateView):
         activity_ids = signing.loads(self.kwargs["activity_sign"])["activities"]
         return dict(activities=models.Activity.objects.filter(id__in=activity_ids))
 
-    @cached_property
-    def activities(self):
-        return models.Activity.objects.all()
+    # @cached_property
+    # def activities(self):
+    #     return
 
     @cached_property
     def care_systems(self):
@@ -26,6 +26,7 @@ class AbstractActivityView(AbstractPhmiView, TemplateView):
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
         ctx.update(self.decode_activity_sign())
+        self.activities = models.Activity.objects.all()
         return ctx
 
 

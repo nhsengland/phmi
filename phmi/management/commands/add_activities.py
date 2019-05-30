@@ -2,10 +2,22 @@ import csv
 
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
+from django.db.models import Max
 
 from ...models import Activity, ActivityCategory
 from ...prefix import strip_prefix
 
+
+ACTIVITY_CATEGORY_ORDER = [
+    "Planning, implementing and evaluating population health strategy",
+    "Managing finances, quality and outcomes",
+    "General provision of population health management (including direct care, secondary uses and 'hybrid' activities)",
+    "Risk stratification for early intervention and prevention",
+    "Activating and empowering citizens",
+    "Co-ordinating and optimising service user flows",
+    "Managing individual care",
+    "Undertaking research",
+]
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -22,8 +34,14 @@ class Command(BaseCommand):
         for row in rows:
             category_name = strip_prefix(row["FUNCTION"]).capitalize()
             if category_name:
+                if category_name in ACTIVITY_CATEGORY_ORDER:
+                    index = ACTIVITY_CATEGORY_ORDER.index(category_name)
+                else:
+                    max_count = Activity.objects.aggregate(max_index=Max("index"))
+                    index = max(len(ACTIVITY_CATEGORY_ORDER, max_count))
                 category, _ = ActivityCategory.objects.get_or_create(
-                    name=category_name, slug=slugify(category_name)[:50]
+                    name=category_name, slug=slugify(category_name)[:50],
+                    index=index
                 )
 
             name = strip_prefix(row["ACTIVITY"])
