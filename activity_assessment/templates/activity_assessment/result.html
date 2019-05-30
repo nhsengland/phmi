@@ -26,7 +26,7 @@
         <h2 id="{{ activity.slug }}">{{ activity.name }}</h2>
       </div>
     </div>
-    <div class="row content-offset-24 content-offset-below-24">
+    <div class="row content-offset-24 content-offset-below-10">
       <div class="col-md-12">
           {% for chunked_org_type_to_allowed_activities in org_permissions.items|chuncked:3 %}
           <div class="row">
@@ -48,6 +48,18 @@
             {% endfor %}
           </div>
           {% endfor %}
+      </div>
+    </div>
+    <div class="row content-offset-below-40">
+      <div class="col-md-12">
+        <div>
+          {% include "icons/tick.html" %} = This organisation has the
+          lawful basis to conduct this activity for the population they cover.
+        </div>
+        <div>
+          {% include "icons/cross.html" %} = The organisation does not have the lawful basis for
+          the activity unless contracted to undertake it by an organisation that does.
+        </div>
       </div>
     </div>
 
