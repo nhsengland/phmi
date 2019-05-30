@@ -58,14 +58,19 @@ class Command(BaseCommand):
             rows = list(csv.DictReader(f))
 
         org_types = self.build_org_types(rows)
-
+        duty_of_confidence = ""
         for row in rows:
             activity_name = strip_prefix(row["ACTIVITY"])
+            # duty of confidence uses the last populated duty of confidence
+            # some of the rows are empty, in that case, use the last populated
+            # duty of confidence as that's how the excel spread sheet renders
+            if row["Common Law Duty of Confidence"]:
+                duty_of_confidence = row["Common Law Duty of Confidence"]
             if activity_name:
-                activity, created = Activity.objects.get_or_create(
+                activity, created = Activity.objects.update_or_create(
                     name=activity_name,
                     defaults={
-                        "duty_of_confidence": row["Common Law Duty of Confidence"]
+                        "duty_of_confidence": duty_of_confidence
                     },
                 )
                 if created:

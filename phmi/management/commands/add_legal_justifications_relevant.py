@@ -17,6 +17,11 @@ from ...prefix import normalise_lawful_basis_name, strip_prefix
 
 TO_IGNORE = "COMMISSIONING ORGANISATIONS DO NOT POSSESS THE LAWFUL BASIS TO UNDERTAKE DIRECT CARE ACTIVITIES"
 
+DUTY_OF_CONFIDENCE_TRANSLATE = {
+    "Implied consent/reasonable expectations":
+        "Implied consent/reasonable expectations or pseudo/anon data where it doesn't apply"
+}
+
 statute_pat = re.compile(r"\((?P<full_text>.*)\)")
 
 
@@ -43,14 +48,23 @@ class Command(BaseCommand):
             rows = list(csv.DictReader(f))
 
         org_types = self.build_org_types(rows)
-
+        duty_of_confidence = ""
         for row in rows:
             activity_name = strip_prefix(row["ACTIVITY"])
+            # duty of confidence uses the last populated duty of confidence
+            # some of the rows are empty, in that case, use the last populated
+            # duty of confidence as that's how the excel spread sheet renders
+            if row["Common Law Duty of Confidence"]:
+                duty_of_confidence = row["Common Law Duty of Confidence"].strip()
+                # There's a typo in the provided data for duty of
+                # confidence, this fixes
+                if duty_of_confidence in DUTY_OF_CONFIDENCE_TRANSLATE:
+                    duty_of_confidence = DUTY_OF_CONFIDENCE_TRANSLATE.get(duty_of_confidence)
             if activity_name:
-                activity, created = Activity.objects.get_or_create(
+                activity, created = Activity.objects.update_or_create(
                     name=activity_name,
                     defaults={
-                        "duty_of_confidence": row["Common Law Duty of Confidence"]
+                        "duty_of_confidence": duty_of_confidence
                     },
                 )
                 if created:
