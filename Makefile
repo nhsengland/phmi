@@ -16,7 +16,7 @@ deploy:
 
 .PHONY: dump-data
 dump-data:
-	@pipenv run python manage.py dumpdata phmi projects --indent=2 --exclude=phmi.User > data/json/db.json
+	@pipenv run python manage.py dumpdata phmi --indent=2 --exclude=phmi.User > data/json/db.json
 
 .PHONY: format
 format:
