@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 from ...models import Activity, ActivityCategory, LegalJustification, OrgType
 from ...prefix import normalise_lawful_basis_name, strip_prefix
+from .utils import activity_category_index
 
 
 class Command(BaseCommand):
@@ -24,7 +25,11 @@ class Command(BaseCommand):
         for row in rows:
             category_name = strip_prefix(row["FUNCTION"]).capitalize()
             if category_name:
-                category, _ = ActivityCategory.objects.get_or_create(name=category_name)
+                category, created = ActivityCategory.objects.get_or_create(name=category_name)
+
+            if created:
+                category.index = activity_category_index(category_name)
+                category.save()
 
             activity_name = strip_prefix(row["ACTIVITY"])
             if activity_name:

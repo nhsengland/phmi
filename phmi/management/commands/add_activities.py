@@ -6,6 +6,7 @@ from django.db.models import Max
 
 from ...models import Activity, ActivityCategory
 from ...prefix import strip_prefix
+from .utils import activity_category_index
 
 
 ACTIVITY_CATEGORY_ORDER = [
@@ -18,6 +19,7 @@ ACTIVITY_CATEGORY_ORDER = [
     "Managing individual care",
     "Undertaking research",
 ]
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -34,11 +36,7 @@ class Command(BaseCommand):
         for row in rows:
             category_name = strip_prefix(row["FUNCTION"]).capitalize()
             if category_name:
-                if category_name in ACTIVITY_CATEGORY_ORDER:
-                    index = ACTIVITY_CATEGORY_ORDER.index(category_name)
-                else:
-                    max_count = Activity.objects.aggregate(max_index=Max("index"))
-                    index = max(len(ACTIVITY_CATEGORY_ORDER, max_count))
+                index = activity_category_index(category_name)
                 category, _ = ActivityCategory.objects.get_or_create(
                     name=category_name, slug=slugify(category_name)[:50],
                     index=index

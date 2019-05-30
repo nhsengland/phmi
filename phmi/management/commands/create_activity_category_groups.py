@@ -19,17 +19,17 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="risk stratification"
-            ).update(group=acg, index=4)
+            ).update(group=acg)
         )
         (
             ActivityCategory.objects.filter(
                 name__istartswith="managing finances"
-            ).update(group=acg, index=1)
+            ).update(group=acg)
         )
         (
             ActivityCategory.objects.filter(
                 name__istartswith="planning, implementing and evaluating"
-            ).update(group=acg, index=0)
+            ).update(group=acg)
         )
 
         # Individual care group and catetories
@@ -43,17 +43,17 @@ class Command(BaseCommand):
         (
             ActivityCategory.objects.filter(
                 name__istartswith="activating and empowering"
-            ).update(group=acg, index=5)
+            ).update(group=acg)
         )
         (
             ActivityCategory.objects.filter(
                 name__istartswith="managing individual"
-            ).update(group=acg, index=6)
+            ).update(group=acg)
         )
         (
             ActivityCategory.objects.filter(
                 name__istartswith="co-ordinating and optimising"
-            ).update(group=acg, index=7)
+            ).update(group=acg)
         )
 
         # General is no longer ever used, so lets remove it.
