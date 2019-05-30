@@ -341,6 +341,8 @@ class OrgType(models.Model):
 
     @property
     def short_name(self):
+        if "Local Authority" in self.name:
+            return self.name.replace("Local Authority", "LA")
         short, _, _ = self.name.partition("(")
         return short.strip()
 

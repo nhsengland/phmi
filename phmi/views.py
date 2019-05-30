@@ -271,9 +271,7 @@ class ActivityList(BreadcrumbsMixin, AbstractPhmiView, ListView):
     def get_context_data(self, *args, **kwargs):
         # We are skipping "Local Authority (Public Health)" and just doing
         # "Local Authority (Non-Public Health)" currently.
-        org_types = models.OrgType.objects.exclude(
-            name="Local Authority (Public Health)"
-        )
+        org_types = models.OrgType.objects.all()
         org_permissions = {
             org_type: org_type.get_activities() for org_type in org_types
         }
