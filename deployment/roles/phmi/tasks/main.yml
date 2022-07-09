@@ -8,11 +8,13 @@
     mode: 0777
 
 - name: Setup the Git repo
-  git: repo={{ GIT_REPO }}
-       version={{ GIT_BRANCH }}
-       dest={{ PROJECT_PATH }}
-       accept_hostkey=yes
-       force=yes
+  become: true
+  git:
+    repo: "{{ GIT_REPO }}"
+    version: "{{ GIT_BRANCH }}"
+    dest: "{{ PROJECT_PATH }}"
+    accept_hostkey: yes
+    force: yes
 
 - name: Creates log dir
   file:
