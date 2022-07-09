@@ -10,13 +10,13 @@
   vars:
     packages:
     - postgresql
-    - postgresql-server-dev-10
+    - postgresql-server-dev-all
     - python3-psycopg2
 
 - name: Copy in pg_hba.conf
   template:
     src: templates/pg_hba.conf.jinja2
-    dest: /etc/postgresql/10/main/pg_hba.conf
+    dest: /etc/postgresql/12/main/pg_hba.conf
     owner: postgres
     group: postgres
     mode: 0640
@@ -42,6 +42,8 @@
   postgresql_user:
     name={{ DB_USER }}
     password={{ DB_PASSWORD }}
+  vars:
+    ansible_ssh_pipelining: true
 
 - name: create a database
   become: true
@@ -51,3 +53,5 @@
     encoding='UTF-8'
     owner={{ DB_USER }}
     template=template0
+  vars:
+    ansible_ssh_pipelining: true
