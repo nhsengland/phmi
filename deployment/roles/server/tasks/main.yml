@@ -27,16 +27,15 @@
     - vim
     - zip
     - screen
-    - python-virtualenv
     - virtualenvwrapper
     - python3-dev
     - build-essential
-    - circus
     - nginx
-    - python3.7
     - python3-pip
     - daemontools
-
+    - python3-virtualenv
 
 - pip:
-    name: pipenv
+    name:
+      - pipenv
+      - circus
