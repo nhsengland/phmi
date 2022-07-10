@@ -27,6 +27,7 @@
     state: directory
 
 - name: Create configs
+  become: true
   template:
     src: "templates/nginx_site.conf.jinja2"
     dest: "{{ PROJECT_PATH }}/vars/nginx_site.conf"
@@ -94,13 +95,27 @@
   command: "pkill gunicorn"
   ignore_errors: True
 
+- name: Make the etc directory
+  become: yes
+  file:
+    path: /etc/circus
+    state: directory
+
 - name: Create circus config
   become: yes
   template:
     src: "templates/circus.ini.jinja2"
-    dest: "/etc/circus/circusd.ini"
+    dest: "/etc/circus/circus.ini"
+
+- name: Create the circus service
+  become: yes
+  copy:
+    src: "templates/circus.service"
+    dest: "/etc/systemd/system/circus.service"
 
 - name: Restart circus
-  become: yes
-  command: "circusctl restart"
-  ignore_errors: True
+  become: true
+  service:
+    name: circus
+    state: restarted
+    enabled: yes
