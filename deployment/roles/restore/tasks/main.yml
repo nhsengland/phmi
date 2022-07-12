@@ -7,6 +7,8 @@
     owner={{ DB_USER }}
     template=template0
     state=absent
+  vars:
+    ansible_ssh_pipelining: true
 - name: create a database
   become: true
   become_user: postgres
@@ -15,6 +17,8 @@
     encoding='UTF-8'
     owner={{ DB_USER }}
     template=template0
+  vars:
+    ansible_ssh_pipelining: true
 - name: Restore the server from a bucket
   command: "pipenv run python scripts/restore.py {{ DB_NAME }} {{ DB_USER }} {{ AWS_BUCKET_NAME }} {{ BUCKET_NAME }}"
   args:
